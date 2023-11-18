@@ -9,6 +9,8 @@
 
 let dataTimeout = null
 
+let spinIcon = resolveComponent('IconsSpin')
+
 const alert = ref({})
 const oldAlert = ref({
   time : 10,
@@ -56,7 +58,7 @@ useListen('update-alert', async function ({ message, ...options }) {
   dataTimeout = setTimeout(() => {
     options = {time: 10, ...options}
     if (options.icon == '...') {
-      options.icon = resolveComponent('IconsSpin')
+      options.icon = spinIcon
       options.spin = true
     }
     alert.value = { ...alert.value, message, icon: null, spin: false, ...options }

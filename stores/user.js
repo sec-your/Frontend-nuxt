@@ -19,7 +19,7 @@ export const useUserStore = defineStore('user', ()=>{
         }).catch(error => {
             localStorage.removeItem('storedToken')
         })
-    } 
+    }
     const isLoggedIn = computed(() => info.id && info.username != "")
     return { info, isLoggedIn, getUser }
 });

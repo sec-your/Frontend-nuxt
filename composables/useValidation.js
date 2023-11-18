@@ -21,6 +21,18 @@ export const useValidation = (inputs) => {
       return input == savedInputs[name]
     }
   }
+  const messages = {
+      required: '%attr% نباید خالی باشد.',
+      min: '%attr% باید بزرگتر و مساوی از %arg% باشد.',
+      max: '%attr% باید کمتر و مساوی از %arg% باشد.',
+      min_length: '%attr% باید حداقل %arg% کاراکتر باشد.',
+      max_length: '%attr% باید حداکثر %arg% کاراکتر باشد.',
+      same: '%attr% باید با %attr2% یکی باشد.'
+  }
+  const attributes = {
+    password: 'رمز عبور',
+    confirmPassword: 'تایید رمز عبور'
+  }
   Object.keys(inputs).forEach(item => {
     savedInputs[item] = inputs[item].value
   })
@@ -38,10 +50,10 @@ export const useValidation = (inputs) => {
   })
   let message;
   if (validation) {
-    message = useTrans('messages', failed.rule).replace('%attr%', useTrans('attributes', failed.name))
+    message = messages[failed.rule].replace('%attr%', attributes[failed.name])
     failed.args.forEach((arg, index) => {
       let src = index == 0? '%arg%' : `%arg${index+1}%`
-      message = message.replace(src, arg).replace(`%attr${index + 2}%`, useTrans('attributes', arg))
+      message = message.replace(src, arg).replace(`%attr${index + 2}%`, attributes[arg])
     })
   }
   return {

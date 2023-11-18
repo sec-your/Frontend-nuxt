@@ -34,7 +34,7 @@ onBeforeMount(()=> {
 
   const route = useRoute()
   useHead({
-    titleTemplate: `دیزوپر - %s`
+    titleTemplate: `سکیور - %s`
   })
   if ( typeof window != 'undefined' ){
     const alertIcon = resolveComponent('IconsGlobe')
