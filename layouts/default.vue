@@ -1,9 +1,11 @@
-<script lang="ts" setup></script>
+<script setup lang="ts">
+
+</script>
 
 <template>
-  <div>
-    <NuxtPage />
-  </div>
+  $END$
 </template>
 
-<style scoped></style>
+<style scoped lang="postcss">
+
+</style>

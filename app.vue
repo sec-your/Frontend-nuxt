@@ -31,8 +31,6 @@ onBeforeMount(()=> {
   let storedToken = localStorage.getItem('storedToken')
   if (storedToken) userStore.getUser(storedToken)
 })
-
-  const route = useRoute()
   useHead({
     titleTemplate: `سکیور - %s`
   })
