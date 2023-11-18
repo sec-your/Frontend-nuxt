@@ -1,0 +1,51 @@
+export const useValidation = (inputs) => {
+  let _this = this,
+      savedInputs = {}
+  const methods = {
+    required: (input) => {
+      return typeof input != 'undefined' && input != null && input != ''
+    },
+    min: (input, min) => {
+      return input >= min
+    },
+    max: (input, max) => {
+      return input <= max
+    },
+    min_length: (input, min) => {
+      return input.length >= min
+    },
+    max_length: (input, max) => {
+      return input.length <= max
+    },
+    same: (input, name) => {
+      return input == savedInputs[name]
+    }
+  }
+  Object.keys(inputs).forEach(item => {
+    savedInputs[item] = inputs[item].value
+  })
+  let failed = {};
+  let validation = Object.keys(inputs).some(input => {
+    const { value = '', rules = '' } = inputs[input]
+    return rules.split('|').some(rule => {
+      const [ruleName, args] = rule.split(':')
+      if (!methods[ruleName](value, ...[args && args.split(',')])) {
+        failed = { name: input, rule: ruleName, args: (args? args.split(',') : []) }
+        return true
+      }
+      return false
+    })
+  })
+  let message;
+  if (validation) {
+    message = useTrans('messages', failed.rule).replace('%attr%', useTrans('attributes', failed.name))
+    failed.args.forEach((arg, index) => {
+      let src = index == 0? '%arg%' : `%arg${index+1}%`
+      message = message.replace(src, arg).replace(`%attr${index + 2}%`, useTrans('attributes', arg))
+    })
+  }
+  return {
+    fails: () => validation,
+    ...(validation && message && message.length > 0 && { message })
+  }
+}

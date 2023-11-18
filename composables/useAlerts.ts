@@ -1,0 +1,7 @@
+export const useHideAlert = () => useEvent('hide-alert')
+export const useAlert = (message : string, options : object = {}) => useEvent('show-alert', { message, ...options, type: 'alert' })
+export const useAlertError = (message : string, options : object = {}) => useEvent('show-alert', { message, ...options, type: 'error' })
+export const useAlertSuccess = (message : string, options : object = {}) => useEvent('show-alert', { message, ...options, type: 'success' })
+export const useAlertInfo = (message : string, options : object = {}) => useEvent('show-alert', { message, ...options, type: 'info' })
+export const useAlertWarn = (message : string, options : object = {}) => useEvent('show-alert', { message, ...options, type: 'warn' })
+export const useUpdateAlert = (message : string, options : object = {}) => useEvent('update-alert', { message, ...options })
