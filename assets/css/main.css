@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@font-face {
+    font-family: 'Yekan Bakh';
+    src: url('../fonts/YekanBakh-Regular.eot');
+    src: url('../fonts/YekanBakh-Regular.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/YekanBakh-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Yekan Bakh';
+    src: url('../fonts/YekanBakh-Bold.eot');
+    src: url('../fonts/YekanBakh-Bold.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/YekanBakh-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@layer base {
+    html,body {
+        direction: rtl;
+        @apply scroll-smooth text-white;
+    }
+    * {
+        @apply m-0 p-0 list-none box-border;
+        font-family: "Yekan Bakh", Arial, sans-serif;
+        text-decoration: none;
+        transition: all .25s ease-out;
+        letter-spacing: .02rem;
+    }
+    button, input[type="submit"] {
+        @apply cursor-pointer text-sm disabled:opacity-70 disabled:cursor-default
+    }
+    a:link, a {
+        color: unset;
+    }
+    .card {
+        @apply float-right w-full
+    }
+    input:focus, textarea:focus, button:focus {
+        outline: none;
+    }
+    input, textarea {
+        background: inherit;
+    }
+    .container {
+        width: min(1140px, 100%);
+        padding-right: 20px;
+        padding-left: 20px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+}
