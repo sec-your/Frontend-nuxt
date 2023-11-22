@@ -9,7 +9,14 @@ export default {
     "./error.vue",
   ],
   theme: {
-    extend: {},
+    extend: {
+      borderRadius: {
+        'm': '0.313rem'
+      },
+      gridTemplateColumns: {
+        '1-auto-1': '1fr auto 1fr'
+      }
+    },
   },
   plugins: [],
 }
