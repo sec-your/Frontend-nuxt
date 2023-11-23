@@ -9,6 +9,10 @@ export default defineNuxtConfig({
 
   modules: ['@pinia/nuxt'],
 
+  plugins: [
+      '~/plugins/click-outside.js',
+  ],
+
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
     layoutTransition: { name: 'layout', mode: 'out-in' }

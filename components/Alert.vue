@@ -1,6 +1,6 @@
 <template>
   <div :class="['alert z-[999] shadow-lg drop-shadow-md rounded fixed right-7 px-3 pt-1.5 pb-2 text-sm text-white', hasAlert? 'show' : 'close']">
-    <component v-if="'icon' in alert" :is="alert.icon" :class="{ 'h-[18px] ml-0.5 inline-block' : true, 'animate-spin' : alert.spin }" />
+    <component v-if="'icon' in alert" :is="alert.icon" :class="{ 'h-[18px] ml-0.5' : true, 'animate-spin' : alert.spin }" />
     {{ alert.message }}
   </div>
 </template>
