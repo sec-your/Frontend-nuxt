@@ -6,9 +6,10 @@ useListen('change-body-class', function (className) {
 </script>
 
 <template>
-  <div :class="['min-h-screen', bodyClass]">
+  <div :class="['card min-h-screen relative', bodyClass]">
     <MainMenu />
     <NuxtPage />
+    <MainSidebar />
   </div>
 </template>
 
@@ -18,7 +19,7 @@ body {
 }
 </style>
 <style scoped>
-.red-shadow {
+.critical-shadow {
   box-shadow: inset 0 300px 200px -200px #FF000050;
 }
 .yellow-shadow {
