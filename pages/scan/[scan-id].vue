@@ -180,7 +180,7 @@ let selectedReport = ref(scanDetails.value?.reports[0])
       </div>
       <div class="card my-24 sm:my-16 grid grid-cols-[18rem_auto] gap-10 lg:gap-5 md:gap-10 md:grid-cols-1">
         <ul class="border-y border-t-light-primary md:border-none md:grid md:grid-cols-2 sm:grid-cols-1 sm:gap-0 md:gap-1" style="border-bottom-color:rgb(36, 45, 52, .3)">
-          <li v-for="(report, index) in scanDetails.reports" @click="selectedReport = report" :key="report.uuid" class="card cursor-pointer pt-2.5 pb-2 px-3 bg-light-primary border-r md:border-r-2 hover:border-r-4" :style="{ 'border-right-color': colors[report.status], '--tw-bg-opacity' : selectedReport.uuid == report.uuid ? 0 : ReportBGOpacity(index) }">{{ report.name }}</li>
+          <li v-for="(report, index) in scanDetails.reports" @click="selectedReport = report" :key="report.uuid" class="card truncate cursor-pointer pt-2.5 pb-2 px-3 bg-light-primary border-r md:border-r-2 hover:border-r-4" :style="{ 'border-right-color': colors[report.status], '--tw-bg-opacity' : selectedReport.uuid == report.uuid ? 0 : ReportBGOpacity(index) }">{{ report.name }}</li>
         </ul>
         <div>
           <h2 class="card text-2xl font-bold"><span class="w-2.5 h-2.5 ml-2 inline-block" :style="{ 'background-color': colors[selectedReport.status] }"></span> {{ selectedReport.name }}</h2>
