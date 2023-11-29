@@ -32,6 +32,9 @@ export default {
       padding: {
         '1.25': '0.313rem'
       },
+      colors: {
+        'light-primary': 'rgb(36, 45, 52, var(--tw-bg-opacity, 1))'
+      },
       gridTemplateColumns: {
         '1-auto-1': '1fr auto 1fr',
         'auto-auto': 'repeat(2, auto)',

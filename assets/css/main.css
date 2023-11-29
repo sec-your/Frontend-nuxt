@@ -32,7 +32,7 @@
         @apply m-0 p-0 list-none box-border;
         font-family: "Yekan Bakh", Arial, sans-serif;
         text-decoration: none;
-        transition: all .25s ease-out;
+        transition: all .25s ease;
         letter-spacing: .02rem;
     }
     button, input[type="submit"] {

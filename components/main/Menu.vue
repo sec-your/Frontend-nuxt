@@ -1,16 +1,16 @@
 <script setup>
 const userStore = useUserStore()
-let isScrolled = ref(process.client && window.scrollY > 5)
+let isScrolled = ref(process.client && window.innerWidth <= 780 && window.scrollY > 5)
 
 if (process.client){
   window.addEventListener('scroll', function () {
-    isScrolled.value = window.scrollY > 5
+    isScrolled.value = window.innerWidth <= 780 && window.scrollY > 5
   })
 }
 </script>
 
 <template>
-  <nav :class="['card md:sticky top-0 right-0', isScrolled? 'py-3 bg-[#001116] mb-[32px]' : 'py-7']">
+  <nav :class="['card md:sticky top-0 right-0 z-[999]', isScrolled? 'py-3 bg-[#001116] mb-[32px]' : 'py-7']">
     <div class="container grid items-center gap-1 grid-cols-1-auto-1 lg:grid-cols-auto-auto lg:gap-y-5 md:grid-cols-1-auto-1">
       <ul class="flex gap-8 drop-shadow-sm xl:gap-6">
         <li @click="useEvent('sidebar-menu')" id="toggle-sidebar" class="hidden md:block"><IconsList class="w-7 text-white" /></li>

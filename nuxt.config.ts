@@ -7,6 +7,12 @@ export default defineNuxtConfig({
     "@": "/"+__dirname,
   },
 
+  runtimeConfig: {
+    public: {
+      SITE_URL: process.env.SITE_URL
+    }
+  },
+
   modules: ['@pinia/nuxt'],
 
   plugins: [
