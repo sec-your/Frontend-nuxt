@@ -29,7 +29,7 @@ const userStore = useUserStore()
 
 onBeforeMount(()=> {
   let storedToken = localStorage.getItem('storedToken')
-  if (storedToken) userStore.getUser(storedToken)
+  if (storedToken) userStore.getUser(storedToken, true)
 })
   useHead({
     titleTemplate: `سکیور - %s`
