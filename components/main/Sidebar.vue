@@ -14,7 +14,7 @@ function closeSidebar(event) {
 </script>
 
 <template>
-  <aside v-click-outside="closeSidebar" :class="['hidden md:flex p-5 flex-col w-60 max-w-[85vw] h-full fixed top-0 bg-[#001116]', isOpen? 'right-0 open' : '-right-12 translate-x-full']">
+  <aside v-click-outside="closeSidebar" :class="['hidden md:flex p-5 flex-col w-60 max-w-[85vw] h-full fixed top-0 bg-[#001116] z-[999]', isOpen? 'right-0 open' : '-right-12 translate-x-full']">
     <button @click="closeSidebar" class="mb-auto mr-auto -ml-11  bg-[#001116] text-center float-left w-10 h-10 mt-2 rounded-l-full">
       <IconsArrowRight class="w-3.5" />
     </button>

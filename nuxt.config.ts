@@ -32,4 +32,5 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  ssr: process.env.NODE_ENV !== "development",
 })

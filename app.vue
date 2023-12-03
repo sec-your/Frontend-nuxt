@@ -3,7 +3,7 @@
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
-    <Alert />
+    <Alerts />
   </div>
 </template>
 <style>
@@ -36,8 +36,8 @@ onBeforeMount(()=> {
   })
   if ( typeof window != 'undefined' ){
     const alertIcon = resolveComponent('IconsGlobe')
-    window.addEventListener('offline', ()=> useAlert('اینترنت شما قطع شد', { time : 5, icon: alertIcon }));
-    window.addEventListener('online', ()=> useAlert('شما دوباره آنلاین شدید', { time : 5, icon: alertIcon }));
+    window.addEventListener('offline', ()=> useCompactAlert('internet-status','اینترنت شما قطع شد', { time : 5, icon: alertIcon }));
+    window.addEventListener('online', ()=> useCompactAlert('internet-status','شما دوباره آنلاین شدید', { time : 5, icon: alertIcon }));
   }
 
 </script>
