@@ -43,9 +43,9 @@ body {
   width: 100%;
   height: 50%;
   position: relative;
-  top: 10%;
-  left: -20%;
-  background: #293241cc;
+  top: 0;
+  left: -30%;
+  background: #29324190;
   filter: blur(400px);
   transform: rotate(-45deg);
   display: block;
