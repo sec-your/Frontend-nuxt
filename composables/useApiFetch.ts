@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const useApiFetch = () => {
   return axios.create({
-    baseURL: "http://localhost:8000/api/",
+    baseURL: "/api/",
     headers: {
       'Cache-Control': 'no-cache',
       'Content-Type' : 'application/json',

@@ -26,6 +26,13 @@ export default {
       'xs': {'max': '560px'},
     },
     extend: {
+      margin: {
+        '4.5': '1.13rem'
+      },
+      fontSize: {
+        '1.5xl': '1.375rem',
+        '2.5xl': '1.75rem'
+      },
       borderRadius: {
         'm': '0.313rem'
       },

@@ -21,7 +21,8 @@ export default defineNuxtConfig({
 
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
-    layoutTransition: { name: 'layout', mode: 'out-in' }
+    layoutTransition: { name: 'layout', mode: 'out-in' },
+
   },
 
   css: ['~/assets/css/main.css'],
@@ -32,4 +33,5 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  ssr: process.env.NODE_ENV !== "development",
 })
