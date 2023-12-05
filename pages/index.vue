@@ -1,8 +1,19 @@
 <script setup>
 const isFreeScanOpen = ref(false)
 const scanAddress = ref('')
-const freeScanAction = () => {
 
+let isFreeScanProcessing = false
+const freeScanAction = async () => {
+  if (isFreeScanProcessing) return false
+  isFreeScanProcessing = true
+  useCompactAlert('free-scan-request', 'درحال پردازش...', { icon: '...' })
+  await useApiFetch().post('freeScan', { url: scanAddress.value })
+      .then(async ({ data })=> {
+        await navigateTo(`/scan/${data.id}`)
+        useHideAlert('free-scan-request')
+      })
+      .catch((error) => useCompactAlertError('free-scan-request', error.message))
+  isFreeScanProcessing = false
 }
 </script>
 
