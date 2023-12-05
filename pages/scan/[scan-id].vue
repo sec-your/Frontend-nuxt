@@ -8,16 +8,21 @@ definePageMeta({
 let selectedReport = ref(null)
 const scanDetails = ref({})
 
-const scanLoading = computed(()=> !('status' in scanDetails.value))
+const scanLoading = computed(()=> !(scanDetails.value?.status))
 
-setInterval(() => {
+
+const loadScanDetail = () => {
   useApiFetch().get(`scan`)
       .then(({data}) => {
         scanDetails.value = data
-        if (selectedReport.value == null) selectedReport.value = data.reports[0]
-      })
-      .catch(error => useAlertError('scan-error', 'خطایی در بارگذاری رخ داد', error.message))
-}, 10000)
+        if (selectedReport.value == null && data?.reports.length) selectedReport.value = data.reports[0]
+      }).catch(error => useAlertError('scan-error', 'خطایی در بارگذاری رخ داد', error.message))
+  setTimeout(() => {
+    loadScanDetail()
+  }, 10000)
+}
+loadScanDetail()
+
 const ReportBGOpacity = (i = 0) => {
   return  (20 + ( (scanDetails.value.reports.length - i) / scanDetails.value.reports.length ) * 80) / 100
 }
