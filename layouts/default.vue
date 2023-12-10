@@ -14,6 +14,7 @@ const route = useRoute()
     <div class="blurred-lights"></div>
     <MainMenu />
     <NuxtPage />
+    <MainFooter />
     <MainSidebar />
   </div>
 </template>
@@ -41,10 +42,10 @@ body {
 .index-page .blurred-lights::before {
   content: "";
   width: 100%;
-  height: 50%;
+  height: 50vh;
   position: relative;
   top: 0;
-  left: -30%;
+  left: -10%;
   background: #29324190;
   filter: blur(400px);
   transform: rotate(-45deg);

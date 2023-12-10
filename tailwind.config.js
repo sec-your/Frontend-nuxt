@@ -19,6 +19,8 @@ export default {
 
       'lg': {'max': '980px'},
 
+      'ml': {'max': '890px'},
+
       'md': {'max': '780px'},
 
       'sm': {'max': '680px'},
@@ -45,6 +47,9 @@ export default {
       gridTemplateColumns: {
         '1-auto-1': '1fr auto 1fr',
         'auto-auto': 'repeat(2, auto)',
+      },
+      height: {
+        '18': '4.5rem'
       }
     }
   },

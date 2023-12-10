@@ -7,6 +7,8 @@ if (process.client){
     isScrolled.value = window.innerWidth <= 780 && window.scrollY > 5
   })
 }
+
+const route = useRoute()
 </script>
 
 <template>
@@ -14,7 +16,8 @@ if (process.client){
     <div class="container grid items-center gap-1 grid-cols-1-auto-1 lg:grid-cols-auto-auto lg:gap-y-5 md:grid-cols-1-auto-1 wow a-fadeIn">
       <ul class="flex gap-8 drop-shadow-sm xl:gap-6">
         <li @click="useEvent('sidebar-menu')" id="toggle-sidebar" class="hidden md:block"><IconsList class="w-7 text-white" /></li>
-        <li class="md:hidden"><NuxtLink to="/about-us">درباره ما</NuxtLink></li>
+        <li v-if="route.name !== 'index'" class="md:hidden"><NuxtLink to="/">صفحه اول</NuxtLink></li>
+        <li v-else class="md:hidden"><NuxtLink to="/about-us">درباره ما</NuxtLink></li>
         <li class="md:hidden"><NuxtLink to="/plans">پلن ها</NuxtLink></li>
         <li class="md:hidden"><NuxtLink to="/faqs">سوالات متداول</NuxtLink></li>
         <li class="md:hidden"><NuxtLink to="/contact">ارتباط با ما</NuxtLink></li>
