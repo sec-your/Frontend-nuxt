@@ -1,6 +1,6 @@
 <script setup>
 
-const alerts = ref([])
+const alerts = shallowRef([])
 
 let timeOuts = ref({})
 

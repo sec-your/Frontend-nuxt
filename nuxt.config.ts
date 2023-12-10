@@ -22,7 +22,11 @@ export default defineNuxtConfig({
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
     layoutTransition: { name: 'layout', mode: 'out-in' },
-
+    head: {
+      script: [
+        {children: 'const dateFormat = new Intl.DateTimeFormat("fa",{year:"numeric"});'}
+      ]
+    }
   },
 
   css: ['~/assets/css/main.css'],

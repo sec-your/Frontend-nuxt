@@ -25,9 +25,11 @@
 
 @layer base {
     html,body {
+        scrollbar-width: thin;
         direction: rtl;
         @apply scroll-smooth text-white;
     }
+    ::-webkit-scrollbar{width:8px}
     * {
         @apply m-0 p-0 list-none box-border;
         font-family: "Yekan Bakh", Arial, sans-serif;
@@ -93,5 +95,24 @@
     }
     .wow.animated.a-fadeInUp {
         animation-name: fadeInUp;
+    }
+    @media screen and (max-width: 560px){
+        .wow.animated.xs\:a-fadeInUp {
+            animation-name: fadeInUp;
+        }
+    }
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translate3d(0, -50px, 0);
+        }
+
+        to {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+        }
+    }
+    .wow.animated.a-fadeInDown {
+        animation-name: fadeInDown;
     }
 }
