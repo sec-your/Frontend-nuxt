@@ -21,7 +21,7 @@ const freeScanAction = async () => {
 
 <template>
   <main class="container grid grid-cols-1 pt-10">
-    <section class="grid grid-cols-2 gap-5 md:flex md:flex-col md:items-center md:gap-12">
+    <section class="grid grid-cols-2 gap-5 md:flex md:flex-col md:items-center md:gap-12 relative min-h-full md:min-h-0">
       <div class="flex flex-col justify-center md:text-center wow a-fadeInUp">
         <h2 class="text-2.5xl font-bold lg:text-1.5xl">پیشرو در حوزه امنیت شبکه در سطح ایران!</h2>
         <h3 class="text-1.5xl lg:text-lg font-bold text-[#eee] mt-4">امنیت سایت، یک مزیت نیست بلکه <span class="text-[#C83C3C]">اولویت</span> است</h3>

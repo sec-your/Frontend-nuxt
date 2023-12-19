@@ -32,7 +32,7 @@ onBeforeMount(()=> {
   if (storedToken) userStore.getUser(storedToken, true)
 })
   useHead({
-    titleTemplate: `سکیور - %s`
+    titleTemplate: (title) => title? `سکیور - ${title}` : 'سکیور'
   })
   if ( typeof window != 'undefined' ){
     const alertIcon = resolveComponent('IconsGlobe')

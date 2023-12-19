@@ -96,6 +96,9 @@
     .wow.animated.a-fadeInUp {
         animation-name: fadeInUp;
     }
+    .addFadeInUp {
+        animation: fadeInUp .35s forwards;
+    }
     @media screen and (max-width: 560px){
         .wow.animated.xs\:a-fadeInUp {
             animation-name: fadeInUp;
