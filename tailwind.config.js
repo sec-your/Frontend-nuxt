@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'class',
   corePlugins: {
     container: false,
   },
@@ -39,7 +40,8 @@ export default {
         'm': '0.313rem'
       },
       padding: {
-        '1.25': '0.313rem'
+        '1.25': '0.313rem',
+        '4.5': '1.125rem'
       },
       colors: {
         'light-primary': 'rgb(36, 45, 52, var(--tw-bg-opacity, 1))'
