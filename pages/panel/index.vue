@@ -53,7 +53,7 @@ const latestScans = [
   <div class="card">
     <div class="card flex justify-between">
       <h1 class="page-title font-bold text-xl">آخرین اسکن ها</h1>
-      <div></div>
+      <div>Filter</div>
     </div>
     <div class="card rounded-xl overflow-hidden shadow-md mt-10">
       <table class="card border-collapse leading-relaxed text-center text-gray-600 space-y-6 text-sm" style="word-spacing:2px">
