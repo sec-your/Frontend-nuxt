@@ -3,9 +3,7 @@
 definePageMeta({
   layout: 'panel'
 })
-
 let filter = ref('datetime')
-
 const latestScans = [
   {
     uuid: 2523871,
@@ -50,7 +48,6 @@ const latestScans = [
     rate: 52
   }
 ]
-
 let isLoading = ref(true)
 </script>
 
