@@ -48,7 +48,7 @@ const latestScans = [
     rate: 52
   }
 ]
-let isLoading = ref(true)
+let isLoading = ref(false)
 </script>
 
 <template>
