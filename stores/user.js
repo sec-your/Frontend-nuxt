@@ -6,6 +6,7 @@ export const useUserStore = defineStore('user', ()=>{
         token: '',
         username: '',
         displayName: '',
+        isEmailVerified: false,
         type: ''
     })
     const getUser = async (token, toast = false) => {

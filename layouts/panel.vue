@@ -11,7 +11,8 @@ const route = useRoute()
     <PanelSideMenu />
     <div class="min-h-screen bg-[#f0f5fb] dark:bg-[#19222c] rounded-3xl overflow-hidden text-gray-700 dark:text-gray-200">
       <PanelNav />
-      <div class="card p-16 xl:p-10 md:px-5 md:py-10">
+      <div class="card p-16 pt-8 xl:p-10 md:px-5 md:py-10">
+        <PanelAlerts />
         <NuxtPage />
       </div>
     </div>

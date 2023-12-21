@@ -3,7 +3,7 @@ let getCurrentDate = dateFormat.format(Date.now())
 </script>
 
 <template>
-  <footer class="container mt-40 grid grid-cols-1 xs:justify-items-center">
+  <footer class="container grid grid-cols-1 xs:justify-items-center">
     <div class="card flex justify-between gap-10 pb-10 text-gray-200 lg:flex-wrap sm:grid sm:grid-cols-2 sm:gap-14 xs:grid-cols-1 xs:max-w-[300px]">
       <div class="flex flex-col gap-2">
         <h5 class="head-col">دسترسی سریع</h5>
