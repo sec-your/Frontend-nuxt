@@ -1,6 +1,6 @@
 <script setup>
 
-const alerts = shallowRef([])
+const alerts = ref([])
 
 let timeOuts = ref({})
 
@@ -33,7 +33,7 @@ useListen('show-alert', async function ({ title = null, message, key, type = 'no
       forced
     })
     timeOuts.value[key] = setTimeout(() => hideAlert(key), time * 1000)
-  }, 50)
+  }, 100)
 })
 
 

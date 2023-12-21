@@ -28,9 +28,9 @@ const route = useRoute()
         <InlineLogo class="block mx-auto" />
       </div>
       <div class="flex gap-4 items-center justify-end">
-        <NuxtLink :to="userStore.isLoggedIn? '/account' : '/login'" class="md:hidden bg-[#293241] hover:bg-[#314058] rounded-md py-1.25 px-2.5 items-center flex gap-2">
+        <NuxtLink v-if="!(!userStore.isLoggedIn && (route.name === 'login' || route.name === 'register'))" :to="userStore.isLoggedIn? '/panel' : '/login'" class="md:hidden bg-[#293241] hover:bg-[#314058] rounded-md py-1.25 px-2.5 items-center flex gap-2">
           <IconsUser class="w-4" />
-          <span class="text-sm">{{ userStore.isLoggedIn? 'حساب کاربری' : 'ورود / ثبت نام' }}</span>
+          <span class="text-sm">{{ userStore.isLoggedIn? 'پنل کاربری' : 'ورود / ثبت نام' }}</span>
         </NuxtLink>
         <NuxtLink to="/i-am-hacked" class="xs:hidden bg-[#C02A2A] hover:bg-[#bb0202] rounded-md py-1.25 px-2.5 items-center flex gap-2">
           <IconsGoal class="w-4" />
