@@ -53,7 +53,7 @@ const register = () => {
           <MainFormControl v-model="phone" dir="ltr" type="tel" label="شماره همراه" :icon="phoneIcon" :status="inputsError.phone" />
           <MainFormControl v-model="password" dir="ltr" type="password" label="رمز عبور" :icon="passwordIcon" :status="inputsError.password" />
           <MainFormControl v-model="confirmPassword" dir="ltr" type="password" label="تایید رمز عبور" :icon="passwordIcon" :status="inputsError.confirmPassword" />
-          <div class="card mt-3 grid grid-cols-2 gap-4">
+          <div class="card mt-3 grid grid-cols-2 gap-4 xs:grid-cols-1">
             <button @click.prevent="navigateTo('/login')" class="rounded-full bg-white/10 hover:bg-white/20 shadow py-2.5 px-4">ورود به پنل</button>
             <button :disabled="disableStatus" @click.prevent="register()" class="xs:-order-1 disabled:opacity-80 rounded-full bg-sky-600 disabled:bg-sky-700 hover:bg-sky-700 shadow shadow-sky-600/30 py-2.5 px-4">
               <IconsSpin v-if="isProcessing" class="h-5" />
