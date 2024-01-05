@@ -1,13 +1,13 @@
 <script setup>
 useHead({
   title: 'پنل کاربری',
-  script: [{children: "localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)?document.documentElement.classList.add('dark'):document.documentElement.classList.remove('dark')"}]
+  script: [{children: 'let themeMode="localStorage"in window&&localStorage?.theme?localStorage.theme:"cookie"in document&&useCookie().check("theme")?useCookie().get("theme"):null;"dark"===themeMode||(null===themeMode&&window.matchMedia("(prefers-color-scheme: dark)").matches)?document.documentElement.classList.add("dark"):document.documentElement.classList.remove("dark");'}]
 });
 const route = useRoute()
 </script>
 
 <template>
-  <div :class="['layout card min-h-screen relative grid']">
+  <div :class="['layout min-h-screen relative grid']">
     <PanelSideMenu />
     <div class="min-h-screen bg-[#f0f5fb] dark:bg-[#19222c] rounded-3xl overflow-hidden text-gray-700 dark:text-gray-200">
       <PanelNav />
@@ -16,11 +16,20 @@ const route = useRoute()
         <NuxtPage />
       </div>
     </div>
+    <Alerts class="left-7" />
   </div>
 </template>
 <style>
 body {
   background: #232E3C;
+}
+.page-title {
+  @apply relative z-0 font-bold text-2xl
+}
+.page-title::before {
+  content: "";
+  z-index: -1;
+  @apply absolute w-7 h-7 rounded-full bg-[#3390ec] opacity-10 pointer-events-none -top-1.5 -right-2
 }
 </style>
 <style scoped>
@@ -35,6 +44,18 @@ body {
 @media screen and (max-width: 780px) {
   .layout {
     grid-template-columns: 1fr;
+  }
+}
+@media screen and (min-width: 1600px) {
+  .layout {
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+}
+@media screen and (max-width: 1599px) {
+  .layout {
+    float: right;
+    width: 100%
   }
 }
 </style>

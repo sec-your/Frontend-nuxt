@@ -2,6 +2,10 @@
 export default defineNuxtConfig({
 
   devtools: { enabled: true },
+  components: {
+    global: true,
+    dirs: ['~/components','~/components/icons']
+  },
 
   alias: {
     "@": "/"+__dirname,
@@ -24,7 +28,7 @@ export default defineNuxtConfig({
     layoutTransition: { name: 'layout', mode: 'out-in' },
     head: {
       script: [
-        {children: 'const dateFormat = new Intl.DateTimeFormat("fa",{year:"numeric"});'}
+        { src: '/js/main.js' }
       ]
     }
   },

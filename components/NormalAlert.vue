@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 
 defineOptions({
   inheritAttrs: false
@@ -38,15 +38,26 @@ const icons = {
 </template>
 
 <style scoped>
-.alert {
-  animation: show-alert .2s linear forwards;
+.right-7 .alert {
+  animation: show-alert-from-right .2s linear forwards;
 }
-@keyframes show-alert {
+@keyframes show-alert-from-right {
   from {
     @apply -mr-8 translate-x-full
   }
   to {
     @apply mr-0 translate-y-0
+  }
+}
+.left-7 .alert {
+  animation: show-alert-from-left .2s linear forwards;
+}
+@keyframes show-alert-from-left {
+  from {
+    @apply -ml-8 -translate-x-full
+  }
+  to {
+    @apply ml-0 translate-y-0
   }
 }
 .timeout {

@@ -46,9 +46,9 @@ const toggleSideBar = () => useEvent( 'toggle-panel-sidebar')
   <div class="card dark:text-gray-200 flex xs:flex-wrap xs:justify-center gap-2 py-3 px-5 items-center justify-end head bg-white shadow-lg shadow-gray-200/40 dark:bg-[#19222c] dark:shadow-gray-900/30">
     <IconsList @click="toggleSideBar" class="h-7 ml-2 hidden md:block xs:ml-auto" />
     <div class="ml-auto relative xs:w-full xs:ml-0 xs:order-3" v-click-outside="closeSearch">
-      <input v-model.trim="search" @focus="isSearchOpen = true" type="search" class="py-2 pl-3 pr-12 rounded-xl bg-gray-100 dark:bg-gray-700 w-72 xs:w-full" placeholder="جستجوی سایت یا تیکت ...">
+      <input v-model.trim="search" @focus="isSearchOpen = true" autocomplete="off" type="search" class="py-2 pl-3 pr-12 rounded-xl bg-gray-100 dark:bg-gray-700 w-72 xs:w-full" placeholder="جستجوی سایت یا تیکت ...">
       <IconsSearch class="h-5 pointer-events-none absolute top-1/2 -translate-y-1/2 right-3" />
-      <div v-if="isSearchOpen && search.length" class="w-full grid grid-cols-1 divide-y divide-gray-200 dark:divide-gray-600 bg-gray-100 dark:bg-gray-700 overflow-hidden absolute top-full mt-1 rounded shadow-lg">
+      <div v-if="isSearchOpen && search.length" class="w-full grid grid-cols-1 divide-y divide-gray-200 dark:divide-gray-600 bg-gray-100 dark:bg-gray-700 overflow-hidden absolute top-full mt-1 rounded shadow-lg z-20">
         <div v-if="isSearching" class="p-5 flex justify-center">
           <IconsSpin class="h-8" />
         </div>
@@ -94,7 +94,7 @@ const toggleSideBar = () => useEvent( 'toggle-panel-sidebar')
             <span>ویرایش پروفایل</span>
           </NuxtLink>
           <div @click="logout()" class="card p-2 flex items-center gap-2 hover:bg-gray-50 text-red-600 dark:text-red-400 dark:hover:bg-white/5">
-            <IconsKey class="h-3.5" />
+            <IconsExit class="h-3.5" />
             <span>خروج از حساب</span>
           </div>
         </div>
