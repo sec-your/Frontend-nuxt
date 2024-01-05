@@ -40,7 +40,7 @@
     button, input[type="submit"] {
         @apply cursor-pointer text-sm disabled:opacity-70 disabled:cursor-default
     }
-    a:link, a {
+    a {
         color: unset;
     }
     .card {

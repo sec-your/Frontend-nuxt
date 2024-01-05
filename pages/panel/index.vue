@@ -54,7 +54,7 @@ let isLoading = ref(false)
 <template>
   <div class="card">
     <div class="card flex justify-between items-center xs:flex-col gap-5">
-      <h1 class="page-title font-bold text-2xl">آخرین اسکن ها</h1>
+      <h1 class="page-title">آخرین اسکن ها</h1>
       <div class="flex items-center gap-3">
         <span>بر اساس</span>
         <div class="rounded-full overflow-hidden bg-white dark:bg-gray-700 shadow">
@@ -153,14 +153,6 @@ let isLoading = ref(false)
 </template>
 
 <style scoped>
-.page-title {
-  @apply relative z-0
-}
-.page-title::before {
-  content: "";
-  z-index: -1;
-  @apply absolute w-7 h-7 rounded-full bg-[#3390ec] opacity-10 pointer-events-none -top-1.5 -right-2
-}
 .isLoading {
   @apply lg:w-16 xs:w-10
 }

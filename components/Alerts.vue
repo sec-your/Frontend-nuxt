@@ -21,7 +21,7 @@ const normalAlert = resolveComponent('NormalAlert')
 useListen('show-alert', async function ({ title = null, message, key, type = 'normal', time = 10, status, icon = null, forced = false }) {
   hideAlert(key)
   setTimeout(()=> {
-    if (icon === '...') icon = resolveComponent('IconsSpin')
+    if (icon !== null) icon = resolveComponent(icon === '...'? 'IconsSpin' : icon)
     alerts.value.push({
       type,
       message,
@@ -40,7 +40,7 @@ useListen('show-alert', async function ({ title = null, message, key, type = 'no
 </script>
 
 <template>
-  <div class="alerts fixed z-[999] right-7 bottom-7 flex flex-col items-start gap-4">
+  <div class="alerts fixed z-[9999] bottom-7 flex flex-col items-start gap-4">
     <component v-for="(alert, index) in alerts"
                :key="index"
                :is="alert.type === 'compact'? compactAlert : normalAlert"

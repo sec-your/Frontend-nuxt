@@ -9,14 +9,16 @@ const closeSidebar = (event) => {
   if (isOpen.value && !event.target.classList.contains('toggle-panel-sidebar')) isOpen.value = false
 }
 
-let isDarkMode = ref(('theme' in localStorage && localStorage.theme === 'dark') || document.documentElement.classList.contains('dark'))
+let isDarkMode = ref(document.documentElement.classList.contains('dark'))
 const toggleDarkMode = () => {
   if (document.documentElement.classList.contains('dark')) {
-    localStorage.setItem('theme', 'light')
+    if ('localStorage' in window) localStorage.setItem('theme', 'light')
+    else if ('cookie' in document) useCookie().set('theme', 'light', 30000)
     document.documentElement.classList.remove('dark')
     isDarkMode.value = false
   } else {
-    localStorage.setItem('theme', 'dark')
+    if ('localStorage' in window) localStorage.setItem('theme', 'dark')
+    else if ('cookie' in document) useCookie().set('theme', 'dark', 30000)
     document.documentElement.classList.add('dark')
     isDarkMode.value = true
   }
@@ -39,6 +41,10 @@ const toggleDarkMode = () => {
               <IconsEqualizer class="w-4" />
               <span class="mt-1">سایت های تحت نظارت</span>
             </NuxtLink>
+            <NuxtLink to="/panel/scan" class="link">
+              <IconsSearchBug class="w-4" />
+              <span class="mt-1">اسکن جدید</span>
+            </NuxtLink>
           </div>
           <div class="w-full flex flex-col">
             <span class="group-title">پشتیبانی</span>
@@ -53,10 +59,6 @@ const toggleDarkMode = () => {
           </div>
           <div class="w-full flex flex-col">
             <span class="group-title">پروفایل</span>
-            <NuxtLink to="/panel/subscription" class="link">
-              <IconsUserStar class="w-4" />
-              <span class="mt-1">اشتراک حال حاضر</span>
-            </NuxtLink>
             <NuxtLink to="/panel/profile" class="link">
               <IconsUserOutline class="w-4" />
               <span class="mt-1">پروفایل من</span>

@@ -3,7 +3,6 @@
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
-    <Alerts />
   </div>
 </template>
 <style>
@@ -22,22 +21,26 @@
 }
 </style>
 
-<script setup  lang="ts">
+<script setup>
 import { useUserStore } from '@/stores/user';
 
 const userStore = useUserStore()
 
 onBeforeMount(()=> {
-  let storedToken = localStorage.getItem('storedToken')
-  if (storedToken) userStore.getUser(storedToken, true)
+  if ('localStorage' in window) {
+    let storedToken = window.localStorage.getItem('storedToken')
+    if (storedToken) userStore.getUser(storedToken, true)
+  }
+  else if ('cookie' in document && useCookie().check('storedToken')) {
+    userStore.getUser(useCookie().get('storedToken'), true)
+  }
 })
   useHead({
     titleTemplate: (title) => title? `سکیور - ${title}` : 'سکیور'
   })
   if ( typeof window != 'undefined' ){
-    const alertIcon = resolveComponent('IconsGlobe')
-    window.addEventListener('offline', ()=> useCompactAlert('internet-status','اینترنت شما قطع شد', { time : 5, icon: alertIcon }));
-    window.addEventListener('online', ()=> useCompactAlert('internet-status','شما دوباره آنلاین شدید', { time : 5, icon: alertIcon }));
+    window.addEventListener('offline', ()=> useCompactAlert('internet-status','اینترنت شما قطع شد', { time : 5, icon: 'IconsGlobe' }));
+    window.addEventListener('online', ()=> useCompactAlert('internet-status','شما دوباره آنلاین شدید', { time : 5, icon: 'IconsGlobe' }));
   }
 
 </script>

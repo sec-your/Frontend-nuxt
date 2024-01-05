@@ -2,12 +2,13 @@ import { defineStore } from "pinia";
 
 export const useUserStore = defineStore('user', ()=>{
     const info = ref({
-        id: 0,
-        token: '',
-        username: '',
-        displayName: '',
-        isEmailVerified: false,
-        type: ''
+        id: 1,
+        token: 'dsfdabebr6456132',
+        email: 'info@aliranjbar.ir',
+        phone: '09145296650',
+        displayName: 'علی رنجبر جلودار',
+        isPhoneVerified: true,
+        type: 'free'
     })
     const getUser = async (token, toast = false) => {
         await useApiFetch().post('/user', {}, {

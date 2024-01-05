@@ -23,6 +23,7 @@ const route = useRoute()
     </div>
     <MainFooter />
     <MainSidebar />
+    <Alerts class="right-7" />
   </div>
 </template>
 

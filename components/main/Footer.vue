@@ -1,5 +1,5 @@
 <script setup>
-let getCurrentDate = dateFormat.format(Date.now())
+let getCurrentDate = new Date().getFullYear()
 </script>
 
 <template>

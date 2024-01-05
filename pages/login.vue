@@ -5,8 +5,6 @@ const inputsError = ref({
   email: '',
   password: ''
 })
-const mailIcon = resolveComponent('IconsMail')
-const passwordIcon = resolveComponent('IconsLock')
 const isProcessing = ref(false)
 const disableStatus = computed(() => isProcessing.value || Object.values(inputsError.value).some(i => i === ''))
 
@@ -17,10 +15,12 @@ watch(password,() => inputsError.value.password = validate('رمز عبور', pa
 const login = () => {
   isProcessing.value = true
   setTimeout(()=>{
-    if (Object.values(inputsError.length).some(i => i !== null))
+    if (Object.values(inputsError.value).some(i => i !== null))
       useCompactAlertError('login-request', Object.values(inputsError.value).find(i=>i?.length))
-    else
+    else {
       useCompactAlertSuccess('login-request', 'شما با موفقیت وارد شدید.')
+      return navigateTo('/panel')
+    }
     isProcessing.value =false
   }, 2000)
 }
@@ -32,8 +32,8 @@ const login = () => {
       <div class="w-80 max-w-full mx-auto">
         <h2 class="card text-3xl font-bold mb-7 text-center">ورود به حساب </h2>
         <div class="card flex flex-col gap-5">
-          <MainFormControl v-model="email" dir="ltr" type="email" label="ایمیل" :icon="mailIcon" :status="inputsError.email" />
-          <MainFormControl v-model="password" dir="ltr" type="password" label="رمز عبور" :icon="passwordIcon" :status="inputsError.password" />
+          <MainFormControl v-model="email" dir="ltr" type="email" label="ایمیل" icon="IconsMail" :status="inputsError.email" />
+          <MainFormControl v-model="password" dir="ltr" type="password" label="رمز عبور" icon="IconsLock" :status="inputsError.password" />
           <div class="card mt-3 grid grid-cols-2 gap-4 xs:grid-cols-1">
             <button @click.prevent="navigateTo('/register')" class="rounded-full bg-white/10 hover:bg-white/20 shadow py-2.5 px-4">ایجاد حساب</button>
             <button :disabled="disableStatus" @click.prevent="login()" class="xs:-order-1 disabled:opacity-80 rounded-full bg-sky-600 disabled:bg-sky-700 hover:bg-sky-700 shadow shadow-sky-600/30 py-2.5 px-4">

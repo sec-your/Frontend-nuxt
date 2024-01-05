@@ -31,9 +31,15 @@ export const max =  (a, max) => {
     }
 };
 
+export const regex =  (a, regex) => {
+    return {
+        status: a.match(new RegExp(regex)),
+        message: `:attribute: صحیح نمی باشد.`
+    }
+};
+
 // @ts-ignore
 export const same =  (a, name, b) => {
-    console.log(a, b)
     return {
         status: a == b,
         message: `:attribute: با ${name} یکی نیست.`
