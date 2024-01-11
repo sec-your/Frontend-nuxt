@@ -24,9 +24,6 @@ const loadScanDetail = () => {
         scanDetails.value = data
         if (selectedReport.value == null && data?.reports.length) selectedReport.value = data.reports[0]
       }).catch(error => useAlertError('scan-error', 'خطایی در بارگذاری رخ داد', error.message))
-  setTimeout(() => {
-    loadScanDetail()
-  }, 10000)
 }
 loadScanDetail()
 
