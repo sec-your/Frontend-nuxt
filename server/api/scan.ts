@@ -1,10 +1,9 @@
 export default defineEventHandler((event) => {
     return {
         status: 'critical', // critical , bad , low , good , secure
-        progress: 50,
+        progress: 63,
         type: 'pro', // pro , free, organization
         itemCounts: {
-            secure: 3,
             good: 11,
             low: 5,
             bad: 3,
@@ -14,6 +13,32 @@ export default defineEventHandler((event) => {
         elapsed: '3.12 ثانیه',
         domain: 'https://aliranjbar.ir/license',
         shareLink: 'https://secyour.com/scan/226870',
+        technologies: [
+            {
+                icon: 'apache.png',
+                name: 'Apache'
+            },
+            {
+                icon: 'cakephp.png',
+                name: 'CakePHP'
+            },
+            {
+                icon: 'linux.png',
+                name: 'Linux'
+            },
+            {
+                icon: 'typescript.png',
+                name: 'TypeScript'
+            },
+            {
+                icon: 'pycharm.png',
+                name: 'Pycharm'
+            },
+            {
+                icon: 'webpack.png',
+                name: 'Webpack'
+            },
+        ],
         reports: [
             {
                 status: 'critical',
