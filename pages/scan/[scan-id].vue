@@ -2,7 +2,15 @@
 const route = useRoute()
 
 definePageMeta({
-  validate: async (route) => /^\d+$/.test(route.params.scanid)
+  validate: async (route) => /^\d+$/.test(route.params.scanid),
+  middleware: [
+    async function (to, from) {
+      const { data } = await useApiFetch().post('/scanCheck', {
+        'scanID': to.params.scanid
+      })
+      if (data.status !== 'ok') return navigateTo('/')
+    }
+  ],
 })
 
 let selectedReport = ref(null)
@@ -10,16 +18,12 @@ const scanDetails = ref({})
 
 const scanLoading = computed(()=> !(scanDetails.value?.status))
 
-
 const loadScanDetail = () => {
   useApiFetch().get(`scan`)
       .then(({data}) => {
         scanDetails.value = data
         if (selectedReport.value == null && data?.reports.length) selectedReport.value = data.reports[0]
       }).catch(error => useAlertError('scan-error', 'خطایی در بارگذاری رخ داد', error.message))
-  setTimeout(() => {
-    loadScanDetail()
-  }, 10000)
 }
 loadScanDetail()
 
@@ -64,6 +68,17 @@ const scanTypeNames = {
   'organization' : 'اسکن سازمانی'
 }
 
+const itemCountWith = computed(() => {
+  if (scanLoading.value) return {}
+  let sum = Object.values(scanDetails.value.itemCounts).reduce((a, b) => a + b)
+  return {
+    good: `${100*scanDetails.value.itemCounts.good/sum}%`,
+    low: `${100*scanDetails.value.itemCounts.low/sum}%`,
+    bad: `${100*scanDetails.value.itemCounts.bad/sum}%`,
+    critical: `${100*scanDetails.value.itemCounts.critical/sum}%`,
+  }
+})
+
 </script>
 
 <template>
@@ -100,27 +115,29 @@ const scanTypeNames = {
               <IconsCopy @click="copyLink()" class="h-4 opacity-80 hover:opacity-100 cursor-pointer" />
             </div>
           </div>
-          <div class="strip card mt-28 sm:mt-14 px-5 flex justify-between sm:px-0 sm:flex-wrap sm:gap-10 sm:justify-center">
-            <div class="relative sm:flex sm:items-center sm:flex-col pt-2 pb-1.5 sm:p-0">
-              <div>مورد امن</div>
-              <div class="tooltip"><strong class="ml-1.5 text-base sm:!text-white">{{ scanDetails.itemCounts.secure }}</strong> مورد</div>
+          <div dir="ltr" class="card mt-12 flex flex-wrap gap-8 items-center lg:justify-center">
+            <div v-for="tech in scanDetails.technologies" class="flex items-center gap-2 drop-shadow">
+              <img :src="`/images/scan/technologies/${tech.icon}`" rel="nofollow" class="w-6" />
+              <span class="font-bold text-white mt-1.5" v-text="tech.name"></span>
             </div>
-            <div class="relative sm:flex sm:items-center sm:flex-col pt-2 pb-1.5 sm:p-0">
-              <div>اهمیت پایین</div>
-              <div class="tooltip"><strong class="ml-1.5 text-base sm:!text-white" style="color:#FFCF25">{{ scanDetails.itemCounts.good }}</strong> مورد</div>
-            </div>
-            <div class="relative sm:flex sm:items-center sm:flex-col pt-2 pb-1.5 sm:p-0">
-              <div>اهمیت متوسط</div>
-              <div class="tooltip"><strong class="ml-1.5 text-base sm:!text-white" style="color:#E57F17">{{ scanDetails.itemCounts.low }}</strong> مورد</div>
-            </div>
-            <div class="relative sm:flex sm:items-center sm:flex-col pt-2 pb-1.5 sm:p-0">
-              <div>اهمیت بالا</div>
-              <div class="tooltip"><strong class="ml-1.5 text-base sm:!text-white" style="color:#f03c0c">{{ scanDetails.itemCounts.bad }}</strong> مورد</div>
-            </div>
-            <div class="relative sm:flex sm:items-center sm:flex-col pt-2 pb-1.5 sm:p-0">
-              <div>بحرانی</div>
-              <div class="tooltip"><strong class="ml-1.5 text-base sm:!text-white" style="color:#fa0000">{{ scanDetails.itemCounts.critical }}</strong> مورد</div>
-            </div>
+          </div>
+        </div>
+        <div class="col-span-full mt-14 text-center sm:mt-14 flex xs:grid xs:grid-cols-2 xs:gap-x-2 xs:gap-y-20">
+          <div class="i-good relative sm:flex sm:items-center sm:flex-col pt-2 pb-1.5 min-w-[110px] xs:!w-full" :style="{ 'background' : `linear-gradient(to left, ${colors.good}40 0%, ${colors.good} 100%)` }">
+            <div>اهمیت پایین</div>
+            <div class="tooltip"><strong class="ml-1.5 text-base sm:!text-white" style="color:#FFCF25">{{ scanDetails.itemCounts.good }}</strong> مورد</div>
+          </div>
+          <div class="i-low relative sm:flex sm:items-center sm:flex-col pt-2 pb-1.5 min-w-[110px] xs:!w-full" :style="{ 'background' : `linear-gradient(to left, ${colors.low}40 0%, ${colors.low} 100%)` }">
+            <div>اهمیت متوسط</div>
+            <div class="tooltip"><strong class="ml-1.5 text-base sm:!text-white" style="color:#E57F17">{{ scanDetails.itemCounts.low }}</strong> مورد</div>
+          </div>
+          <div class="i-bad relative sm:flex sm:items-center sm:flex-col pt-2 pb-1.5 min-w-[110px] xs:!w-full" :style="{ 'background' : `linear-gradient(to left, ${colors.bad}40 0%, ${colors.bad} 100%)` }">
+            <div>اهمیت بالا</div>
+            <div class="tooltip"><strong class="ml-1.5 text-base sm:!text-white" style="color:#f03c0c">{{ scanDetails.itemCounts.bad }}</strong> مورد</div>
+          </div>
+          <div class="i-critical relative sm:flex sm:items-center sm:flex-col pt-2 pb-1.5 min-w-[110px] xs:!w-full" :style="{ 'background' : `linear-gradient(to left, ${colors.critical}40 0%, ${colors.critical} 100%)` }">
+            <div>بحرانی</div>
+            <div class="tooltip"><strong class="ml-1.5 text-base sm:!text-white" style="color:#fa0000">{{ scanDetails.itemCounts.critical }}</strong> مورد</div>
           </div>
         </div>
       </div>
@@ -145,20 +162,28 @@ const scanTypeNames = {
 .progress-radial {
   background-image: v-bind(progressGradient);
 }
-.strip {
-  background-image: linear-gradient(90deg, #BB0202 5%, #FFCF25 75%, rgba(255, 248, 221, .1) 95%, rgba(255, 248, 221, 0) 100%);
+
+.i-good {
+  width: v-bind('itemCountWith.good')
 }
-@media screen and (max-width: 680px) {
-  .strip { background: none }
+.i-low {
+  width: v-bind('itemCountWith.low')
 }
+.i-bad {
+  width: v-bind('itemCountWith.bad')
+}
+.i-critical {
+  width: v-bind('itemCountWith.critical')
+}
+
 .tooltip {
-  @apply w-20 py-1.5 pb-1 text-center bg-[#192E35] absolute -top-4 -translate-y-full right-1/2 translate-x-1/2 text-sm sm:static sm:w-auto sm:right-0 sm:translate-x-0 sm:translate-y-0 sm:top-0 sm:bg-transparent sm:p-0
+  @apply w-20 py-1.5 pb-1 text-center bg-[#192E35] absolute -top-3.5 -translate-y-full right-1/2 translate-x-1/2 text-sm
 }
 .strip > div > div {
   text-shadow: 0 0 5px #00000090;
 }
 .tooltip::before {
   content: "";
-  @apply bg-white/10 absolute bottom-0 translate-y-full right-1/2 translate-x-1/2 border-x-8 border-x-[#00171F] border-t-8 border-t-[#192E35] sm:hidden
+  @apply bg-white/10 absolute bottom-0 translate-y-full right-1/2 translate-x-1/2 border-x-8 border-x-[#00171F] border-t-8 border-t-[#192E35]
 }
 </style>

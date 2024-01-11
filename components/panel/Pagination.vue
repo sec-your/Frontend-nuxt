@@ -32,6 +32,6 @@ const changePage = (x) => {
   @apply py-1 px-3 shadow-lg bg-white cursor-pointer rounded-lg hover:text-blue-500 dark:bg-gray-700 dark:hover:text-blue-300
 }
 .link.current {
-  @apply bg-blue-600 text-white shadow-blue-600/30
+  @apply bg-blue-600 text-white shadow-blue-600/30 hover:text-white
 }
 </style>
