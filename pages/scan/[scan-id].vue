@@ -22,6 +22,7 @@ const loadScanDetail = () => {
   useApiFetch().get(`scan`)
       .then(({data}) => {
         scanDetails.value = data
+        useEvent('change-body-class', `${data.status}-shadow`)
         if (selectedReport.value == null && data?.reports.length) selectedReport.value = data.reports[0]
       }).catch(error => useAlertError('scan-error', 'خطایی در بارگذاری رخ داد', error.message))
 }
@@ -37,7 +38,6 @@ const copyLink = () => {
 
 
 }
-useEvent('change-body-class', `${scanDetails.value.status}-shadow` )
 let colors = {
   critical: '#bb0202',
   bad: '#c02a2a',

@@ -36,7 +36,13 @@ body {
 .critical-shadow {
   box-shadow: inset 0 300px 200px -200px #FF000050;
 }
-.yellow-shadow {
+.bad-shadow {
+  box-shadow: inset 0 300px 200px -200px #c02a2a50;
+}
+.low-shadow {
+  box-shadow: inset 0 300px 200px -200px #CE3B0B50;
+}
+.good-shadow {
   box-shadow: inset 0 300px 200px -200px #FDC82350;
 }
 .blurred-container-lights, .blurred-lights {
