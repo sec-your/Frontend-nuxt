@@ -27,7 +27,6 @@
     html,body {
         scrollbar-width: thin;
         direction: rtl;
-        overflow-x: hidden;
         @apply scroll-smooth text-white;
     }
     ::-webkit-scrollbar{width:8px}
