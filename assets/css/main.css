@@ -27,6 +27,7 @@
     html,body {
         scrollbar-width: thin;
         direction: rtl;
+        overflow-x: hidden;
         @apply scroll-smooth text-white;
     }
     ::-webkit-scrollbar{width:8px}
@@ -61,8 +62,13 @@
     }
 
 
-
-
+.animation-spin {
+    animation: animation-spin 3.5s linear infinite;
+}
+@keyframes animation-spin {
+    from { transform: rotate(0); }
+    to { transform: rotate(-360deg); }
+}
 
 
     .wow.animated {
