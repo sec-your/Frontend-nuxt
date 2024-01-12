@@ -26,24 +26,27 @@ const freeScanAction = async () => {
         <h2 class="text-2.5xl font-bold lg:text-1.5xl">پیشرو در حوزه امنیت شبکه در سطح ایران!</h2>
         <h3 class="text-1.5xl lg:text-lg font-bold text-[#eee] mt-4">امنیت سایت، یک مزیت نیست بلکه <span class="text-[#C83C3C]">اولویت</span> است</h3>
         <span class="text-[#ccc] max-w-[450px] leading-relaxed mt-6">سکیور می تواند روند تست امنیت سایت و سرور شما را بسیار ساده کند و به راحتی ارزیابی امنیتی و اسکن آسیب پذیری را انجام دهید. این سرویس به شما کمک می کند تا مراحل جمع آوری اطلاعات ، اسکن وب سایت ، اسکن سرور را به صورت آنلاین انجام داده و گزارش آن را دریافت کنید.</span>
-        <div class="mt-10 flex gap-7 lg:flex-col lg:gap-4 lg:mt-7 md:items-center">
-          <a class="flex items-end group" href="/">
-            <svg width="37" height="46" viewBox="0 0 37 46" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M37 4V22.375C37 37.075 18.5 46 18.5 46C18.5 46 0 37.075 0 22.375V4L18.5 0.5L37 4Z" class="fill-[#3808B1] group-hover:fill-[#3409A1]"/>
-              <path d="M11.8677 25.672V22.288H17.5197V16.78H20.8677V22.288H26.3397V25.672H20.8677V31H17.5197V25.672H11.8677Z" fill="white"/>
-            </svg>
-            <div class="bg-[#3808B1] group-hover:bg-[#3409A1] py-1.5 pl-3 pr-7 scan-btn rounded-l-xl -mr-4.5">اسکن پیشرفته</div>
-          </a>
-          <div class="flex items-end group" @click="isFreeScanOpen = true" v-click-outside="() => { if(isFreeScanOpen) isFreeScanOpen = false; }">
-            <svg @click="()=> { if(isFreeScanOpen) freeScanAction() }" class="cursor-pointer relative z-[2]" width="37" height="46" viewBox="0 0 37 46" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M37 3.5V21.875C37 36.575 18.5 45.5 18.5 45.5C18.5 45.5 0 36.575 0 21.875V3.5L18.5 0L37 3.5Z" :fill="isFreeScanOpen? '#C44915': '#B13B08'"/>
-              <path :class="{ 'hidden' : !isFreeScanOpen }" d="M14.3771 14.4919C14.8631 13.7841 15.4845 13.1796 16.2055 12.7132C16.9264 12.2469 17.7326 11.9281 18.5775 11.7751C19.4224 11.6221 20.2892 11.638 21.1279 11.8219C21.9666 12.0059 22.7605 12.3541 23.4639 12.8466C24.1672 13.3391 24.766 13.966 25.2257 14.6912C25.6853 15.4165 25.9968 16.2255 26.142 17.0718C26.2872 17.918 26.2633 18.7847 26.0717 19.6216C25.8801 20.4586 25.5245 21.2493 25.0256 21.9481C24.0299 23.3427 22.5238 24.2877 20.8349 24.5775C19.146 24.8673 17.411 24.4784 16.0074 23.4956C14.6037 22.5127 13.6449 21.0153 13.3396 19.3292C13.0343 17.6431 13.4072 15.9046 14.3771 14.4919ZM24.5764 11.2577C22.8008 10.0147 20.6174 9.497 18.4727 9.81044C16.328 10.1239 14.3841 11.2448 13.0384 12.9439C11.6928 14.6431 11.0471 16.7921 11.2333 18.9516C11.4196 21.111 12.4238 23.1177 14.0405 24.5614L9.70486 30.7533L11.3429 31.9003L15.6786 25.7083C17.5878 26.7288 19.8144 26.9825 21.9042 26.4176C23.9941 25.8527 25.7897 24.5118 26.9248 22.6684C28.0598 20.825 28.4488 18.6179 28.0125 16.4975C27.5761 14.3771 26.3472 12.5031 24.5764 11.2577Z" fill="white"/>
-            </svg>
-            <div class="bg-[#B13B08] scan-btn rounded-l-xl overflow-hidden -mr-4.5 cursor-pointer">
-              <input v-model="scanAddress" dir="ltr" :class="['free-scan-input py-1.5 pl-3 pr-8 text-left placeholder:text-gray-200 placeholder:text-right', isFreeScanOpen? 'block' : 'hidden']" type="url" placeholder="آدرس سایت خود را وارد نمایید">
-              <span :class="['py-1.5 pl-3 pr-8 float-right', isFreeScanOpen? 'hidden': 'block']">اسکن رایگان</span>
+        <div :class="['mt-10 flex lg:justify-center xs:flex-col xs:items-center xs:gap-8', isFreeScanOpen? 'gap-0' : 'gap-7 sm:gap-3']">
+          <a :class="['overflow-hidden xs:!animate-none', isFreeScanOpen? 'slideRightOut' : 'slideLeftIn']" href="/" style="filter:drop-shadow(0 5px 15px #3808B1C5)">
+            <div style="width:150px" class="flex items-center gap-3 py-1.5 justify-center rounded-full bg-[#3808B1] hover:bg-[#3307a3]">
+              <svg class="inline h-5" viewBox="0 0 37 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18.1797 44.2076C18.2997 44.2723 18.4068 44.3291 18.5 44.3779C18.5932 44.3291 18.7003 44.2723 18.8203 44.2076C19.3116 43.9427 20.0177 43.5461 20.8668 43.0239C22.5673 41.9784 24.8307 40.4363 27.0895 38.4492C31.6391 34.4468 36 28.7924 36 21.875V4.32855L18.5 1.01774L1 4.32855V21.875C1 28.7924 5.36091 34.4468 9.91051 38.4492C12.1693 40.4363 14.4327 41.9784 16.1332 43.0239C16.9823 43.5461 17.6884 43.9427 18.1797 44.2076Z" stroke="currentColor" stroke-width="3"/>
+                <path d="M11 23.892V20.508H16.652V15H20V20.508H25.472V23.892H20V29.22H16.652V23.892H11Z" fill="currentColor"/>
+              </svg>
+              <div class="mt-0.5">اسکن پیشرفته</div>
             </div>
+          </a>
+          <div class="flex" @click="isFreeScanOpen = true" v-click-outside="() => { if(isFreeScanOpen) isFreeScanOpen = false; }">
+            <div class="cursor-pointer flex items-center px-4 py-1.5 rounded-full bg-[#B13B08] hover:bg-[#a74217] shadow-lg shadow-[#B13B0855]">
+              <IconsSearchBug v-if="isFreeScanOpen" @click="freeScanAction()" class="h-5" style="transform:rotateY(180deg)" />
+              <svg v-else class="inline h-5" viewBox="0 0 37 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18.1797 44.2076C18.2997 44.2723 18.4068 44.3291 18.5 44.3779C18.5932 44.3291 18.7003 44.2723 18.8203 44.2076C19.3116 43.9427 20.0177 43.5461 20.8668 43.0239C22.5673 41.9784 24.8307 40.4363 27.0895 38.4492C31.6391 34.4468 36 28.7924 36 21.875V4.32855L18.5 1.01774L1 4.32855V21.875C1 28.7924 5.36091 34.4468 9.91051 38.4492C12.1693 40.4363 14.4327 41.9784 16.1332 43.0239C16.9823 43.5461 17.6884 43.9427 18.1797 44.2076Z" stroke="currentColor" stroke-width="3"/>
+              </svg>
+              <div :class="['mt-0.5 sm:duration-0', isFreeScanOpen? 'sm:w-0 whitespace-nowrap slideRightOut overflow-hidden' : 'mr-3']">اسکن رایگان</div>
+            </div>
+            <input type="url" dir="ltr" :class="['float-right bg-white rounded-full pt-1 text-left px-3 w-60 sm:w-52 text-gray-600 xs:duration-0', isFreeScanOpen? 'mr-3 max-w-[240px]' : 'max-w-0 !p-0']" placeholder="https://example.com" >
           </div>
+          
         </div>
       </div>
       <div class="-ml-14 md:-order-1 md:ml-0 wow a-fadeInUp">
@@ -100,126 +103,131 @@ const freeScanAction = async () => {
       </div>
     </section>
 
-    <section id="plans" class="plans relative grid grid-cols-3 items-center gap-9 xl:gap-3 lg:grid-cols-4 lg:gap-5 py-8 my-32 md:flex md:flex-col">
-      <div class="wow a-fadeIn plan bg-white/10 max-w-[420px] rounded-2xl relative p-5 md:p-4 pt-7 lg:col-span-2">
-        <h5 class="card text-center text-3xl font-bold">پایه</h5>
-        <span class="card text-center mt-2">اسکن سایت برای آسیب پذیری های عمومی</span>
-        <ul class="card my-7 bg-white/5 text-left p-4 space-y-3 rounded-xl plan-list">
-          <li class="relative flex gap-2 flex-row-reverse">
-            <span>Medium business scope</span>
-            <div class="relative group">
-              <IconsInfo class="h-3 mb-1" />
-              <div class="tooltip group-hover:block">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</div>
-            </div>
-          </li>
-          <li class="relative flex gap-2 flex-row-reverse">
-            <span>Scan behind logged in</span>
-            <div class="relative group">
-              <IconsInfo class="h-3 mb-1" />
-              <div class="tooltip group-hover:block">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</div>
-            </div>
-          </li>
-          <li class="relative flex gap-2 flex-row-reverse">
-            <span>Scan internal networks</span>
-            <div class="relative group">
-              <IconsInfo class="h-3 mb-1" />
-              <div class="tooltip group-hover:block">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</div>
-            </div>
-          </li>
-          <li class="relative flex gap-2 flex-row-reverse">
-            <span>Advanced reporting</span>
-            <div class="relative group">
-              <IconsInfo class="h-3 mb-1" />
-              <div class="tooltip group-hover:block">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</div>
-            </div>
-          </li>
-          <li class="relative flex gap-2 flex-row-reverse">
-            <span>Continuous security monitoring</span>
-            <div class="relative group">
-              <IconsInfo class="h-3 mb-1" />
-              <div class="tooltip group-hover:block">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</div>
-            </div>
-          </li>
-          <li class="relative flex gap-2 flex-row-reverse">
-            <span>Premium support</span>
-            <div class="relative group">
-              <IconsInfo class="h-3 mb-1" />
-              <div class="tooltip group-hover:block">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</div>
-            </div>
-          </li>
-        </ul>
-        <div class="card flex flex-col gap-4 items-center justify-between">
-          <span class="text-2xl font-bold">رایگان</span>
-          <button @click="navigateTo('/register')" class="card bg-orange-700 hover:bg-orange-600 text-white pt-2 pb-1.5 px-2 text-xl rounded-xl">ثبت نام رایگان</button>
-        </div>
+    <section id="plans" class="relative py-8 my-32">
+      <div class="text-center mb-14">
+        <h4 class="relative wow a-fadeInDown font-bold text-3xl text-center inline-block">اشتراک های سکیور <div class="absolute w-10 h-10 rounded-md rotate-45 bg-white opacity-5 animation-spin -top-3 -right-3 z-[-1]"></div></h4>
       </div>
-      <div data-wow-delay=".6s" class="wow a-fadeIn plan bg-[#3808B1] max-w-[420px] rounded-2xl relative p-5 md:p-4 pt-10 md:pt-0 lg:col-span-2 lg:order-1 lg:col-start-2">
-        <span class="ribbon absolute md:inline-block md:static md:float-left top-0 left-5 bg-amber-600 py-1 px-3 rounded-b-xl">محبوب ترین</span>
-        <h5 class="card text-center text-3xl font-bold md:mt-5">حرفه ای</h5>
-        <span class="card text-center mt-2">مناسب شرکت ها و سایت های بزرگ</span>
-        <ul class="card my-7 bg-white/5 text-left p-4 space-y-3 rounded-xl plan-list">
-          <li class="relative flex gap-2 flex-row-reverse">
-            <span>API Access</span>
-            <div class="relative group">
-              <IconsInfo class="h-3 mb-1" />
-              <div class="tooltip group-hover:block">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</div>
-            </div>
-          </li>
-          <li class="relative flex gap-2 flex-row-reverse">
-            <span>Medium business scope</span>
-            <div class="relative group">
-              <IconsInfo class="h-3 mb-1" />
-              <div class="tooltip group-hover:block">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</div>
-            </div>
-          </li>
-          <li class="relative flex gap-2 flex-row-reverse">
-            <span>Scan behind logged in</span>
-            <div class="relative group">
-              <IconsInfo class="h-3 mb-1" />
-              <div class="tooltip group-hover:block">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</div>
-            </div>
-          </li>
-          <li class="relative flex gap-2 flex-row-reverse">
-            <span>Scan internal networks</span>
-            <div class="relative group">
-              <IconsInfo class="h-3 mb-1" />
-              <div class="tooltip group-hover:block">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</div>
-            </div>
-          </li>
-          <li class="relative flex gap-2 flex-row-reverse">
-            <span>Advanced reporting</span>
-            <div class="relative group">
-              <IconsInfo class="h-3 mb-1" />
-              <div class="tooltip group-hover:block">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</div>
-            </div>
-          </li>
-          <li class="relative flex gap-2 flex-row-reverse">
-            <span>Continuous security monitoring</span>
-            <div class="relative group">
-              <IconsInfo class="h-3 mb-1" />
-              <div class="tooltip group-hover:block">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</div>
-            </div>
-          </li>
-          <li class="relative flex gap-2 flex-row-reverse">
-            <span>Premium support</span>
-            <div class="relative group">
-              <IconsInfo class="h-3 mb-1" />
-              <div class="tooltip group-hover:block">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</div>
-            </div>
-          </li>
-        </ul>
-        <div class="card flex flex-col gap-4 items-center justify-between">
-          <span class="text-2xl font-bold">1 میلیون تومان <small class="font-normal text-lg">/ ماهانه</small></span>
-          <button @click="navigateTo('/checkout')" class="card bg-orange-700 hover:bg-orange-600 text-white pt-2 pb-1.5 px-2 text-xl rounded-xl">خرید اشتراک</button>
+      <div class="plans grid grid-cols-3 items-center gap-9 xl:gap-3 lg:grid-cols-4 lg:gap-5 md:flex md:flex-col">
+        <div class="wow a-fadeIn plan bg-white/10 max-w-[420px] rounded-2xl relative p-5 md:p-4 pt-7 lg:col-span-2">
+          <h5 class="card text-center text-3xl font-bold">پایه</h5>
+          <span class="card text-center mt-2">اسکن سایت برای آسیب پذیری های عمومی</span>
+          <ul class="card my-7 bg-white/5 text-left p-4 space-y-3 rounded-xl plan-list">
+            <li class="relative flex gap-2 flex-row-reverse">
+              <span>Medium business scope</span>
+              <div class="relative group">
+                <IconsInfo class="h-3 mb-1" />
+                <div class="tooltip group-hover:block">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</div>
+              </div>
+            </li>
+            <li class="relative flex gap-2 flex-row-reverse">
+              <span>Scan behind logged in</span>
+              <div class="relative group">
+                <IconsInfo class="h-3 mb-1" />
+                <div class="tooltip group-hover:block">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</div>
+              </div>
+            </li>
+            <li class="relative flex gap-2 flex-row-reverse">
+              <span>Scan internal networks</span>
+              <div class="relative group">
+                <IconsInfo class="h-3 mb-1" />
+                <div class="tooltip group-hover:block">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</div>
+              </div>
+            </li>
+            <li class="relative flex gap-2 flex-row-reverse">
+              <span>Advanced reporting</span>
+              <div class="relative group">
+                <IconsInfo class="h-3 mb-1" />
+                <div class="tooltip group-hover:block">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</div>
+              </div>
+            </li>
+            <li class="relative flex gap-2 flex-row-reverse">
+              <span>Continuous security monitoring</span>
+              <div class="relative group">
+                <IconsInfo class="h-3 mb-1" />
+                <div class="tooltip group-hover:block">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</div>
+              </div>
+            </li>
+            <li class="relative flex gap-2 flex-row-reverse">
+              <span>Premium support</span>
+              <div class="relative group">
+                <IconsInfo class="h-3 mb-1" />
+                <div class="tooltip group-hover:block">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</div>
+              </div>
+            </li>
+          </ul>
+          <div class="card flex flex-col gap-4 items-center justify-between">
+            <span class="text-2xl font-bold">رایگان</span>
+            <button @click="navigateTo('/register')" class="card bg-orange-700 hover:bg-orange-600 text-white pt-2 pb-1.5 px-2 text-xl rounded-xl">ثبت نام رایگان</button>
+          </div>
         </div>
-      </div>
-      <div data-wow-delay=".3s" class="wow a-fadeIn plan bg-white/10 max-w-[420px] rounded-2xl relative p-5 md:p-4 pt-7 text-center lg:col-span-2">
-        <h5 class="card text-3xl font-bold">سازمانی</h5>
-        <span class="card mt-2">نظارت و پشتیبانی ۲۴ ساعته</span>
-        <div class="card my-7 bg-white/5 p-4 rounded-xl leading-8">فرم رزرو جلسه را برای بررسی نیازمندی های سازمان خود تکمیل کرده و برای ما ارسال بکنید. کارشناسان ما به زودی با شما تماس برقرار خواهند کرد ممکن است کمی زمان ببرد از صبوری شما متشکریم</div>
-        <div class="card flex flex-col gap-4 items-center justify-between">
-          <span class="text-xl font-bold leading-relaxed">برای تنظیم جلسه،<br />روی لینک زیر کلیک کنید</span>
-          <button @click="navigateTo('/contact')" class="card bg-orange-700 hover:bg-orange-600 text-white pt-2 pb-1.5 px-2 text-xl rounded-xl">تماس با ما</button>
+        <div data-wow-delay=".6s" class="wow a-fadeIn plan bg-[#3808B1] max-w-[420px] rounded-2xl relative p-5 md:p-4 pt-10 md:pt-0 lg:col-span-2 lg:order-1 lg:col-start-2">
+          <span class="ribbon absolute md:inline-block md:static md:float-left top-0 left-5 bg-amber-600 py-1 px-3 rounded-b-xl">محبوب ترین</span>
+          <h5 class="card text-center text-3xl font-bold md:mt-5">حرفه ای</h5>
+          <span class="card text-center mt-2">مناسب شرکت ها و سایت های بزرگ</span>
+          <ul class="card my-7 bg-white/5 text-left p-4 space-y-3 rounded-xl plan-list">
+            <li class="relative flex gap-2 flex-row-reverse">
+              <span>API Access</span>
+              <div class="relative group">
+                <IconsInfo class="h-3 mb-1" />
+                <div class="tooltip group-hover:block">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</div>
+              </div>
+            </li>
+            <li class="relative flex gap-2 flex-row-reverse">
+              <span>Medium business scope</span>
+              <div class="relative group">
+                <IconsInfo class="h-3 mb-1" />
+                <div class="tooltip group-hover:block">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</div>
+              </div>
+            </li>
+            <li class="relative flex gap-2 flex-row-reverse">
+              <span>Scan behind logged in</span>
+              <div class="relative group">
+                <IconsInfo class="h-3 mb-1" />
+                <div class="tooltip group-hover:block">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</div>
+              </div>
+            </li>
+            <li class="relative flex gap-2 flex-row-reverse">
+              <span>Scan internal networks</span>
+              <div class="relative group">
+                <IconsInfo class="h-3 mb-1" />
+                <div class="tooltip group-hover:block">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</div>
+              </div>
+            </li>
+            <li class="relative flex gap-2 flex-row-reverse">
+              <span>Advanced reporting</span>
+              <div class="relative group">
+                <IconsInfo class="h-3 mb-1" />
+                <div class="tooltip group-hover:block">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</div>
+              </div>
+            </li>
+            <li class="relative flex gap-2 flex-row-reverse">
+              <span>Continuous security monitoring</span>
+              <div class="relative group">
+                <IconsInfo class="h-3 mb-1" />
+                <div class="tooltip group-hover:block">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</div>
+              </div>
+            </li>
+            <li class="relative flex gap-2 flex-row-reverse">
+              <span>Premium support</span>
+              <div class="relative group">
+                <IconsInfo class="h-3 mb-1" />
+                <div class="tooltip group-hover:block">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</div>
+              </div>
+            </li>
+          </ul>
+          <div class="card flex flex-col gap-4 items-center justify-between">
+            <span class="text-2xl font-bold">1 میلیون تومان <small class="font-normal text-lg">/ ماهانه</small></span>
+            <button @click="navigateTo('/checkout')" class="card bg-orange-700 hover:bg-orange-600 text-white pt-2 pb-1.5 px-2 text-xl rounded-xl">خرید اشتراک</button>
+          </div>
+        </div>
+        <div data-wow-delay=".3s" class="wow a-fadeIn plan bg-white/10 max-w-[420px] rounded-2xl relative p-5 md:p-4 pt-7 text-center lg:col-span-2">
+          <h5 class="card text-3xl font-bold">سازمانی</h5>
+          <span class="card mt-2">نظارت و پشتیبانی ۲۴ ساعته</span>
+          <div class="card my-7 bg-white/5 p-4 rounded-xl leading-8">فرم رزرو جلسه را برای بررسی نیازمندی های سازمان خود تکمیل کرده و برای ما ارسال بکنید. کارشناسان ما به زودی با شما تماس برقرار خواهند کرد ممکن است کمی زمان ببرد از صبوری شما متشکریم</div>
+          <div class="card flex flex-col gap-4 items-center justify-between">
+            <span class="text-xl font-bold leading-relaxed">برای تنظیم جلسه،<br />روی لینک زیر کلیک کنید</span>
+            <button @click="navigateTo('/contact')" class="card bg-orange-700 hover:bg-orange-600 text-white pt-2 pb-1.5 px-2 text-xl rounded-xl">تماس با ما</button>
+          </div>
         </div>
       </div>
     </section>
@@ -234,7 +242,7 @@ const freeScanAction = async () => {
               <strong class="wow text-5xl leading-10 lg:text-4xl" data-count-number="20.8">0</strong>
               <small class="text-3xl leading-10 lg:text-xl">k+</small>
             </div>
-            <span class="text-lg lg:text-base">رضایت مشتری</span>
+            <span class="text-lg lg:text-base">تعداد مقالات امنیتی</span>
           </div>
           <IconsLike class="h-12 lg:h-10 lg:mt-3 mt-1 opacity-60 mix-blend-plus-lighter" />
         </div>
@@ -244,7 +252,7 @@ const freeScanAction = async () => {
               <strong class="wow text-5xl leading-10 lg:text-4xl" data-count-number="5.1">0</strong>
               <small class="text-3xl leading-10 lg:text-xl">k+</small>
             </div>
-            <span class="text-lg lg:text-base">رشد فروش سایت ها</span>
+            <span class="text-lg lg:text-base">سایت اسکن شده</span>
           </div>
           <IconsChartPlus class="h-12 lg:h-10 lg:mt-3 mt-1 opacity-60 mix-blend-plus-lighter" />
         </div>
@@ -254,7 +262,7 @@ const freeScanAction = async () => {
               <strong class="wow text-5xl leading-10 lg:text-4xl" data-count-number="56">0</strong>
               <small class="text-3xl leading-10 lg:text-xl">m+</small>
             </div>
-            <span class="text-lg lg:text-base">حملات جلوگیری شده</span>
+            <span class="text-lg lg:text-base">آسیب های یافته شده</span>
           </div>
           <IconsScope class="h-12 lg:h-10 lg:mt-3 mt-1 opacity-60 mix-blend-plus-lighter" />
         </div>
@@ -273,8 +281,27 @@ const freeScanAction = async () => {
 </template>
 
 <style scoped>
-.scan-btn {
-  clip-path: polygon(0 0, calc(100% - 25px) 0, 100% 100%, 0 100%);
+.slideLeftIn {
+  animation: slideLeftIn .5s linear forwards
+}
+@keyframes slideLeftIn {
+  from {
+    max-width: 0
+  }
+  to {
+    max-width: 200px
+  }
+}
+.slideRightOut {
+  animation: slideRightOut .5s linear forwards
+}
+@keyframes slideRightOut {
+  from {
+    max-width: 200px
+  }
+  to {
+    max-width: 0
+  }
 }
 .why-item {
   background-image: linear-gradient(to bottom left, #29324160 0%, #29324140 30%, #29324110 50%, #29324140 80%, #29324160 100%);

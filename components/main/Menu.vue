@@ -21,12 +21,12 @@ const route = useRoute()
         <li v-if="route.name !== 'index'" class="md:hidden"><NuxtLink to="/">صفحه اول</NuxtLink></li>
         <li v-else class="md:hidden"><NuxtLink to="/about-us">درباره ما</NuxtLink></li>
         <li class="md:hidden"><NuxtLink to="/plans">پلن ها</NuxtLink></li>
-        <li class="md:hidden"><NuxtLink to="/faqs">سوالات متداول</NuxtLink></li>
+        <li class="md:hidden"><NuxtLink to="/faqs">منابع</NuxtLink></li>
         <li class="md:hidden"><NuxtLink to="/contact">ارتباط با ما</NuxtLink></li>
       </ul>
-      <div id="logo" class="lg:col-span-full lg:-order-1 md:order-none md:col-span-1">
+      <NuxtLink to="/" id="logo" class="lg:col-span-full lg:-order-1 md:order-none md:col-span-1">
         <InlineLogo class="block mx-auto" />
-      </div>
+      </NuxtLink>
       <div class="flex gap-4 items-center justify-end">
         <NuxtLink v-if="!(!userStore.isLoggedIn && (route.name === 'login' || route.name === 'register'))" :to="userStore.isLoggedIn? '/panel' : '/login'" class="md:hidden bg-[#293241] hover:bg-[#314058] rounded-md py-1.25 px-2.5 items-center flex gap-2">
           <IconsUser class="w-4" />
