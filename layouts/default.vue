@@ -33,16 +33,16 @@ body {
 }
 </style>
 <style scoped>
-.critical-shadow {
+.scan-scanid-page.critical-shadow {
   box-shadow: inset 0 300px 200px -200px #FF000050;
 }
-.bad-shadow {
+.scan-scanid-page.bad-shadow {
   box-shadow: inset 0 300px 200px -200px #c02a2a50;
 }
-.low-shadow {
+.scan-scanid-page.low-shadow {
   box-shadow: inset 0 300px 200px -200px #CE3B0B50;
 }
-.good-shadow {
+.scan-scanid-page.good-shadow {
   box-shadow: inset 0 300px 200px -200px #FDC82350;
 }
 .blurred-container-lights, .blurred-lights {
