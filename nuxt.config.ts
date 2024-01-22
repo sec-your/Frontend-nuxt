@@ -17,7 +17,13 @@ export default defineNuxtConfig({
     }
   },
 
-  modules: ['@pinia/nuxt'],
+  modules: ['@pinia/nuxt', '@nuxtjs/color-mode'],
+
+  colorMode: {
+          preference: 'light',
+          fallback: 'light',
+          classSuffix: ''
+  },
 
   plugins: [
       '~/plugins/click-outside.js',

@@ -1,4 +1,12 @@
 <script setup>
+definePageMeta({
+    middleware: 'guest'
+})
+
+useHead({
+    title: 'ورود به حساب'
+})
+
 const email = ref('')
 const password = ref('')
 const inputsError = ref({
@@ -12,17 +20,15 @@ watch(email, () => inputsError.value.email = validate('ایمیل', email.value,
 watch(password,() => inputsError.value.password = validate('رمز عبور', password.value, 'unload|min:8|max:40'))
 
 
-const login = () => {
+const login = async () => {
   isProcessing.value = true
-  setTimeout(()=>{
-    if (Object.values(inputsError.value).some(i => i !== null))
+  if (Object.values(inputsError.value).some(i => i !== null))
       useCompactAlertError('login-request', Object.values(inputsError.value).find(i=>i?.length))
     else {
       useCompactAlertSuccess('login-request', 'شما با موفقیت وارد شدید.')
-      return navigateTo('/panel')
+      return await navigateTo('/panel')
     }
     isProcessing.value =false
-  }, 2000)
 }
 </script>
 
@@ -34,7 +40,8 @@ const login = () => {
         <div class="card flex flex-col gap-5">
           <MainFormControl v-model="email" dir="ltr" type="email" label="ایمیل" icon="IconsMail" :status="inputsError.email" />
           <MainFormControl v-model="password" dir="ltr" type="password" label="رمز عبور" icon="IconsLock" :status="inputsError.password" />
-          <div class="card mt-3 grid grid-cols-2 gap-4 xs:grid-cols-1">
+          <NuxtLink to="/forget-password" class="text-sm text-sky-400 hover:text-sky-500">رمز عبورتان را گم کرده اید؟</NuxtLink>
+          <div class="card grid grid-cols-2 gap-4 xs:grid-cols-1">
             <button @click.prevent="navigateTo('/register')" class="rounded-full bg-white/10 hover:bg-white/20 shadow py-2.5 px-4">ایجاد حساب</button>
             <button :disabled="disableStatus" @click.prevent="login()" class="xs:-order-1 disabled:opacity-80 rounded-full bg-sky-600 disabled:bg-sky-700 hover:bg-sky-700 shadow shadow-sky-600/30 py-2.5 px-4">
               <IconsSpin v-if="isProcessing" class="h-5" />

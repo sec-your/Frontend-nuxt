@@ -66,6 +66,8 @@ body {
   display: block;
 }
 .login-page .blurred-lights > div::before,
+.forget-password-page .blurred-lights > div::before,
+.recovery-token-page .blurred-lights > div::before,
 .register-page .blurred-lights > div::before {
   content: "";
   width: 100vw;

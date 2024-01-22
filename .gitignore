@@ -5,6 +5,7 @@
 .nitro
 .cache
 dist
+.editorconfig
 
 # Node dependencies
 node_modules

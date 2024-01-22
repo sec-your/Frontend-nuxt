@@ -27,7 +27,7 @@ const freeScanAction = async () => {
         <h3 class="text-1.5xl lg:text-lg font-bold text-[#eee] mt-4">امنیت سایت، یک مزیت نیست بلکه <span class="text-[#C83C3C]">اولویت</span> است</h3>
         <span class="text-[#ccc] max-w-[450px] leading-relaxed mt-6">سکیور می تواند روند تست امنیت سایت و سرور شما را بسیار ساده کند و به راحتی ارزیابی امنیتی و اسکن آسیب پذیری را انجام دهید. این سرویس به شما کمک می کند تا مراحل جمع آوری اطلاعات ، اسکن وب سایت ، اسکن سرور را به صورت آنلاین انجام داده و گزارش آن را دریافت کنید.</span>
         <div :class="['mt-10 flex lg:justify-center xs:flex-col xs:items-center xs:gap-8', isFreeScanOpen? 'gap-0' : 'gap-7 sm:gap-3']">
-          <a :class="['overflow-hidden xs:!animate-none', isFreeScanOpen? 'slideRightOut' : 'slideLeftIn']" href="/" style="filter:drop-shadow(0 5px 15px #3808B1C5)">
+          <a :class="['overflow-hidden xs:!animate-none duration-300', isFreeScanOpen? 'slideRightOut' : 'slideLeftIn']" href="/" style="filter:drop-shadow(0 5px 15px #3808B1C5)">
             <div style="width:150px" class="flex items-center gap-3 py-1.5 justify-center rounded-full bg-[#3808B1] hover:bg-[#3307a3]">
               <svg class="inline h-5" viewBox="0 0 37 46" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M18.1797 44.2076C18.2997 44.2723 18.4068 44.3291 18.5 44.3779C18.5932 44.3291 18.7003 44.2723 18.8203 44.2076C19.3116 43.9427 20.0177 43.5461 20.8668 43.0239C22.5673 41.9784 24.8307 40.4363 27.0895 38.4492C31.6391 34.4468 36 28.7924 36 21.875V4.32855L18.5 1.01774L1 4.32855V21.875C1 28.7924 5.36091 34.4468 9.91051 38.4492C12.1693 40.4363 14.4327 41.9784 16.1332 43.0239C16.9823 43.5461 17.6884 43.9427 18.1797 44.2076Z" stroke="currentColor" stroke-width="3"/>
@@ -36,7 +36,7 @@ const freeScanAction = async () => {
               <div class="mt-0.5">اسکن پیشرفته</div>
             </div>
           </a>
-          <div class="flex" @click="isFreeScanOpen = true" v-click-outside="() => { if(isFreeScanOpen) isFreeScanOpen = false; }">
+          <div class="flex duration-300" @click="isFreeScanOpen = true" v-click-outside="() => { if(isFreeScanOpen) isFreeScanOpen = false; }">
             <div class="cursor-pointer flex items-center px-4 py-1.5 rounded-full bg-[#B13B08] hover:bg-[#a74217] shadow-lg shadow-[#B13B0855]">
               <IconsSearchBug v-if="isFreeScanOpen" @click="freeScanAction()" class="h-5" style="transform:rotateY(180deg)" />
               <svg v-else class="inline h-5" viewBox="0 0 37 46" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -282,7 +282,7 @@ const freeScanAction = async () => {
 
 <style scoped>
 .slideLeftIn {
-  animation: slideLeftIn .5s linear forwards
+  animation: slideLeftIn .3s linear forwards
 }
 @keyframes slideLeftIn {
   from {
@@ -293,7 +293,7 @@ const freeScanAction = async () => {
   }
 }
 .slideRightOut {
-  animation: slideRightOut .5s linear forwards
+  animation: slideRightOut .3s linear forwards
 }
 @keyframes slideRightOut {
   from {

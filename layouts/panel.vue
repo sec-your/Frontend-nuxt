@@ -1,8 +1,7 @@
 <script setup>
 useHead({
   title: 'پنل کاربری',
-  script: [{children: 'let themeMode="localStorage"in window&&localStorage?.theme?localStorage.theme:"cookie"in document&&useCookie().check("theme")?useCookie().get("theme"):null;"dark"===themeMode||(null===themeMode&&window.matchMedia("(prefers-color-scheme: dark)").matches)?document.documentElement.classList.add("dark"):document.documentElement.classList.remove("dark");'}]
-});
+})
 const route = useRoute()
 </script>
 
@@ -19,7 +18,7 @@ const route = useRoute()
     <Alerts class="left-7" />
   </div>
 </template>
-<style>
+<style lang="postcss">
 body {
   background: #232E3C;
 }
