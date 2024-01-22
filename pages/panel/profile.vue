@@ -24,6 +24,7 @@ const changeAvatar = ({ target }) => {
       image.onload = () => {
         if (image.width === 150 && image.height === 150) {
           avatarPreview.value = e.target.result
+          avatar.value = target.files[0]
         } else {
           useAlertError('avatar-change', 'خطا در تغییر آواتار', 'آواتار باید 150 در 150 باشد.')
         }

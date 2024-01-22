@@ -2,12 +2,12 @@ import { defineStore } from "pinia";
 
 export const useUserStore = defineStore('user', ()=>{
     const info = ref({
-        id: 1,
-        token: 'dsfdabebr6456132',
-        email: 'info@aliranjbar.ir',
-        phone: '09145296650',
-        displayName: 'علی رنجبر جلودار',
-        isPhoneVerified: true,
+        id: 0,
+        token: '',
+        email: '',
+        phone: '',
+        displayName: '',
+        isPhoneVerified: false,
         type: 'free'
     })
     const getUser = async (token, toast = false) => {
@@ -24,6 +24,6 @@ export const useUserStore = defineStore('user', ()=>{
             if(toast) useAlertError(error.message, { time: 4 })
         })
     }
-    const isLoggedIn = computed(() => info.value?.id && info.value?.username && info.value?.username.length >= 3)
+    const isLoggedIn = computed(() => info.value?.id && info.value?.email && info.value?.email.length >= 3)
     return { info, isLoggedIn, getUser }
 });

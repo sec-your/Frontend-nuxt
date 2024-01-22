@@ -1,11 +1,18 @@
 <script setup>
+definePageMeta({
+    middleware: 'guest'
+})
+useHead({
+    title: 'ایجاد حساب'
+})
 const email = ref('')
 const name = ref('')
 const phone = ref('')
 const password = ref('')
 const confirmPassword = ref('')
+const acceptTerms = ref(false)
 const isProcessing = ref(false)
-const disableStatus = computed(() => isProcessing.value || Object.values(inputsError.value).some(i => i === ''))
+const disableStatus = computed(() => !acceptTerms.value || isProcessing.value || Object.values(inputsError.value).some(i => i === ''))
 const inputsError = ref({
   email: '',
   name: '',
@@ -49,7 +56,10 @@ const register = () => {
           <MainFormControl v-model="phone" dir="ltr" type="tel" label="شماره همراه" icon="IconsTelephone" :status="inputsError.phone" />
           <MainFormControl v-model="password" dir="ltr" type="password" label="رمز عبور" icon="IconsLock" :status="inputsError.password" />
           <MainFormControl v-model="confirmPassword" dir="ltr" type="password" label="تایید رمز عبور" icon="IconsLock" :status="inputsError.confirmPassword" />
-          <div class="card mt-3 grid grid-cols-2 gap-4 xs:grid-cols-1">
+          <label class="select-none">
+            <input class="ml-2" type="checkbox" v-model="acceptTerms" /> <NuxtLink to="/terms" class="text-sky-400 hover:text-sky-500">قوانین و مقررات</NuxtLink> را می پذیرم.
+          </label>
+          <div class="card grid grid-cols-2 gap-4 xs:grid-cols-1">
             <button @click.prevent="navigateTo('/login')" class="rounded-full bg-white/10 hover:bg-white/20 shadow py-2.5 px-4">ورود به پنل</button>
             <button :disabled="disableStatus" @click.prevent="register()" class="xs:-order-1 disabled:opacity-80 rounded-full bg-sky-600 disabled:bg-sky-700 hover:bg-sky-700 shadow shadow-sky-600/30 py-2.5 px-4">
               <IconsSpin v-if="isProcessing" class="h-5" />

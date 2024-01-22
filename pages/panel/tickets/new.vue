@@ -14,28 +14,28 @@ const tickets = [
     subject: 'مشکل فنی',
     updatedDate: '10 دقیقه قبل',
     createdDate: '26 شهریور 1402 - 10:23',
-    statusCode: 1, // 0: Closed, 1: pending..., 2: answered
+    status: 1, // 0: Closed, 1: pending..., 2: answered
   },{
     id: '#1894533',
     title: 'اطلاعات اشتباه در مورد سایت',
     subject: 'مشکل سایت',
     updatedDate: '5 ساعت قبل',
     createdDate: '26 شهریور 1402 - 10:23',
-    statusCode: 0, // 0: Closed, 1: pending..., 2: answered
+    status: 0, // 0: Closed, 1: pending..., 2: answered
   },{
     id: '#2329513',
     title: 'کار نکردن دکمه تغییر در صفحه پروفایل',
     subject: 'گزارش اشتباه',
     updatedDate: '1 روز قبل',
     createdDate: '26 شهریور 1402 - 10:23',
-    statusCode: 2, // 0: Closed, 1: pending..., 2: answered
+    status: 2, // 0: Closed, 1: pending..., 2: answered
   },{
     id: '#1956312',
     title: 'اسکن نکردن سایت در پنل کاربری',
     subject: 'سایر',
     updatedDate: '10 دقیقه قبل',
     createdDate: '26 شهریور 1402 - 10:23',
-    statusCode: 1, // 0: Closed, 1: pending..., 2: answered
+    status: 1, // 0: Closed, 1: pending..., 2: answered
   },
   {
     id: '#1956312',
@@ -43,28 +43,28 @@ const tickets = [
     subject: 'مشکل فنی',
     updatedDate: '10 دقیقه قبل',
     createdDate: '26 شهریور 1402 - 10:23',
-    statusCode: 1, // 0: Closed, 1: pending..., 2: answered
+    status: 1, // 0: Closed, 1: pending..., 2: answered
   },{
     id: '#1894533',
     title: 'اطلاعات اشتباه در مورد سایت',
     subject: 'مشکل سایت',
     updatedDate: '5 ساعت قبل',
     createdDate: '26 شهریور 1402 - 10:23',
-    statusCode: 0, // 0: Closed, 1: pending..., 2: answered
+    status: 0, // 0: Closed, 1: pending..., 2: answered
   },{
     id: '#2329513',
     title: 'کار نکردن دکمه تغییر در صفحه پروفایل',
     subject: 'گزارش اشتباه',
     updatedDate: '1 روز قبل',
     createdDate: '26 شهریور 1402 - 10:23',
-    statusCode: 2, // 0: Closed, 1: pending..., 2: answered
+    status: 2, // 0: Closed, 1: pending..., 2: answered
   },{
     id: '#1956312',
     title: 'اسکن نکردن سایت در پنل کاربری',
     subject: 'سایر',
     updatedDate: '10 دقیقه قبل',
     createdDate: '26 شهریور 1402 - 10:23',
-    statusCode: 1, // 0: Closed, 1: pending..., 2: answered
+    status: 1, // 0: Closed, 1: pending..., 2: answered
   },
 ]
 let isLoading = ref(false)
@@ -92,7 +92,7 @@ let isLoading = ref(false)
             <div class="w-28 h-6 rounded-full isLoading"></div>
           </div>
         </div>
-        <NuxtLink v-else v-for="ticket in tickets" :to="`/panel/tickets/${ticket.id.substring(1)}`" class="group relative hover:z-[2] hover:shadow hover:shadow-blue-200/40 dark:hover:shadow-blue-300/40 hover:bg-blue-200/10 dark:hover:bg-blue-300/10 text-sm grid grid-cols-[5rem_auto_10rem_10rem] gap-3 bg-white dark:bg-gray-700 p-2">
+        <NuxtLink v-else v-for="ticket in tickets" :to="`/tickets/${ticket.id.substring(1)}`" class="group relative hover:z-[2] hover:shadow hover:shadow-blue-200/40 dark:hover:shadow-blue-300/40 hover:bg-blue-200/10 dark:hover:bg-blue-300/10 text-sm grid grid-cols-[5rem_auto_10rem_10rem] gap-3 bg-white dark:bg-gray-700 p-2">
           <div class="relative grid place-items-center overflow-hidden">
             <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-6xl rotate-12 mt-2 select-none pointer-events-none text-gray-500/10 font-bold">#</span>
             <span class="relative z-[1] text-sky-600 dark:text-sky-300">{{ ticket.id }}</span>
@@ -102,7 +102,7 @@ let isLoading = ref(false)
             <span class="text-xs text-gray-400">{{ ticket.subject }}</span>
           </div>
           <div class="flex items-center justify-center">
-            <div :class="['pt-0.5 pb-1 px-3 lg:p-0 lg:!bg-transparent rounded-full', ticket.statusCode == 2? 'bg-green-200 dark:bg-green-700/40  text-green-800 dark:text-green-300' : ticket.statusCode == 1 ? 'bg-yellow-200 dark:bg-yellow-700/40  text-yellow-800 dark:text-yellow-300' : 'bg-gray-200 dark:bg-gray-800  text-gray-800 dark:text-gray-300']">{{ {0: 'بسته شده', 1: 'در انتظار پاسخ', 2: 'پاسخ داده شده'}[ticket.statusCode] }}</div>  
+            <div :class="['pt-0.5 pb-1 px-3 rounded-full', ticket.status == 2? 'bg-green-200 dark:bg-green-700/40  text-green-800 dark:text-green-300' : ticket.status == 1 ? 'bg-yellow-200 dark:bg-yellow-700/40  text-yellow-800 dark:text-yellow-300' : 'bg-gray-200 dark:bg-gray-800  text-gray-800 dark:text-gray-300']">{{ {0: 'بسته شده', 1: 'در انتظار پاسخ', 2: 'پاسخ داده شده'}[ticket.status] }}</div>  
           </div>
           <div class="flex justify-center flex-col gap-1">
             <div><IconsTime class="h-2.5 text-gray-500 ml-1" />{{ ticket.updatedDate }}</div>

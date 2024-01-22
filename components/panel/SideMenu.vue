@@ -8,21 +8,6 @@ useListen('toggle-panel-sidebar', function () {
 const closeSidebar = (event) => {
   if (isOpen.value && !event.target.classList.contains('toggle-panel-sidebar')) isOpen.value = false
 }
-
-let isDarkMode = ref(document.documentElement.classList.contains('dark'))
-const toggleDarkMode = () => {
-  if (document.documentElement.classList.contains('dark')) {
-    if ('localStorage' in window) localStorage.setItem('theme', 'light')
-    else if ('cookie' in document) useCookie().set('theme', 'light', 30000)
-    document.documentElement.classList.remove('dark')
-    isDarkMode.value = false
-  } else {
-    if ('localStorage' in window) localStorage.setItem('theme', 'dark')
-    else if ('cookie' in document) useCookie().set('theme', 'dark', 30000)
-    document.documentElement.classList.add('dark')
-    isDarkMode.value = true
-  }
-}
 </script>
 
 <template>
@@ -73,8 +58,8 @@ const toggleDarkMode = () => {
           <div class="link py-0 mt-2">
             <IconsMoon class="w-4" />
             <span class="mt-1">حالت شب</span>
-            <div @click="toggleDarkMode" :class="['h-6 w-10 rounded-full mr-auto relative overflow-hidden transition',  isDarkMode? 'bg-gray-200' : 'bg-gray-400']">
-              <div :class="['w-4 h-4 rounded-full absolute drop-shadow top-1  transition', isDarkMode? 'right-1 bg-[#232E3C]' : 'left-1 bg-white']"></div>
+            <div @click="$colorMode.preference = $colorMode.preference === 'dark'? 'light' : 'dark'" :class="['h-6 w-10 rounded-full mr-auto relative overflow-hidden transition',  $colorMode.preference === 'dark'? 'bg-gray-200' : 'bg-gray-400']">
+              <div :class="['w-4 h-4 rounded-full absolute drop-shadow top-1  transition', $colorMode.preference === 'dark'? 'right-1 bg-[#232E3C]' : 'left-1 bg-white']"></div>
             </div>
           </div>
         </div>
@@ -86,7 +71,7 @@ const toggleDarkMode = () => {
   </div>
 </template>
 
-<style scoped>
+<style lang="postcss" scoped>
 .link {
   @apply w-full text-[#BABABA] flex gap-3.5 items-center py-1.5 px-5 hover:text-white transition-none
 }

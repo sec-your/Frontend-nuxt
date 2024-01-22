@@ -27,11 +27,11 @@ import { useUserStore } from '@/stores/user';
 const userStore = useUserStore()
 
 onBeforeMount(()=> {
-  if ('localStorage' in window) {
+  if (window && 'localStorage' in window) {
     let storedToken = window.localStorage.getItem('storedToken')
     if (storedToken) userStore.getUser(storedToken, true)
   }
-  else if ('cookie' in document && useCookie().check('storedToken')) {
+  else if (document && 'cookie' in document && useCookie().check('storedToken')) {
     userStore.getUser(useCookie().get('storedToken'), true)
   }
 })
