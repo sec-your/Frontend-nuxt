@@ -4,70 +4,33 @@ definePageMeta({
   layout: 'panel'
 })
 
-const page = ref(50)
-const count = ref(58)
+const page = ref(1)
+const count = ref(1)
 
-const tickets = [
-{
-    id: '#1956312',
-    title: 'اسکن نکردن سایت در پنل کاربری',
-    subject: 'مشکل فنی',
-    updatedDate: '10 دقیقه قبل',
-    createdDate: '26 شهریور 1402 - 10:23',
-    statusCode: 1, // 0: Closed, 1: pending..., 2: answered
-  },{
-    id: '#1894533',
-    title: 'اطلاعات اشتباه در مورد سایت',
-    subject: 'مشکل سایت',
-    updatedDate: '5 ساعت قبل',
-    createdDate: '26 شهریور 1402 - 10:23',
-    statusCode: 0, // 0: Closed, 1: pending..., 2: answered
-  },{
-    id: '#2329513',
-    title: 'کار نکردن دکمه تغییر در صفحه پروفایل',
-    subject: 'گزارش اشتباه',
-    updatedDate: '1 روز قبل',
-    createdDate: '26 شهریور 1402 - 10:23',
-    statusCode: 2, // 0: Closed, 1: pending..., 2: answered
-  },{
-    id: '#1956312',
-    title: 'اسکن نکردن سایت در پنل کاربری',
-    subject: 'سایر',
-    updatedDate: '10 دقیقه قبل',
-    createdDate: '26 شهریور 1402 - 10:23',
-    statusCode: 1, // 0: Closed, 1: pending..., 2: answered
-  },
-  {
-    id: '#1956312',
-    title: 'اسکن نکردن سایت در پنل کاربری',
-    subject: 'مشکل فنی',
-    updatedDate: '10 دقیقه قبل',
-    createdDate: '26 شهریور 1402 - 10:23',
-    statusCode: 1, // 0: Closed, 1: pending..., 2: answered
-  },{
-    id: '#1894533',
-    title: 'اطلاعات اشتباه در مورد سایت',
-    subject: 'مشکل سایت',
-    updatedDate: '5 ساعت قبل',
-    createdDate: '26 شهریور 1402 - 10:23',
-    statusCode: 0, // 0: Closed, 1: pending..., 2: answered
-  },{
-    id: '#2329513',
-    title: 'کار نکردن دکمه تغییر در صفحه پروفایل',
-    subject: 'گزارش اشتباه',
-    updatedDate: '1 روز قبل',
-    createdDate: '26 شهریور 1402 - 10:23',
-    statusCode: 2, // 0: Closed, 1: pending..., 2: answered
-  },{
-    id: '#1956312',
-    title: 'اسکن نکردن سایت در پنل کاربری',
-    subject: 'سایر',
-    updatedDate: '10 دقیقه قبل',
-    createdDate: '26 شهریور 1402 - 10:23',
-    statusCode: 1, // 0: Closed, 1: pending..., 2: answered
-  },
-]
+const tickets = ref([])
+
 let isLoading = ref(false)
+
+const getTickets = async () => {
+    isLoading.value = true
+    await useUserApiFetch().get('/tickets-list', {
+        params: {
+            page: page.value
+        }
+    }).then(({ data }) => {
+        count.value = data.pageCount
+        tickets.value = data.tickets
+    }).catch((error) => {
+        count.value = 0
+        tickets.value = []
+        useCompactAlertError('get-ticket', getErrorMessage(error))
+    })
+    isLoading.value = false
+    return false
+}
+
+onMounted(()=> getTickets())
+watch(page, async () => await getTickets())
 </script>
 
 <template>
@@ -98,7 +61,7 @@ let isLoading = ref(false)
             <span class="relative z-[1] text-sky-600 dark:text-sky-300">{{ ticket.id }}</span>
           </div>
           <div class="flex flex-col gap-1">
-            <div class="group-hover:text-sky-700 dark:group-hover:text-sky-300">{{ ticket.title }}</div>
+            <span :class="{'text-gray-600 group-hover:text-sky-700 dark:group-hover:text-sky-300': true, 'font-bold': ticket.readDate}">{{ ticket.title }}</span>
             <span class="text-xs text-gray-400">{{ ticket.subject }}</span>
           </div>
           <div class="flex items-center justify-center">

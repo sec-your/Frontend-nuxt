@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 export const useApiFetch = () => {
   return axios.create({
     baseURL: "/api/",

@@ -26,14 +26,11 @@ import { useUserStore } from '@/stores/user';
 
 const userStore = useUserStore()
 
-onBeforeMount(()=> {
-  if (window && 'localStorage' in window) {
-    let storedToken = window.localStorage.getItem('storedToken')
-    if (storedToken) userStore.getUser(storedToken, true)
-  }
-  else if (document && 'cookie' in document && useCookie().check('storedToken')) {
-    userStore.getUser(useCookie().get('storedToken'), true)
-  }
+onBeforeMount(async ()=> {
+    if (!userStore.isLoggedIn) {
+        let storedToken = useLocalStorage.getItem('storedToken')
+        if (storedToken) await userStore.getUser(storedToken)
+    }
 })
   useHead({
     titleTemplate: (title) => title? `سکیور - ${title}` : 'سکیور'

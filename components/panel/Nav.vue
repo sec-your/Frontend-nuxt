@@ -36,8 +36,11 @@ const notificationCount = ref(5)
 
 let isProfileDropDownOpen = ref(false)
 
-const logout = () => {
-  return navigateTo('/')
+const userStore = useUserStore()
+
+const logout = async () => {
+    await userStore.logout()
+    return navigateTo('/')
 }
 const toggleSideBar = () => useEvent( 'toggle-panel-sidebar')
 </script>

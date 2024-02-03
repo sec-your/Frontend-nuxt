@@ -7,6 +7,9 @@ useHead({
     title: 'ورود به حساب'
 })
 
+const route = useRoute()
+const userStore = useUserStore()
+
 const email = ref('')
 const password = ref('')
 const inputsError = ref({
@@ -25,10 +28,15 @@ const login = async () => {
   if (Object.values(inputsError.value).some(i => i !== null))
       useCompactAlertError('login-request', Object.values(inputsError.value).find(i=>i?.length))
     else {
-      useCompactAlertSuccess('login-request', 'شما با موفقیت وارد شدید.')
-      return await navigateTo('/panel')
+        let result = await userStore.login(email.value, password.value)
+        if (result.status == 'ok') {
+            useCompactAlertSuccess('login-request', 'شما با موفقیت وارد شدید.')
+            return await navigateTo(route.query?.redirect? route.query.redirect : '/panel')
+        }
+        useCompactAlertError('login-request', result.message)
     }
-    isProcessing.value =false
+    isProcessing.value = false
+    return false
 }
 </script>
 

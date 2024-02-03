@@ -11,7 +11,7 @@ const changePage = (x) => {
 </script>
 
 <template>
-<div class="flex flex-wrap justify-center items-center gap-2 text-sm" dir="ltr">
+<div v-if="count" class="flex flex-wrap justify-center items-center gap-2 text-sm select-none" dir="ltr">
   <template v-if="props.modelValue > 1">
     <div class="link" @click="changePage(props.modelValue - 1)">{{ '<' }}</div>
     <div class="link" @click="changePage(1)">1</div>

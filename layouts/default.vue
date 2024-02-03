@@ -1,4 +1,7 @@
 <script setup>
+if (process.client) {
+    document.body.style.background = '#00171F'
+}
 useHead({
   script: [{ src: '/js/wow.min.js' }],
 });
@@ -7,6 +10,7 @@ useListen('change-body-class', function (className) {
   bodyClass.value = className
 })
 const route = useRoute()
+
 </script>
 
 <template>
@@ -18,7 +22,7 @@ const route = useRoute()
     </div>
     <div class="blurred-container-lights"></div>
     <MainMenu />
-    <div class="card mb-40">
+    <div class="card mb-40 overflow-hidden">
       <NuxtPage />
     </div>
     <MainFooter />
@@ -27,11 +31,6 @@ const route = useRoute()
   </div>
 </template>
 
-<style>
-body {
-  background-color: #00171F;
-}
-</style>
 <style scoped>
 .scan-scanid-page.critical-shadow {
   box-shadow: inset 0 300px 200px -200px #FF000050;

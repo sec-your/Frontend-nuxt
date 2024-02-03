@@ -1,4 +1,7 @@
 <script setup>
+if (process.client) {
+    document.body.style.background = '#232E3C'
+}
 useHead({
   title: 'پنل کاربری',
 })
@@ -19,9 +22,6 @@ const route = useRoute()
   </div>
 </template>
 <style lang="postcss">
-body {
-  background: #232E3C;
-}
 .page-title {
   @apply relative z-0 font-bold text-2xl
 }
