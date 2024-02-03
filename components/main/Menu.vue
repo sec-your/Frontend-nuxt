@@ -3,11 +3,12 @@ import InlineLogo from "~/components/InlineLogo.vue";
 
 const userStore = useUserStore()
 let isScrolled = ref(process.client && window.innerWidth <= 780 && window.scrollY > 5)
-
-if (process.client){
-  window.addEventListener('scroll', function () {
-    isScrolled.value = window.innerWidth <= 780 && window.scrollY > 5
-  })
+if (process.client) {
+    const scrolState = () => {
+        isScrolled.value = window.innerWidth <= 780 && window.scrollY > 5
+    }
+    window.addEventListener('resize', scrolState)
+    window.addEventListener('scroll', scrolState)
 }
 
 const route = useRoute()
@@ -18,11 +19,11 @@ const route = useRoute()
     <div class="container grid items-center gap-1 grid-cols-1-auto-1 lg:grid-cols-auto-auto lg:gap-y-5 md:grid-cols-1-auto-1 wow a-fadeIn">
       <ul class="flex gap-8 drop-shadow-sm xl:gap-6">
         <li @click="useEvent('sidebar-menu')" id="toggle-sidebar" class="hidden md:block"><IconsList class="w-7 text-white" /></li>
-        <li v-if="route.name !== 'index'" class="md:hidden"><NuxtLink to="/">صفحه اول</NuxtLink></li>
-        <li v-else class="md:hidden"><NuxtLink to="/about-us">درباره ما</NuxtLink></li>
-        <li class="md:hidden"><NuxtLink to="/plans">پلن ها</NuxtLink></li>
-        <li class="md:hidden"><NuxtLink to="/faqs">منابع</NuxtLink></li>
-        <li class="md:hidden"><NuxtLink to="/contact">ارتباط با ما</NuxtLink></li>
+        <li class="menu-link md:hidden"><NuxtLink to="/">صفحه اول</NuxtLink></li>
+        <li class="menu-link md:hidden"><NuxtLink to="/about-us">درباره ما</NuxtLink></li>
+        <li class="md:hidden"><NuxtLink to="/#plans">پلن ها</NuxtLink></li>
+        <li class="menu-link md:hidden"><NuxtLink to="/references">منابع</NuxtLink></li>
+        <li class="menu-link md:hidden"><NuxtLink to="/contact">ارتباط با ما</NuxtLink></li>
       </ul>
       <NuxtLink to="/" id="logo" class="lg:col-span-full lg:-order-1 md:order-none md:col-span-1">
         <InlineLogo class="block mx-auto" />
@@ -32,9 +33,9 @@ const route = useRoute()
           <IconsUser class="w-4" />
           <span class="text-sm">{{ userStore.isLoggedIn? 'پنل کاربری' : 'ورود / ثبت نام' }}</span>
         </NuxtLink>
-        <NuxtLink to="/i-am-hacked" class="xs:hidden bg-[#C02A2A] hover:bg-[#bb0202] rounded-md py-1.25 px-2.5 items-center flex gap-2">
-          <IconsGoal class="w-4" />
-          <span class="text-sm">من هک شده ام</span>
+        <NuxtLink to="/contact" class="xs:hidden bg-[#C02A2A] hover:bg-[#bb0202] rounded-md py-1.25 px-2.5 items-center flex gap-2">
+          <IconsHeadphone class="w-4" />
+          <span class="text-sm">مشاوره اورژانسی</span>
         </NuxtLink>
         <a href="tel:09145296650" class="hidden xs:block"><IconsTelephone class="w-5 hover:text-[#4FDFFF]" /></a>
       </div>
@@ -42,8 +43,11 @@ const route = useRoute()
   </nav>
 </template>
 
-<style scoped>
+<style lang="postcss" scoped>
 li:hover {
   @apply text-[#4FDFFF]
+}
+.menu-link:has(.router-link-exact-active) {
+    @apply hidden
 }
 </style>

@@ -85,7 +85,7 @@ let isLoading = ref(false)
               <span :title="scan.rate >= 90? 'عالی' : (scan.rate >= 70? 'خوب' : (scan.rate >= 50? 'متوسط' : (scan.rate >= 30? 'بد' : 'خیلی بد')))" :class="['inline-block rounded-xl px-3.5 pt-1 xs:px-0 xs:!bg-transparent', (70 <= scan.rate) ? 'bg-green-200 text-green-700 dark:bg-green-600/70 dark:text-green-200' : ((50 <= scan.rate) ? 'bg-yellow-200 text-yellow-700 dark:bg-yellow-600/70 dark:text-yellow-200' : 'bg-red-200 text-red-700 dark:bg-red-700/70 dark:text-red-200')]">{{ scan.rate }}/100</span>
             </td>
             <td class="p-2">
-              <NuxtLink class="!text-sky-600 hover:!text-sky-700 dark:!text-sky-200 dark:hover:!text-sky-300 md:flex md:justify-center" :to="`/panel/scan/${scan.uuid}`">
+              <NuxtLink :to="`/scan/${scan.uuid}`" target="_blank" class="!text-sky-600 hover:!text-sky-700 dark:!text-sky-200 dark:hover:!text-sky-300 md:flex md:justify-center">
                 <span class="md:hidden">مشاهده نتیجه</span>
                 <IconsEye class="w-4 hidden md:block" />
               </NuxtLink>

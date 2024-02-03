@@ -1,7 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
 
-  devtools: { enabled: true },
+  devtools: { 
+    enabled: true,
+    timeline: {
+        enabled: false,
+      }
+    },
   components: {
     global: true,
     dirs: ['~/components','~/components/icons']
@@ -27,6 +32,7 @@ export default defineNuxtConfig({
 
   plugins: [
       '~/plugins/click-outside.js',
+      '~/plugins/re-captcha.js',
   ],
 
   app: {

@@ -1,29 +1,62 @@
 import { defineStore } from "pinia";
 
+const defaultUserObject = {
+    id: 0,
+    token: '',
+    email: '',
+    phone: '',
+    displayName: '',
+    isPhoneVerified: false,
+    type: 'free',
+    avatar: '',
+    money: 0
+}
+
 export const useUserStore = defineStore('user', ()=>{
-    const info = ref({
-        id: 0,
-        token: '',
-        email: '',
-        phone: '',
-        displayName: '',
-        isPhoneVerified: false,
-        type: 'free'
-    })
-    const getUser = async (token, toast = false) => {
+    
+    // Base Information
+    const info = ref({...defaultUserObject})
+
+    // Logout request
+    const logout = async () => {
+        if (!info.value?.token) return false
+        await useUserApiFetch().post('/logout')
+        info.value = {...defaultUserObject}
+    }
+
+
+    // Login to get data and token
+    const login = async (email, password) => {
+        let result = null
+        await useApiFetch().post('/login', {email, password}).then(({ data }) => {
+            info.value = {...data}
+            useLocalStorage.setItem('storedToken', data.token)
+            result = { status: 'ok' }
+        }).catch((error) => {
+            useLocalStorage.removeItem('storedToken')
+            result = { status: 'error', message: getErrorMessage(error) }
+        })
+        return result
+    }
+
+
+    // Get user from token
+    const getUser = async (token) => {
         await useApiFetch().post('/user', {}, {
             headers: {
                 'Authorization' : 'Bearer ' + token
             }
         }).then(({ data }) => {
             info.value = {token, ...data}
-            localStorage.setItem('storedToken', token)
-            if(toast) useAlertSuccess('با موفقیت وارد شدید', { time: 4 })
-        }).catch(error => {
-            localStorage.removeItem('storedToken')
-            if(toast) useAlertError(error.message, { time: 4 })
+            useLocalStorage.setItem('storedToken', token)
+        }).catch((error) => {
+            useLocalStorage.removeItem('storedToken')
+            if(toast) useAlertError('get-user-from-token', getErrorMessage(error), { time: 4 })
         })
     }
-    const isLoggedIn = computed(() => info.value?.id && info.value?.email && info.value?.email.length >= 3)
-    return { info, isLoggedIn, getUser }
+
+
+    const isLoggedIn = computed(() => info.value?.id && info.value?.email && info.value?.token)
+
+    return { info, isLoggedIn, getUser, login, logout }
 });
