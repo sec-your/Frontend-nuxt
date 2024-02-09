@@ -5,9 +5,11 @@
 .nitro
 .cache
 dist
+.editorconfig
 
 # Node dependencies
 node_modules
+package-lock.json
 
 # Logs
 logs

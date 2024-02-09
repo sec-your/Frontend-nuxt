@@ -1,17 +1,48 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
 
-  devtools: { enabled: true },
+  devtools: { 
+    enabled: true,
+    timeline: {
+        enabled: false,
+      }
+    },
+  components: {
+    global: true,
+    dirs: ['~/components','~/components/icons']
+  },
 
   alias: {
     "@": "/"+__dirname,
   },
 
-  modules: ['@pinia/nuxt'],
+  runtimeConfig: {
+    public: {
+      SITE_URL: process.env.SITE_URL
+    }
+  },
+
+  modules: ['@pinia/nuxt', '@nuxtjs/color-mode'],
+
+  colorMode: {
+          preference: 'light',
+          fallback: 'light',
+          classSuffix: ''
+  },
+
+  plugins: [
+      '~/plugins/click-outside.js',
+      '~/plugins/re-captcha.js',
+  ],
 
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
-    layoutTransition: { name: 'layout', mode: 'out-in' }
+    layoutTransition: { name: 'layout', mode: 'out-in' },
+    head: {
+      script: [
+        { src: '/js/main.js' }
+      ]
+    }
   },
 
   css: ['~/assets/css/main.css'],
@@ -22,4 +53,5 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  ssr: process.env.NODE_ENV !== "development",
 })

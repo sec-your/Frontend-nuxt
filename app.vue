@@ -3,7 +3,6 @@
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
-    <Alert />
   </div>
 </template>
 <style>
@@ -22,22 +21,23 @@
 }
 </style>
 
-<script setup  lang="ts">
+<script setup>
 import { useUserStore } from '@/stores/user';
 
 const userStore = useUserStore()
 
-onBeforeMount(()=> {
-  let storedToken = localStorage.getItem('storedToken')
-  if (storedToken) userStore.getUser(storedToken)
+onBeforeMount(async ()=> {
+    if (!userStore.isLoggedIn) {
+        let storedToken = useLocalStorage.getItem('storedToken')
+        if (storedToken) await userStore.getUser(storedToken)
+    }
 })
   useHead({
-    titleTemplate: `سکیور - %s`
+    titleTemplate: (title) => title? `سکیور - ${title}` : 'سکیور'
   })
   if ( typeof window != 'undefined' ){
-    const alertIcon = resolveComponent('IconsGlobe')
-    window.addEventListener('offline', ()=> useAlert('اینترنت شما قطع شد', { time : 5, icon: alertIcon }));
-    window.addEventListener('online', ()=> useAlert('شما دوباره آنلاین شدید', { time : 5, icon: alertIcon }));
+    window.addEventListener('offline', ()=> useCompactAlert('internet-status','اینترنت شما قطع شد', { time : 5, icon: 'IconsGlobe' }));
+    window.addEventListener('online', ()=> useCompactAlert('internet-status','شما دوباره آنلاین شدید', { time : 5, icon: 'IconsGlobe' }));
   }
 
 </script>
