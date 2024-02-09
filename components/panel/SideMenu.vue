@@ -39,7 +39,7 @@ const closeSidebar = (event) => {
               <IconsTicket class="w-4" />
               <span class="mt-1">تیکت ها</span>
             </NuxtLink>
-            <NuxtLink to="/panel/ticket" class="link">
+            <NuxtLink to="/panel/tickets/new" class="link">
               <IconsMessagePlus class="w-4" />
               <span class="mt-1">تیکت جدید</span>
             </NuxtLink>

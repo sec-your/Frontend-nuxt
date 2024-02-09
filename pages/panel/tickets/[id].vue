@@ -71,6 +71,7 @@ const sendMessage = async () => {
 
 const closeTicket = async () => {
     if (ticketDetails.value.statusCode == 0 || isSendProcessing.value || isCloseProcessing.value) return false
+    if (process.client && !window.confirm('آیا مطمئن هستید که می خواهید تیکت را ببندید؟')) return false
     isCloseProcessing.value = true
     await useUserApiFetch().patch('/close-ticket', {
         id: ticketDetails.value.id.substring(1)
@@ -155,7 +156,7 @@ const getMimeType = (fileName) => fileName.split('.')[fileName.split('.').length
                     <button @click="sendMessage()" :disabled="isSendProcessing || isCloseProcessing" class="xs:justify-center xs:card pt-2 pb-2.5 px-3.5 flex gap-2.5 items-center bg-blue-500 dark:bg-blue-600 hover:bg-blue-600 dark:hover:bg-blue-500 disabled:hover:bg-blue-500 dark:disabled:hover:bg-blue-600 text-white rounded-lg"><component :is="isSendProcessing? 'IconsSpin' : 'IconsMessagePlus'" :class="{'h-4': true, 'mt-1': isSendProcessing}" /> {{ isSendProcessing? '' : 'ارسال پاسخ'}}</button>
                 </div>
             </div>
-            <div class="card mt-10 flex flex-col gap-10">
+            <div class="card mt-10 flex flex-col gap-6">
 
                 <template v-if="ticketDetails.responses.length" v-for="(response, index) in ticketDetails.responses" :key="index">
                     <div v-if="response.author.id == userStore.info.id" class="min-w-[60%] max-w-[90%] md:w-full md:max-w-full bg-[#F3FAFF] dark:bg-gray-700 border border-b-2 shadow-lg shadow-[#BFE4FF50] dark:shadow-gray-700/50 border-[#BFE4FF] dark:border-gray-600 rounded-2xl rounded-br-none ml-auto">

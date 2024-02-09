@@ -6,6 +6,7 @@ export default defineEventHandler((event) => {
             phone: '09145296650',
             avatar: '/images/demo/avatar.jpg',
             displayName: 'علی رنجبر',
+            isPhoneVerified: false,
             token: 'xd6sf54s1d49x8cv',
             money: 95_000,
             type: 'pro'

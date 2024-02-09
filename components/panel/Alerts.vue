@@ -3,7 +3,7 @@ const userStore = useUserStore()
 </script>
 
 <template>
-  <div class="card mb-8">
+  <div class="card mb-5">
     <div v-if="!userStore.info.isPhoneVerified" id="phone-number-verify" class="card dark:bg-gray-700 relative mb-4 text-sm gap-3 border-r-2 xs:border-r-0 xs:border-t-2 border-blue-500 bg-white shadow py-3 px-5 flex xs:flex-col xs:text-center items-center justify-between">
       <IconsMessageVerify class="h-4 text-blue-500" />
       <span class="mt-0.5 ml-auto xs:ml-0">لطفا شماره موبایل خود را تایید کنید</span>

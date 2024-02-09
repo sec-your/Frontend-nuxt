@@ -9,6 +9,7 @@ export default defineEventHandler(async (event) => {
             phone: '09145296650',
             displayName: 'علی رنجبر',
             token: 'xd6sf54s1d49x8cv',
+            isPhoneVerified: false,
             money: 95_000,
             type: 'pro'
         }
