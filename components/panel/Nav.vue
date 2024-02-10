@@ -38,9 +38,14 @@ let isProfileDropDownOpen = ref(false)
 
 const userStore = useUserStore()
 
+const changeNavigate = async (to) => {
+    isProfileDropDownOpen.value = false
+    return await navigateTo(to)
+}
+
 const logout = async () => {
-    await userStore.logout()
-    return navigateTo('/')
+    await navigateTo('/')
+    return await userStore.logout()
 }
 const toggleSideBar = () => useEvent( 'toggle-panel-sidebar')
 </script>
@@ -76,29 +81,45 @@ const toggleSideBar = () => useEvent( 'toggle-panel-sidebar')
     <NuxtLink to="/faqs" target="_blank" class="icon-link">
       <IconsQuestion class="h-5" />
     </NuxtLink>
-    <div class="relative mr-3 select-none" v-click-outside="(()=>isProfileDropDownOpen = false)">
-      <div class="flex gap-3 items-center cursor-pointer" @click="isProfileDropDownOpen = !isProfileDropDownOpen">
-        <img src="/images/demo/avatar.jpg" class="w-8 h-8 rounded-full" alt="" />
+    <div class="relative select-none" v-click-outside="(()=>{ console.log('outside'); isProfileDropDownOpen = false })">
+      <div :class="{'transition-all min-w-[230px] lg:mr-3 lg:min-w-0 flex gap-3 relative items-center cursor-pointer z-30 lg:z-10 px-3 lg:px-0 top-0': true, 'top-3 lg:top-0': isProfileDropDownOpen}" @click="isProfileDropDownOpen = !isProfileDropDownOpen">
+        <img :src="userStore.info.avatar" class="w-8 h-8 rounded-full" alt="" />
         <div class="flex flex-col gap-0.5 lg:hidden">
-          <span class="text-sm truncate" style="max-width:17ch">علی رنجبر جلودار</span>
-          <span class="text-xs text-gray-500 dark:text-gray-400 truncate" style="max-width:20ch">aliranjbar230@gmail.com</span>
+          <span class="text-sm truncate" style="max-width:17ch">{{ userStore.info.displayName }}</span>
+          <span class="text-xs text-gray-500 dark:text-gray-400 truncate" dir="ltr" style="max-width:20ch">{{ userStore.info.email }}</span>
         </div>
-        <IconsArrowDown class="w-2.5 lg:hidden" :style="{ 'transform': (isProfileDropDownOpen? 'rotateX(180deg)' : 'none') }" />
+        <IconsArrowDown :class="{'w-2.5 lg:hidden mr-auto': true, 'x-flip': isProfileDropDownOpen}" />
       </div>
-      <div :class="['z-20 dark:bg-gray-700 text-sm absolute left-0 top-full mt-4 min-w-[150px] w-full xs:mt-2.5 bg-white drop-shadow dark:xs:shadow-black/60 dark:xs:shadow shadow-lg rounded-lg', isProfileDropDownOpen? 'addFadeInUp' : 'hidden']">
-        <div class="absolute top-0 -translate-y-full right-2.5 lg:right-auto lg:left-2.5 border-b-[7px] border-x-[7px] border-x-transparent border-b-white dark:border-b-gray-700" style="filter:drop-shadow(0 -2px 1px rgba(0,0,0,.05))"></div>
-        <div class="card divide-y divide-gray-100 dark:divide-gray-600 overflow-hidden rounded-lg">
-          <NuxtLink to="/panel/password" class="dropdown-link card p-2 flex items-center gap-2 hover:bg-gray-50 dark:hover:bg-white/5" @click="isProfileDropDownOpen = false">
+      <div :class="['z-20 dark:bg-gray-700 lg:min-w-[230px] text-sm absolute left-0 top-1 lg:top-0 overflow-hidden rounded-lg w-full bg-white drop-shadow dark:shadow-black shadow-2xl', isProfileDropDownOpen? 'max-h-80 pt-[55px] lg:pt-0' : 'max-h-[55px] opacity-0 lg:hidden']">
+        <div class="gap-3 items-center px-3 py-2 hidden lg:flex cursor-pointer" @click="isProfileDropDownOpen = !isProfileDropDownOpen">
+            <img :src="userStore.info.avatar" class="w-8 h-8 rounded-full" alt="" />
+            <div class="flex flex-col gap-0.5">
+                <span class="text-sm truncate" style="max-width:17ch">{{ userStore.info.displayName }}</span>
+                <span class="text-xs text-gray-500 dark:text-gray-400 truncate" dir="ltr" style="max-width:20ch">{{ userStore.info.email }}</span>
+            </div>
+            <IconsArrowDown class="w-2.5 mr-auto x-flip" />
+        </div>
+        <div class="card p-2 text-center border-y border-gray-100 dark:border-gray-600">موجودی: <strong class="mr-1">{{ useNumberFormat(userStore.info.money) }}</strong> تومان</div>
+        <div class="card p-2 grid grid-cols-2 gap-2">
+            <button class="flex flex-col gap-1 text-xs py-1.5 px-1.5 rounded border border-blue-400 dark:border-blue-300 hover:bg-blue-600 text-blue-600 dark:text-blue-200 hover:text-white hover:!border-blue-600" @click="changeNavigate('/panel/wallet')">
+                <IconsWallet class="h-4" />
+                <span>افزایش موجودی</span>
+            </button>
+            <button class="flex flex-col gap-1 text-xs py-1.5 px-1.5 rounded border border-purple-400 dark:border-purple-300 hover:bg-purple-600 text-purple-600 dark:text-purple-200 hover:text-white hover:!border-purple-600" @click="changeNavigate('/panel/profile')">
+                <IconsPremium class="h-4" />
+                <span>{{ userStore.info.type == 'free'? 'خرید اشتراک' : 'تمدید اشتراک' }}</span>
+            </button>
+        </div>
+        <div class="card grid grid-cols-[auto_1fr_1fr] border-t border-gray-100 dark:border-gray-600">
+          <div @click="changeNavigate('/panel/password')" class="cursor-pointer p-2 pl-5 flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-white/5">
             <IconsKey class="h-3.5 text-[#3390ec]" />
             <span>تغییر رمز عبور</span>
-          </NuxtLink>
-          <NuxtLink to="/panel/profile" class="dropdown-link card p-2 flex items-center gap-2 hover:bg-gray-50 dark:hover:bg-white/5" @click="isProfileDropDownOpen = false">
+          </div>
+          <div @click="changeNavigate('/panel/profile')" class="cursor-pointer border-r border-gray-100 dark:border-gray-600 grid place-items-center hover:bg-gray-100 dark:hover:bg-white/5">
             <IconsUserOutline class="h-3.5 text-[#3390ec]" />
-            <span>ویرایش پروفایل</span>
-          </NuxtLink>
-          <div @click="logout()" class="card p-2 flex items-center gap-2 hover:bg-gray-50 text-red-600 dark:text-red-400 dark:hover:bg-white/5">
-            <IconsExit class="h-3.5" />
-            <span>خروج از حساب</span>
+          </div>
+          <div @click="logout()" class="cursor-pointer border-r border-gray-100 dark:border-gray-600 grid place-items-center hover:bg-gray-100 text-red-600 dark:text-red-400 dark:hover:bg-white/5">
+            <IconsExit class="h-3.5 y-flip" />
           </div>
         </div>
       </div>
@@ -106,11 +127,12 @@ const toggleSideBar = () => useEvent( 'toggle-panel-sidebar')
   </div>
 </template>
 
-<style scoped>
+<style lang="postcss" scoped>
 .icon-link {
   @apply h-10 w-10 rounded-full hover:bg-gray-100 dark:hover:bg-white/10 grid place-items-center
 }
 .icon-link.router-link-exact-active, .dropdown-link.router-link-exact-active {
   @apply bg-gray-100 dark:bg-white/10
 }
+
 </style>

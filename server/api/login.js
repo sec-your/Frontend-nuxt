@@ -3,14 +3,14 @@ export default defineEventHandler(async (event) => {
     if( requestBody['email'] == 'vesta28@example.org') 
         return {
             status: 'ok',
-            id: 10,
+            id: 1,
             avatar: '/images/demo/avatar.jpg',
-            email: 'vesta28@example.org',
+            email: 'info@aliranjbar.ir',
             phone: '09145296650',
-            displayName: 'علی رنجبر',
-            token: 'xd6sf54s1d49x8cv',
+            displayName: 'علی رنجبر جلودار',
+            token: 'this-is-fake-token',
             isPhoneVerified: false,
-            money: 95_000,
+            money: 52_500_000,
             type: 'pro'
         }
     else {

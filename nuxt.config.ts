@@ -16,6 +16,10 @@ export default defineNuxtConfig({
     "@": "/"+__dirname,
   },
 
+  routeRules: {
+    '/panel/*' : { ssr: false }
+  },
+
   runtimeConfig: {
     public: {
       SITE_URL: process.env.SITE_URL
@@ -31,8 +35,9 @@ export default defineNuxtConfig({
   },
 
   plugins: [
-      '~/plugins/click-outside.js',
-      '~/plugins/re-captcha.js',
+        '~/plugins/app-service.js',
+        '~/plugins/click-outside.js',
+        '~/plugins/re-captcha.js',
   ],
 
   app: {

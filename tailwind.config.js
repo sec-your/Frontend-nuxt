@@ -53,6 +53,9 @@ export default {
       },
       height: {
         '18': '4.5rem'
+      },
+      transform: {
+        'y-flip': 'rotateY(180deg)'
       }
     }
   },

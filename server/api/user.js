@@ -1,14 +1,14 @@
 export default defineEventHandler((event) => {
     if (getHeaders(event).authorization)
         return {
-            id: 10,
-            email: 'vesta28@example.org',
-            phone: '09145296650',
+            id: 1,
             avatar: '/images/demo/avatar.jpg',
-            displayName: 'علی رنجبر',
+            email: 'info@aliranjbar.ir',
+            phone: '09145296650',
+            displayName: 'علی رنجبر جلودار',
+            token: 'this-is-fake-token',
             isPhoneVerified: false,
-            token: 'xd6sf54s1d49x8cv',
-            money: 95_000,
+            money: 52_500_000,
             type: 'pro'
         }
     else {

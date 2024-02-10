@@ -22,22 +22,11 @@
 </style>
 
 <script setup>
-import { useUserStore } from '@/stores/user';
-
-const userStore = useUserStore()
-
-onBeforeMount(async ()=> {
-    if (!userStore.isLoggedIn) {
-        let storedToken = useLocalStorage.getItem('storedToken')
-        if (storedToken) await userStore.getUser(storedToken)
-    }
-})
   useHead({
     titleTemplate: (title) => title? `سکیور - ${title}` : 'سکیور'
   })
   if ( typeof window != 'undefined' ){
-    window.addEventListener('offline', ()=> useCompactAlert('internet-status','اینترنت شما قطع شد', { time : 5, icon: 'IconsGlobe' }));
-    window.addEventListener('online', ()=> useCompactAlert('internet-status','شما دوباره آنلاین شدید', { time : 5, icon: 'IconsGlobe' }));
+    window.addEventListener('offline', ()=> useCompactAlert('internet-status','اینترنت شما قطع شد', { time : 3, icon: 'IconsGlobe' }));
+    window.addEventListener('online', ()=> useCompactAlert('internet-status','شما دوباره آنلاین شدید', { time : 3, icon: 'IconsGlobe' }));
   }
-
 </script>

@@ -22,6 +22,7 @@ export const useUserStore = defineStore('user', ()=>{
         if (!info.value?.token) return false
         await useUserApiFetch().post('/logout')
         info.value = {...defaultUserObject}
+        useLocalStorage.removeItem('user-token')
     }
 
 
@@ -30,10 +31,10 @@ export const useUserStore = defineStore('user', ()=>{
         let result = null
         await useApiFetch().post('/login', {email, password}).then(({ data }) => {
             info.value = {...data}
-            useLocalStorage.setItem('storedToken', data.token)
+            useLocalStorage.setItem('user-token', data.token)
             result = { status: 'ok' }
         }).catch((error) => {
-            useLocalStorage.removeItem('storedToken')
+            useLocalStorage.removeItem('user-token')
             result = { status: 'error', message: getErrorMessage(error) }
         })
         return result
@@ -42,15 +43,15 @@ export const useUserStore = defineStore('user', ()=>{
 
     // Get user from token
     const getUser = async (token) => {
-        await useApiFetch().post('/user', {}, {
+        await useApiFetch().post(`/user`, {}, {
             headers: {
                 'Authorization' : 'Bearer ' + token
             }
         }).then(({ data }) => {
             info.value = {token, ...data}
-            useLocalStorage.setItem('storedToken', token)
+            useLocalStorage.setItem('user-token', token)
         }).catch((error) => {
-            useLocalStorage.removeItem('storedToken')
+            useLocalStorage.removeItem('user-token')
             if(toast) useAlertError('get-user-from-token', getErrorMessage(error), { time: 4 })
         })
     }

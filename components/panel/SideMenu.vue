@@ -66,7 +66,7 @@ const closeSidebar = (event) => {
           </div>
         </div>
       </div>
-      <div @click="isOpen = false" class="w-9 text-gray-900 pr-2 pb-2 hidden md:grid place-items-center h-9 bg-white absolute top-0 left-0 rounded-br-full">
+      <div @click="isOpen = false" class="w-9 text-gray-900 pr-2 pb-2 hidden md:grid place-items-center h-9 bg-white dark:bg-gray-300 absolute top-0 left-0 rounded-br-full">
         <IconsClose class="h-4" />
       </div>
     </div>

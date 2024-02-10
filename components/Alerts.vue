@@ -4,7 +4,7 @@ const alerts = ref([])
 
 let timeOuts = ref({})
 
-const hideAlert = (key) => {
+const hideAlert = async (key) => {
   if (key in timeOuts.value) {
     clearTimeout(timeOuts.value[key])
     delete timeOuts.value[key]
@@ -19,7 +19,7 @@ const compactAlert = resolveComponent('CompactAlert')
 const normalAlert = resolveComponent('NormalAlert')
 
 useListen('show-alert', async function ({ title = null, message, key, type = 'normal', time = 10, status, icon = null, forced = false }) {
-  hideAlert(key)
+  await hideAlert(key)
   setTimeout(()=> {
     if (icon !== null) icon = resolveComponent(icon === '...'? 'IconsSpin' : icon)
     alerts.value.push({
