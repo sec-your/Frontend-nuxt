@@ -14,46 +14,46 @@ const closeSidebar = (event) => {
   <div v-click-outside="closeSidebar" :class="['sidebar relative z-[999] bg-[#232E3C] md:fixed md:top-0 md:w-64 md:max-w-full xs:w-full md:overflow-auto', isOpen? 'md:right-0 open' : 'md:-right-10 md:translate-x-full']">
     <div class="card relative min-h-screen h-full">
       <div class="card min-h-screen wrap sticky top-0 py-4 flex flex-col gap-5">
-        <NuxtLink to="/" class="block mr-4">
+        <NuxtLink to="/" @click="isOpen = false" class="block mr-4">
             <InlineLogo class="float-right min-h-[36px]" />
         </NuxtLink>
         <nav class="card mt-4 flex flex-col gap-5 h-full">
-          <NuxtLink to="/panel" class="link">
+          <NuxtLink to="/panel" @click="isOpen = false" class="link">
             <IconsListSquare class="w-4" />
             <span class="mt-1">داشبورد</span>
           </NuxtLink>
           <div class="w-full flex flex-col">
             <span class="group-title">بررسی اتوماتیک</span>
-            <NuxtLink to="/panel/monitored" class="link">
+            <NuxtLink to="/panel/monitored" @click="isOpen = false" class="link">
               <IconsEqualizer class="w-4" />
               <span class="mt-1">سایت های تحت نظارت</span>
             </NuxtLink>
-            <NuxtLink to="/panel/scan" class="link">
+            <NuxtLink to="/panel/scan" @click="isOpen = false" class="link">
               <IconsSearchBug class="w-4" />
               <span class="mt-1">اسکن جدید</span>
             </NuxtLink>
           </div>
           <div class="w-full flex flex-col">
             <span class="group-title">پشتیبانی</span>
-            <NuxtLink to="/panel/tickets" class="link">
+            <NuxtLink to="/panel/tickets" @click="isOpen = false" class="link">
               <IconsTicket class="w-4" />
               <span class="mt-1">تیکت ها</span>
             </NuxtLink>
-            <NuxtLink to="/panel/tickets/new" class="link">
+            <NuxtLink to="/panel/tickets/new" @click="isOpen = false" class="link">
               <IconsMessagePlus class="w-4" />
               <span class="mt-1">تیکت جدید</span>
             </NuxtLink>
           </div>
           <div class="w-full flex flex-col">
             <span class="group-title">پروفایل</span>
-            <NuxtLink to="/panel/profile" class="link">
+            <NuxtLink to="/panel/profile" @click="isOpen = false" class="link">
               <IconsUserOutline class="w-4" />
               <span class="mt-1">پروفایل من</span>
             </NuxtLink>
           </div>
         </nav>
         <div class="w-full mt-auto">
-          <NuxtLink to="/panel/setting" class="link">
+          <NuxtLink to="/panel/setting" @click="isOpen = false" class="link">
             <IconsCog class="w-4" />
             <span class="mt-1">تنظیمات</span>
           </NuxtLink>

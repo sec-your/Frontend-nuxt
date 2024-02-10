@@ -19,12 +19,13 @@ function closeSidebar(event) {
       <IconsArrowRight class="w-3.5" />
     </button>
     <ul class="card flex flex-col gap-5 text-sm mb-auto">
+        <li><NuxtLink to="/" @click="isOpen = false"><IconsHome class="w-4 ml-3" /> صفحه اصلی</NuxtLink></li>
       <li><NuxtLink :to="userStore.isLoggedIn? '/account' : '/login'"><IconsUser class="w-4 ml-3" /> {{ userStore.isLoggedIn? 'حساب کاربری' : 'ورود / ثبت نام' }}</NuxtLink></li>
-      <li><NuxtLink to="/about-us"><IconsInfo class="w-4 ml-3" /> درباره ما</NuxtLink></li>
-      <li><NuxtLink to="/plans"><IconsPrices class="w-4 ml-3" /> پلن ها</NuxtLink></li>
-      <li><NuxtLink to="/faqs"><IconsFaq class="w-4 ml-3" /> منابع</NuxtLink></li>
-      <li><NuxtLink to="/contact"><IconsTelephone class="w-4 ml-3" /> ارتباط با ما</NuxtLink></li>
-      <li><NuxtLink to="/i-am-hacked"><IconsGoal class="w-4 ml-3 !text-[#C02A2A]" /> من هک شده ام</NuxtLink></li>
+      <li><NuxtLink to="/about-us" @click="isOpen = false"><IconsInfo class="w-4 ml-3" /> درباره ما</NuxtLink></li>
+      <li><NuxtLink to="/#plans" @click="isOpen = false"><IconsPrices class="w-4 ml-3" /> پلن ها</NuxtLink></li>
+      <li><NuxtLink to="/references" @click="isOpen = false"><IconsFaq class="w-4 ml-3" /> منابع</NuxtLink></li>
+      <li><NuxtLink to="/contact" @click="isOpen = false"><IconsTelephone class="w-4 ml-3" /> ارتباط با ما</NuxtLink></li>
+      <li><NuxtLink to="/contact" @click="isOpen = false"><IconsHeadphone class="w-4 ml-3 !text-[#C02A2A]" /> مشاوره اورژانسی</NuxtLink></li>
     </ul>
   </aside>
 </template>

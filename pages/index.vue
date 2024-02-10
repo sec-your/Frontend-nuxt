@@ -56,7 +56,7 @@ const freeScanAction = async () => {
               <svg v-show="!isFreeScanOpen" class="inline h-5" viewBox="0 0 37 46" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M18.1797 44.2076C18.2997 44.2723 18.4068 44.3291 18.5 44.3779C18.5932 44.3291 18.7003 44.2723 18.8203 44.2076C19.3116 43.9427 20.0177 43.5461 20.8668 43.0239C22.5673 41.9784 24.8307 40.4363 27.0895 38.4492C31.6391 34.4468 36 28.7924 36 21.875V4.32855L18.5 1.01774L1 4.32855V21.875C1 28.7924 5.36091 34.4468 9.91051 38.4492C12.1693 40.4363 14.4327 41.9784 16.1332 43.0239C16.9823 43.5461 17.6884 43.9427 18.1797 44.2076Z" stroke="currentColor" stroke-width="3"/>
               </svg>
-              <div :class="['mt-0.5 sm:duration-0', isFreeScanOpen? 'sm:w-0 whitespace-nowrap slideRightOut overflow-hidden' : 'mr-3']">اسکن رایگان</div>
+              <div :class="['mt-0.5 sm:duration-0 whitespace-nowrap', isFreeScanOpen? 'sm:w-0 slideRightOut overflow-hidden' : 'mr-3']">اسکن رایگان</div>
             </div>
             <input type="url" dir="ltr" :class="['float-right bg-white rounded-full pt-1 text-left px-3 w-60 sm:w-52 text-gray-600 xs:duration-0', isFreeScanOpen? 'delay-200 mr-3 max-w-[240px]' : 'max-w-0 !p-0 duration-0']" placeholder="https://example.com" >
           </div>

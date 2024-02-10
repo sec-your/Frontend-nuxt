@@ -38,7 +38,7 @@ export default defineEventHandler(async (event) => {
             attachment: 'http://localhost:3000/dl/{_token_}/all-archives.pdf',
             createdDate: '5 ساعت پیش',
             author: {
-                id: 817852,
+                id: 1,
                 displayName: 'علی شاطریان',
                 role: 'برنامه نویس و پشتیبان',
                 avatar: '/images/demo/avatar.jpg'
@@ -62,7 +62,7 @@ export default defineEventHandler(async (event) => {
             attachment: null,
             createdDate: '1 روز پیش',
             author: {
-                id: 10,
+                id: 1,
                 displayName: 'علی رنجبر جلودار',
                 role: 'کاربر',
                 avatar: '/images/demo/avatar.jpg'

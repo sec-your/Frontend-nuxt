@@ -33,14 +33,14 @@ watch(page, async () => await getTickets())
 </script>
 
 <template>
-  <div class="card">
+  <div class="card" id="tickets">
     <div class="card flex justify-between items-center xs:flex-col gap-5">
       <h1 class="page-title">تیکت ها</h1>
       <button @click="navigateTo('/panel/tickets/new')" class="mb-1 bg-blue-500 hover:bg-blue-600 text-white rounded-lg pt-1.5 shadow-lg shadow-blue-500/40 hover:shadow-blue-600/40 pb-1 px-3 text-base flex items-center gap-2"><IconsMessagePlus class="h-3.5" />تیکت جدید</button>
     </div>
     <div class="card mt-8">
       <div :class="['card divide-y divide-gray-200 dark:divide-gray-800', isLoading? 'shadow-sm' : 'bg-white dark:bg-gray-700 shadow']">
-        <div v-if="isLoading" v-for="(item, index) of 5" :style="{ 'opacity': `${100 - ((index+1) * 15)}%` }" class="text-sm grid grid-cols-[5rem_auto_10rem_10rem] lg:grid-cols-[auto_8rem_8rem] xs:grid-cols-1 gap-3 bg-white dark:bg-gray-700 p-2">
+        <div v-if="isLoading" v-for="(item, index) of 8" :style="{ 'opacity': `${100 - ((index+1) * 15)}%` }" class="text-sm grid grid-cols-[5rem_auto_10rem_10rem] lg:grid-cols-[auto_8rem_8rem] xs:grid-cols-1 gap-3 bg-white dark:bg-gray-700 p-2">
           <div class="lg:hidden xs:grid relative grid place-items-center overflow-hidden">
             <div class="w-16 h-6 rounded-full isLoading"></div>
           </div>
@@ -60,7 +60,7 @@ watch(page, async () => await getTickets())
             <span class="relative z-[1] text-sky-600 dark:text-sky-300">{{ ticket.id }}</span>
           </div>
           <div class="flex flex-col gap-1">
-            <span :class="{'text-gray-600 dark:text-gray-200 group-hover:text-sky-700 dark:group-hover:text-sky-300': true, 'font-bold': ticket.readDate}">{{ ticket.title }}</span>
+            <span :class="{'text-gray-600  dark:text-gray-200 group-hover:text-sky-700 dark:group-hover:text-sky-300 sm:font-bold': true, 'font-bold': ticket.readDate}">{{ ticket.title }}</span>
             <span class="text-xs text-gray-400 dark:text-gray-300">{{ ticket.subject }}</span>
           </div>
           <div class="flex items-center justify-center">
@@ -83,7 +83,7 @@ watch(page, async () => await getTickets())
   </div>
 </template>
 
-<style scoped>
+<style lang="postcss" scoped>
 .isLoading {
   @apply lg:w-16 xs:w-10
 }

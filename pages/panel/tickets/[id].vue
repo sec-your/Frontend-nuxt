@@ -108,12 +108,12 @@ const getMimeType = (fileName) => fileName.split('.')[fileName.split('.').length
                             <h3 class="float-right max-w-[52ch] 2xl:max-w-96 xl:max-w-auto xl:whitespace-break-spaces truncate font-bold text-lg mt-0.5">{{ ticketDetails.title }}</h3>
                             <span v-if="[0,1].includes(ticketDetails.statusCode)" :class="['xl:mb-2 md:mr-0 mt-0.5 float-right mr-3 whitespace-nowrap text-xs py-1 px-2 rounded-full', ticketDetails.statusCode == 1 ? 'bg-yellow-200 dark:bg-yellow-700/40  text-yellow-800 dark:text-yellow-300' : 'bg-gray-200 dark:bg-gray-800  text-gray-800 dark:text-gray-300']">{{ {0: 'بسته شده', 1: 'در انتظار پاسخ'}[ticketDetails.statusCode] }}</span>  
                         </div>
-                        <div class="card md:justify-center text-xs mt-1.5 text-gray-500 dark:text-gray-300 flex items-center gap-1">
+                        <div class="card md:justify-center text-xs mt-1.5 text-gray-500 dark:text-gray-300 flex items-center xs:flex-wrap gap-1">
                             <span>توسط</span>
                             <img :src="userStore.info.avatar" alt="" class="h-4 rounded-full inline-block mr-1" />
                             <span class="text-sky-500 dark:text-sky-300 ml-1">{{ userStore.info.displayName }}</span>
-                            <span>|</span>
-                            <span>{{ ticketDetails.createdDate }}</span>
+                            <span class="xs:hidden">|</span>
+                            <span class="xs:card xs:mt-2">{{ ticketDetails.createdDate }}</span>
                         </div>
                     </div>
                 </div>
@@ -126,7 +126,7 @@ const getMimeType = (fileName) => fileName.split('.')[fileName.split('.').length
                 </ul>
             </div>
         </div>
-        <div v-if="route.hash == '#attachments'" class="card mt-8 grid grid-cols-4 gap-5 2xl:grid-cols-3">
+        <div v-if="route.hash == '#attachments'" class="card mt-8 grid grid-cols-4 gap-5 2xl:grid-cols-3 xl:grid-cols-2 sm:grid-cols-1">
             <a v-for="(attach, key) in allAttachments" download :href="attach.attachment" class="bg-white hover:bg-gray-50 group border border-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 flex flex-col gap-3 items-center p-5" :key="key">
                 <img :src="`/images/icons/${getMimeType(attach.attachment).toLowerCase()}.png`" class="h-16 mb-2" alt="" />
                 <strong class="max-w-full truncate group-hover:text-sky-600 dark:group-hover:text-sky-300">{{ attach.attachment.split('/')[attach.attachment.split('/').length - 1] }}</strong>
@@ -142,11 +142,11 @@ const getMimeType = (fileName) => fileName.split('.')[fileName.split('.').length
                 <textarea v-model="replayText" class="card rounded bg-gray-50 min-h-52 border border-gray-200 dark:bg-gray-600 dark:border-gray-500 p-3 resize-none" placeholder="پاسخ به تیکت..."></textarea>
                 <div class="card mt-5 flex items-end gap-4 md:flex-wrap md:justify-between">
                     <div class="flex items-center gap-2.5 ml-auto md:card md:justify-center">
-                        <div :class="['relative flex items-center gap-2.5 border hover:border-blue-500 dark:hover:border-blue-400 px-3 py-1.5 rounded-lg', replyAttachment? 'border-blue-300' : 'border-gray-200 dark:border-gray-500']">
+                        <div :class="['relative sm:w-full flex items-center gap-2.5 border hover:border-blue-500 dark:hover:border-blue-400 px-3 py-1.5 rounded-lg', replyAttachment? 'border-blue-300' : 'border-gray-200 dark:border-gray-500']">
                             <IconsUpload class="h-5 text-blue-500 dark:text-blue-400" />
                             <div class="flex flex-col gap-px">
                                 <span class="text-sm">فایل ضمیمه</span>
-                                <span class="text-xs max-w-32 ml:max-w-24 truncate text-gray-500 dark:text-gray-300">{{ replyAttachment? replyAttachment.name : 'برای انتخاب کلیک کنید' }}</span>
+                                <span class="text-xs max-w-32 ml:max-w-24 sm:max-w-full truncate text-gray-500 dark:text-gray-300">{{ replyAttachment? replyAttachment.name : 'برای انتخاب کلیک کنید' }}</span>
                             </div>
                             <input type="file" @change="attachmentChange" accept="application/pdf, image/*, .rarو .zip" class="p-0 m-0 cursor-pointer absolute inset-0 opacity-0 w-full h-full" />
                         </div>

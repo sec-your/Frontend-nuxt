@@ -26,7 +26,7 @@ const loadScanDetail = () => {
         if (selectedReport.value == null && data?.reports.length) selectedReport.value = data.reports[0]
       }).catch(error => useAlertError('scan-error', 'خطایی در بارگذاری رخ داد', error.message))
 }
-loadScanDetail()
+onMounted(()=>loadScanDetail())
 
 const ReportBGOpacity = (i = 0) => {
   return  (20 + ( (scanDetails.value.reports.length - i) / scanDetails.value.reports.length ) * 80) / 100
@@ -124,19 +124,19 @@ const itemCountWith = computed(() => {
         </div>
         <div class="col-span-full mt-14 text-center sm:mt-14 flex xs:grid xs:grid-cols-2 xs:gap-x-2 xs:gap-y-20">
           <div class="i-good relative sm:flex sm:items-center sm:flex-col pt-2 pb-1.5 min-w-[110px] xs:!w-full" :style="{ 'background' : `linear-gradient(to left, ${colors.good}40 0%, ${colors.good} 100%)` }">
-            <div>اهمیت پایین</div>
+            <div>نیمه امن</div>
             <div class="tooltip"><strong class="ml-1.5 text-base sm:!text-white" style="color:#FFCF25">{{ scanDetails.itemCounts.good }}</strong> مورد</div>
           </div>
           <div class="i-low relative sm:flex sm:items-center sm:flex-col pt-2 pb-1.5 min-w-[110px] xs:!w-full" :style="{ 'background' : `linear-gradient(to left, ${colors.low}40 0%, ${colors.low} 100%)` }">
-            <div>اهمیت متوسط</div>
+            <div>آسیب پذیر</div>
             <div class="tooltip"><strong class="ml-1.5 text-base sm:!text-white" style="color:#E57F17">{{ scanDetails.itemCounts.low }}</strong> مورد</div>
           </div>
           <div class="i-bad relative sm:flex sm:items-center sm:flex-col pt-2 pb-1.5 min-w-[110px] xs:!w-full" :style="{ 'background' : `linear-gradient(to left, ${colors.bad}40 0%, ${colors.bad} 100%)` }">
-            <div>اهمیت بالا</div>
+            <div>هشدار</div>
             <div class="tooltip"><strong class="ml-1.5 text-base sm:!text-white" style="color:#f03c0c">{{ scanDetails.itemCounts.bad }}</strong> مورد</div>
           </div>
           <div class="i-critical relative sm:flex sm:items-center sm:flex-col pt-2 pb-1.5 min-w-[110px] xs:!w-full" :style="{ 'background' : `linear-gradient(to left, ${colors.critical}40 0%, ${colors.critical} 100%)` }">
-            <div>بحرانی</div>
+            <div>مرگ</div>
             <div class="tooltip"><strong class="ml-1.5 text-base sm:!text-white" style="color:#fa0000">{{ scanDetails.itemCounts.critical }}</strong> مورد</div>
           </div>
         </div>
