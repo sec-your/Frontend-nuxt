@@ -44,8 +44,8 @@ const changeNavigate = async (to) => {
 }
 
 const logout = async () => {
-    await navigateTo('/')
-    return await userStore.logout()
+    await userStore.logout()
+    return navigateTo('/')
 }
 const toggleSideBar = () => useEvent( 'toggle-panel-sidebar')
 </script>
@@ -81,7 +81,7 @@ const toggleSideBar = () => useEvent( 'toggle-panel-sidebar')
     <NuxtLink to="/faqs" target="_blank" class="icon-link">
       <IconsQuestion class="h-5" />
     </NuxtLink>
-    <div class="relative select-none" v-click-outside="(()=>{ console.log('outside'); isProfileDropDownOpen = false })">
+    <div class="relative select-none" v-click-outside="(()=>isProfileDropDownOpen = false)">
       <div :class="{'transition-all min-w-[230px] lg:mr-3 lg:min-w-0 flex gap-3 relative items-center cursor-pointer z-30 lg:z-10 px-3 lg:px-0 top-0': true, 'top-3 lg:top-0': isProfileDropDownOpen}" @click="isProfileDropDownOpen = !isProfileDropDownOpen">
         <img :src="userStore.info.avatar" class="w-8 h-8 rounded-full" alt="" />
         <div class="flex flex-col gap-0.5 lg:hidden">

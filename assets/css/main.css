@@ -23,6 +23,16 @@
     font-display: swap;
 }
 
+@font-face {
+    font-family: 'Yekan Bakh';
+    src: url('../fonts/YekanBakh-Heavy.eot');
+    src: url('../fonts/YekanBakh-Heavy.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/YekanBakh-Heavy.woff') format('woff');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
 @layer base {
     html,body {
         scrollbar-width: thin;
@@ -60,6 +70,9 @@
         margin-left: auto;
     }
 
+    .has-touch .hidden-on-touch {
+        display: none !important;
+    }
 
 .animation-spin {
     animation: animation-spin 3.5s linear infinite;

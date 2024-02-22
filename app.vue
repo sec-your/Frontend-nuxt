@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div :class="['card', mainClass]">
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
@@ -22,11 +22,13 @@
 </style>
 
 <script setup>
+const mainClass = ref('')
   useHead({
     titleTemplate: (title) => title? `سکیور - ${title}` : 'سکیور'
   })
   if ( typeof window != 'undefined' ){
     window.addEventListener('offline', ()=> useCompactAlert('internet-status','اینترنت شما قطع شد', { time : 3, icon: 'IconsGlobe' }));
     window.addEventListener('online', ()=> useCompactAlert('internet-status','شما دوباره آنلاین شدید', { time : 3, icon: 'IconsGlobe' }));
+    mainClass.value = navigator?.maxTouchPoints? 'has-touch' : 'no-touch'
   }
 </script>
