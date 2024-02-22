@@ -5,22 +5,21 @@ const alerts = ref([])
 let timeOuts = ref({})
 
 const hideAlert = async (key) => {
-  if (key in timeOuts.value) {
+  while (key in timeOuts.value) {
     clearTimeout(timeOuts.value[key])
     delete timeOuts.value[key]
+    let fIndex = alerts.value.findIndex(i => i.key === key)
+    if (fIndex >= 0) alerts.value.splice(fIndex, 1);
   }
-  let fIndex = alerts.value.findIndex(i => i.key === key)
-  if (fIndex >= 0) alerts.value.splice(fIndex, 1);
 }
 
-useListen('hide-alert', hideAlert)
+useListen('hide-alert', async (...arg) => await hideAlert(...arg))
 
 const compactAlert = resolveComponent('CompactAlert')
 const normalAlert = resolveComponent('NormalAlert')
 
 useListen('show-alert', async function ({ title = null, message, key, type = 'normal', time = 10, status, icon = null, forced = false }) {
-  await hideAlert(key)
-  setTimeout(()=> {
+    await hideAlert(key)
     if (icon !== null) icon = resolveComponent(icon === '...'? 'IconsSpin' : icon)
     alerts.value.push({
       type,
@@ -33,7 +32,6 @@ useListen('show-alert', async function ({ title = null, message, key, type = 'no
       forced
     })
     timeOuts.value[key] = setTimeout(() => hideAlert(key), time * 1000)
-  }, 100)
 })
 
 

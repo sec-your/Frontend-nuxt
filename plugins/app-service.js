@@ -1,7 +1,9 @@
-export default defineNuxtPlugin((nuxtApp) => {
+export default defineNuxtPlugin(async (nuxtApp) => {
     const userStore = useUserStore()
     if (!userStore.isLoggedIn) {
-        let token = useLocalStorage.getItem('user-token')
-        if (!!token) userStore.getUser(token)
+        let token = JSON.parse(useLocalStorage.getItem('user-token'))
+        if (!!token) {
+            await userStore.getUser(token)
+        }
     }
 })

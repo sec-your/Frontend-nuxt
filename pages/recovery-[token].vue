@@ -3,7 +3,7 @@ definePageMeta({
     validate: async (to, from) => {
         const { token } = to.params
         const { data } = await useApiFetch().post('/reset-password-check', { token })
-        if ( data.status != 'ok' ) return navigateTo('/forget-password')
+        if (data.status != 'ok') return navigateTo('/forget-password')
         return true
     },
     middleware: 'guest'
@@ -16,52 +16,50 @@ const confirmPassword = ref('')
 const isProcessing = ref(false)
 const disableStatus = computed(() => isProcessing.value || Object.values(inputsError.value).some(i => i === ''))
 const inputsError = ref({
-  password: '',
-  confirmPassword: ''
+    password: '',
+    confirmPassword: ''
 })
-const checkConfirmPassword = () => inputsError.value.confirmPassword = validate('تایید رمز عبور', confirmPassword.value, {unload: 0, same: ['رمز عبور', password.value]})
+const checkConfirmPassword = () => inputsError.value.confirmPassword = validate('تایید رمز عبور', confirmPassword.value, { unload: 0, same: ['رمز عبور', password.value] })
 watch(password, () => {
-  inputsError.value.password = validate('رمز عبور', password.value, 'unload|min:8|max:40')
-  checkConfirmPassword()
+    inputsError.value.password = validate('رمز عبور', password.value, 'unload|min:8|max:40')
+    checkConfirmPassword()
 })
 watch(confirmPassword, checkConfirmPassword)
 
 
 
 const changePassword = () => {
-  isProcessing.value = true
-  setTimeout(()=>{
-    if (Object.values(inputsError.value).some(i => i !== null)) {
-      useCompactAlertError('change-password-request', Object.values(inputsError.value).find(x => x?.length))
-    }
-    else
-      useCompactAlertSuccess('change-password-request', 'شما با موفقیت ثبت نام شدید.')
-    isProcessing.value = false
-  }, 2000)
+    isProcessing.value = true
+    setTimeout(() => {
+        if (Object.values(inputsError.value).some(i => i !== null)) {
+            useCompactAlertError('change-password-request', Object.values(inputsError.value).find(x => x?.length))
+        }
+        else
+            useCompactAlertSuccess('change-password-request', 'شما با موفقیت ثبت نام شدید.')
+        isProcessing.value = false
+    }, 2000)
 }
 </script>
 
 <template>
-  <div class="card">
-    <div class="container mt-24 mb-36">
-      <div class="w-80 max-w-full mx-auto">
+    <LayoutsAuth>
         <h2 class="card text-3xl font-bold mb-7 text-center">تغییر رمز عبور</h2>
         <div class="card flex flex-col gap-5">
-          <MainFormControl v-model="password" dir="ltr" type="password" label="رمز عبور" icon="IconsLock" :status="inputsError.password" />
-          <MainFormControl v-model="confirmPassword" dir="ltr" type="password" label="تایید رمز عبور" icon="IconsLock" :status="inputsError.confirmPassword" />
-          <div class="card grid grid-cols-2 gap-4 xs:grid-cols-1">
-            <div></div>
-            <button :disabled="disableStatus" @click.prevent="changePassword()" class="xs:-order-1 disabled:opacity-80 rounded-full bg-sky-600 disabled:bg-sky-700 hover:bg-sky-700 shadow shadow-sky-600/30 py-2.5 px-4">
-              <IconsSpin v-if="isProcessing" class="h-5" />
-              <span v-else>تغییر رمز</span>
-            </button>
-          </div>
+            <MainFormControl v-model="password" dir="ltr" type="password" label="رمز عبور" icon="IconsLock"
+                :status="inputsError.password" />
+            <MainFormControl v-model="confirmPassword" dir="ltr" type="password" label="تایید رمز عبور" icon="IconsLock"
+                :status="inputsError.confirmPassword" />
+            <div class="card grid grid-cols-2 gap-4 xs:grid-cols-1">
+                <div></div>
+                <button :disabled="disableStatus" @click.prevent="changePassword()"
+                    class="xs:-order-1 disabled:opacity-80 rounded-full bg-sky-700 disabled:bg-sky-700 hover:bg-sky-800 shadow shadow-sky-700/30 py-2.5 px-4">
+                    <IconsSpin v-if="isProcessing" class="h-5" />
+                    <span v-else>تغییر رمز</span>
+                </button>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
+
+    </LayoutsAuth>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

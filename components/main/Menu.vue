@@ -2,10 +2,11 @@
 import InlineLogo from "~/components/InlineLogo.vue";
 
 const userStore = useUserStore()
-let isScrolled = ref(process.client && window.innerWidth <= 780 && window.scrollY > 5)
+
+let isScrolled = ref(process.client && window.innerWidth <= 680 && window.scrollY > 5)
 if (process.client) {
     const scrolState = () => {
-        isScrolled.value = window.innerWidth <= 780 && window.scrollY > 5
+        isScrolled.value = window.innerWidth <= 680 && window.scrollY > 5
     }
     window.addEventListener('resize', scrolState)
     window.addEventListener('scroll', scrolState)
@@ -15,39 +16,62 @@ const route = useRoute()
 </script>
 
 <template>
-  <nav :class="['card md:sticky top-0 right-0 z-[999]', isScrolled? 'py-3 bg-[#001116] mb-[32px]' : 'py-7']">
-    <div class="container grid items-center gap-1 grid-cols-1-auto-1 lg:grid-cols-auto-auto lg:gap-y-5 md:grid-cols-1-auto-1 wow a-fadeIn">
-      <ul class="flex gap-8 drop-shadow-sm xl:gap-6">
-        <li @click="useEvent('sidebar-menu')" id="toggle-sidebar" class="hidden md:block"><IconsList class="w-7 text-white" /></li>
-        <li class="menu-link md:hidden"><NuxtLink to="/">صفحه اول</NuxtLink></li>
-        <li class="menu-link md:hidden"><NuxtLink to="/about-us">درباره ما</NuxtLink></li>
-        <li class="md:hidden"><NuxtLink to="/#plans">پلن ها</NuxtLink></li>
-        <li class="menu-link md:hidden"><NuxtLink to="/references">منابع</NuxtLink></li>
-        <li class="menu-link md:hidden"><NuxtLink to="/contact">ارتباط با ما</NuxtLink></li>
-      </ul>
-      <NuxtLink to="/" id="logo" class="lg:col-span-full lg:-order-1 md:order-none md:col-span-1">
-        <InlineLogo class="block mx-auto" />
-      </NuxtLink>
-      <div class="flex gap-4 items-center justify-end">
-        <NuxtLink v-if="!(!userStore.isLoggedIn && (route.name === 'login' || route.name === 'register'))" :to="userStore.isLoggedIn? '/panel' : '/login'" class="md:hidden bg-[#293241] hover:bg-[#314058] rounded-md py-1.25 px-2.5 items-center flex gap-2">
-          <IconsUser class="w-4" />
-          <span class="text-sm">{{ userStore.isLoggedIn? 'پنل کاربری' : 'ورود / ثبت نام' }}</span>
-        </NuxtLink>
-        <NuxtLink to="/contact" class="xs:hidden bg-[#C02A2A] hover:bg-[#bb0202] rounded-md py-1.25 px-2.5 items-center flex gap-2">
-          <IconsHeadphone class="w-4" />
-          <span class="text-sm">مشاوره اورژانسی</span>
-        </NuxtLink>
-        <a href="tel:09145296650" class="hidden xs:block"><IconsTelephone class="w-5 hover:text-[#4FDFFF]" /></a>
-      </div>
-    </div>
-  </nav>
+    <nav :class="['card relative z-998', isScrolled ? 'py-3 bg-main-gray-900 mb-[32px] sm:sticky top-0 right-0' : 'py-7']">
+        <div class="container grid items-center gap-1 grid-cols-1-auto-1 lg:grid-cols-auto-auto lg:gap-y-5 sm:grid-cols-1-auto-1">
+            <ul class="flex gap-8 drop-shadow-sm xl:gap-6">
+                <li @click="useEvent('sidebar-menu')" id="toggle-sidebar" class="hidden sm:block">
+                    <IconsList class="w-7 text-white" />
+                </li>
+                <li class="menu-link">
+                    <NuxtLink to="/">صفحه اول</NuxtLink>
+                </li>
+                <li class="menu-link">
+                    <NuxtLink to="/about-us">درباره ما</NuxtLink>
+                </li>
+                <li class="menu-link always-show">
+                    <NuxtLink to="/#plans">پلن ها</NuxtLink>
+                </li>
+                <li class="menu-link">
+                    <NuxtLink to="/references">منابع</NuxtLink>
+                </li>
+                <li class="menu-link">
+                    <NuxtLink to="/contact">ارتباط با ما</NuxtLink>
+                </li>
+            </ul>
+            <NuxtLink to="/" id="logo" class="lg:col-span-full lg:-order-1 sm:order-none sm:col-span-1">
+                <InlineLogo class="block mx-auto drop-shadow-sm" />
+            </NuxtLink>
+            <div class="flex gap-3 items-center justify-end">
+                <NuxtLink to="/contact" class="btn-bg sm:!bg-none sm:p-0 rounded-xl py-2 px-2 items-center flex gap-2">
+                    <IconsHeadphone class="w-4 sm:w-6 m-px sm:m-0" />
+                </NuxtLink>
+                <NuxtLink v-if="!userStore.isLoggedIn && route.name != 'login'" to="/login"
+                    class="sm:hidden btn-bg rounded-xl py-1.5 px-4 items-center flex gap-2">
+                    <span class="text-sm mt-0.5">ورود</span>
+                </NuxtLink>
+                <NuxtLink v-if="!userStore.isLoggedIn && route.name != 'register'" to="/register"
+                    class="sm:hidden bg-gradient-to-r to-sky-800/30 from-sky-800 hover:bg-sky-800/50 rounded-xl py-1.5 px-3 items-center flex gap-2">
+                    <span class="text-sm mt-0.5">ایجاد حساب</span>
+                    <IconsArrowLeft class="h-2" />
+                </NuxtLink>
+                <NuxtLink v-if="userStore.isLoggedIn" to="/register"
+                    class="sm:hidden btn-bg rounded-xl py-1.25 px-3 items-center flex gap-2">
+                    <span class="text-sm mt-0.5">حساب کاربری</span>
+                    <IconsArrowLeft class="h-2" />
+                </NuxtLink>
+            </div>
+        </div>
+    </nav>
 </template>
 
 <style lang="postcss" scoped>
-li:hover {
-  @apply text-[#4FDFFF]
+.menu-link {
+    @apply sm:hidden hover:text-main-gray-100
 }
-.menu-link:has(.router-link-exact-active) {
+.menu-link:not(.always-show):has(.router-link-exact-active) {
     @apply hidden
+}
+.btn-bg {
+    @apply bg-gradient-to-r to-white/5 from-white/10 hover:bg-white/10
 }
 </style>

@@ -26,6 +26,10 @@ export default defineNuxtConfig({
     }
   },
 
+  watchOptions: {
+    ignored: '/node_modules/'
+  },
+
   modules: ['@pinia/nuxt', '@nuxtjs/color-mode'],
 
   colorMode: {
