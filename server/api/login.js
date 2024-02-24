@@ -1,6 +1,6 @@
 export default defineEventHandler(async (event) => {
     const requestBody = await readBody(event)
-    if( requestBody['email'] == 'vesta28@example.org') 
+    if( requestBody['email'] == 'info@aliranjbar.ir') 
         return {
             status: 'ok',
             id: 1,

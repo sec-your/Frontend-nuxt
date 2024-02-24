@@ -6,18 +6,22 @@ useHead({
   title: 'پنل کاربری',
 })
 const route = useRoute()
+const isModalOpen = ref(true)
+useListen('open-panel-modal', () => isModalOpen.value = true)
+useListen('close-panel-modal', () => isModalOpen.value = false)
 </script>
 
 <template>
   <div :class="['layout min-h-screen relative grid']">
-    <PanelSideMenu />
-    <div class="min-h-screen bg-[#f0f5fb] dark:bg-[#19222c] rounded-3xl overflow-hidden text-gray-700 dark:text-gray-200">
+    <PanelSideMenu :class="{ 'blur-[10px]': isModalOpen }" />
+    <div :class="['min-h-screen bg-[#f0f5fb] dark:bg-[#19222c] rounded-3xl overflow-hidden text-gray-700 dark:text-gray-200', isModalOpen? 'blur-[10px]' : 'blur-none']">
       <PanelNav />
       <div class="card p-16 pt-7 xl:p-10 md:px-5 md:py-10">
         <PanelAlerts />
         <NuxtPage />
       </div>
     </div>
+    <PanelModal v-show="isModalOpen" />
     <Alerts class="left-7" />
   </div>
 </template>

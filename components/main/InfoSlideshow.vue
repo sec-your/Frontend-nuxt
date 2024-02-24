@@ -9,10 +9,10 @@
             </div>
         </div>
     </div>
-    <div class="btn right-0 translate-x-1/2">
+    <div class="btn right-0 md:right-3 translate-x-1/2">
         <IconsArrowRight class="h-5" />
     </div>
-    <div class="btn left-0 -translate-x-1/2">
+    <div class="btn left-0 md:left-3 -translate-x-1/2">
         <IconsArrowLeft class="h-5" />
     </div>
   </div>

@@ -35,17 +35,17 @@
 
 @layer base {
     html,body {
-        scrollbar-width: thin;
         direction: rtl;
         @apply scroll-smooth text-white;
     }
-    ::-webkit-scrollbar{width:8px}
+    ::-webkit-scrollbar, *::-webkit-scrollbar{width:8px}
     * {
         @apply m-0 p-0 list-none box-border;
         font-family: "Yekan Bakh", Arial, sans-serif;
         text-decoration: none;
         transition: all .25s ease;
         letter-spacing: .02rem;
+        scrollbar-width: thin;
     }
     button, input[type="submit"] {
         @apply cursor-pointer text-sm disabled:opacity-70 disabled:cursor-default
