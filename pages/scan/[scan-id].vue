@@ -19,7 +19,11 @@ const scanDetails = ref({})
 const scanLoading = computed(()=> !(scanDetails.value?.status))
 
 const loadScanDetail = () => {
-  useApiFetch().get(`scan`)
+  useApiFetch().get(`scan`, {
+    params: {
+        uuid: route.params.scanid
+    }
+  })
       .then(({data}) => {
         scanDetails.value = data
         useEvent('change-body-class', `${data.status}-shadow`)
