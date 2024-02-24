@@ -4,7 +4,7 @@
             <IconsSpin class="h-10" />
         </div>
         <div v-else dir="rtl" :class="['card divide-y text-center divide-gray-200 dark:divide-gray-800 bg-white dark:bg-gray-700 shadow']">
-            <div class="sticky top-0 z-20 border-b border-gray-300 grid grid-table gap-3 bg-gray-50 dark:bg-gray-700 p-3">
+            <div class="sticky top-0 z-20 border-b border-gray-300 dark:border-gray-800 grid grid-table gap-3 bg-gray-50 dark:bg-gray-700 p-3">
                 <div class="xs:hidden">ردیف</div>
                 <div>تاریخ اسکن</div>
                 <div>امتیاز اسکن</div>
