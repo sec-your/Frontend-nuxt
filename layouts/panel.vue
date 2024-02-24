@@ -6,7 +6,7 @@ useHead({
   title: 'پنل کاربری',
 })
 const route = useRoute()
-const isModalOpen = ref(true)
+const isModalOpen = ref(false)
 useListen('open-panel-modal', () => isModalOpen.value = true)
 useListen('close-panel-modal', () => isModalOpen.value = false)
 </script>

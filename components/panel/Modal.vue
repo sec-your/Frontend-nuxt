@@ -1,7 +1,7 @@
 <template>
   <div @click.self="closeModal()" class="fixed inset-0 w-full h-full z-999 bg-black/40 grid place-items-center">
-    <div class="relative drop-shadow max-w-screen">
-        <div class="flex items-center gap-3 absolute right-0 -top-2 -translate-y-full">
+    <div class="relative drop-shadow max-w-screen flex flex-col gap-2">
+        <div class="flex items-center gap-3">
             <div @click="useEvent('close-panel-modal')" class="w-6 h-6 rounded-full bg-red-700 hover:bg-red-800 grid place-items-center">
                 <IconsClose class="h-3" />
             </div>

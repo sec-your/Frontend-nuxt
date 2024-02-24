@@ -88,7 +88,7 @@ const itemCountWith = computed(() => {
       <div v-if="!scanLoading" class="card grid grid-cols-[13rem_auto] lg:grid-cols-1 gap-12">
         <div class="flex flex-col items-center gap-3">
           <div class="progress-radial float-right relative w-52 h-52 lg:w-56 lg:h-56 rounded-full">
-            <div class="grid place-items-center absolute w-48 h-48 lg:w-52 lg:h-52 top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 rounded-full bg-[#00171F]">
+            <div class="grid place-items-center absolute w-48 h-48 overflow-hidden lg:w-52 lg:h-52 top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 rounded-full bg-[#0b0d12]">
               <img :src="scanStatusIcon" class="max-w-[80%] mt-1" alt="Scan Status" />
             </div>
           </div>
@@ -100,13 +100,13 @@ const itemCountWith = computed(() => {
         <div>
           <div class="card grid grid-cols-2 gap-x-2 gap-y-7 mt-3 md:flex md:flex-col md:items-center">
             <div class="flex items-center gap-3">
-              <IconsCalendar class="h-5 text-[#4FDFFF] opacity-75" /> <span class="text-gray-300 mt-1">زمان اسکن:</span> <span class="mt-1">{{ scanDetails.datetime }}</span>
+              <IconsCalendar class="h-5 text-main-gray-100 opacity-75" /> <span class="text-gray-300 mt-1">زمان اسکن:</span> <span class="mt-1">{{ scanDetails.datetime }}</span>
             </div>
             <div dir="ltr" class="flex items-center gap-3 md:-order-1">
               <IconsLargeGlobe class="h-6" /> <span class="tracking-wider font-bold text-lg mt-1.5">{{ scanDetails.domain }}</span>
             </div>
             <div class="flex items-center gap-3">
-              <IconsTime class="h-5 mb-1 text-[#4FDFFF] opacity-75" /> <span class="text-gray-300 mt-1">مدت اسکن:</span> <span class="mt-1">{{ scanDetails.elapsed }}</span>
+              <IconsTime class="h-5 mb-1 text-main-gray-100 opacity-75" /> <span class="text-gray-300 mt-1">مدت اسکن:</span> <span class="mt-1">{{ scanDetails.elapsed }}</span>
             </div>
             <div dir="ltr" class="flex items-center gap-3 md:-order-1">
               <div class="bg-white/10 py-0.5 px-3 flex items-center gap-2">
@@ -148,7 +148,7 @@ const itemCountWith = computed(() => {
         <div>
           <h2 class="card text-2xl sm:text-xl font-bold"><span class="w-2.5 h-2.5 ml-2 inline-block" :style="{ 'background-color': colors[selectedReport.status] }"></span> {{ selectedReport.name }}</h2>
           <div v-html="selectedReport.content" class="card mt-6 text-[#E6E6E6] leading-loose"></div>
-          <a v-if="selectedReport?.name" :href="`https://blog.${$config.public.SITE_URL}/?s=`+ selectedReport.uuid.replace(' ', '+')" target="_blank" class="card bg-light-primary bg-opacity-80 hover:bg-opacity-100 flex gap-3 justify-between items-center mt-10 border-r-2 border-[#4FDFFF] pt-2.5 pb-2 px-4">
+          <a v-if="selectedReport?.name" :href="`https://blog.${$config.public.SITE_URL}/?s=`+ selectedReport.uuid.replace(' ', '+')" target="_blank" class="card bg-light-primary bg-opacity-80 hover:bg-opacity-100 flex gap-3 justify-between items-center mt-10 border-r-2 border-sky-600 pt-2.5 pb-2 px-4">
             <span>آموزش حل `{{ selectedReport.name }}` را در وبلاگ بخوانید</span>
             <IconsArrowLeft class="h-4 sm:hidden" />
           </a>
@@ -177,13 +177,13 @@ const itemCountWith = computed(() => {
 }
 
 .tooltip {
-  @apply w-20 py-1.5 pb-1 text-center bg-[#192E35] absolute -top-3.5 -translate-y-full right-1/2 translate-x-1/2 text-sm
+  @apply w-20 py-1.5 pb-1 text-center bg-main-gray-700 absolute -top-3.5 -translate-y-full right-1/2 translate-x-1/2 text-sm
 }
 .strip > div > div {
   text-shadow: 0 0 5px #00000090;
 }
 .tooltip::before {
   content: "";
-  @apply bg-white/10 absolute bottom-0 translate-y-full right-1/2 translate-x-1/2 border-x-8 border-x-[#00171F] border-t-8 border-t-[#192E35]
+  @apply bg-white/10 absolute bottom-0 translate-y-full right-1/2 translate-x-1/2 border-x-8 border-x-[#0b0d12] border-t-8 border-t-main-gray-700
 }
 </style>
