@@ -97,7 +97,7 @@ const itemCountWith = computed(() => {
             </div>
           </div>
           <div class="flex items-center gap-3.5 justify-center" dir="ltr">
-            <span :class="['py-1 px-2 rounded text-sm mt-1', scanDetails.type === 'free'? 'bg-white/10' : 'bg-[#3808B1]']">{{ scanTypeNames[scanDetails.type] }}</span>
+            <span :class="['py-1 px-2 rounded text-sm mt-1', scanDetails.type === 'free'? 'bg-white/10' : 'bg-main-purple-700']">{{ scanTypeNames[scanDetails.type] }}</span>
             <strong class="text-lg mt-2"><span class="text-2xl">{{ scanDetails.progress / 10 }}</span> / 10</strong>
           </div>
         </div>
