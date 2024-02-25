@@ -43,7 +43,7 @@ const login = async () => {
 <template>
     <LayoutsAuth>
         <h2 class="card text-3xl font-bold mb-7">ورود به حساب </h2>
-        <div class="card flex flex-col gap-5">
+        <form class="card flex flex-col gap-5">
             <MainFormControl v-model="email" dir="ltr" type="email" label="ایمیل" icon="IconsMail"
                 :status="inputsError.email" />
             <MainFormControl v-model="password" dir="ltr" type="password" label="رمز عبور" icon="IconsLock"
@@ -51,14 +51,14 @@ const login = async () => {
             <NuxtLink to="/forget-password" class="text-sm text-sky-400 hover:text-sky-500">رمز عبورتان را گم کرده اید؟
             </NuxtLink>
             <div class="card grid grid-cols-2 gap-4 xs:grid-cols-1">
-                <button @click.prevent="navigateTo('/register')"
+                <button type="button" @click.prevent="navigateTo('/register')"
                     class="rounded-full bg-white/10 hover:bg-white/20 shadow py-2.5 px-4">ایجاد حساب</button>
-                <button :disabled="disableStatus" @click.prevent="login()"
+                <button type="submit" :disabled="disableStatus" @click.prevent="login()"
                     class="xs:-order-1 disabled:opacity-80 rounded-full bg-sky-700 disabled:bg-sky-700 hover:bg-sky-800 shadow shadow-sky-700/30 py-2.5 px-4">
                     <IconsSpin v-if="isProcessing" class="h-5" />
                     <span v-else>ورود به پنل</span>
                 </button>
             </div>
-        </div>
+        </form>
     </LayoutsAuth>
 </template>

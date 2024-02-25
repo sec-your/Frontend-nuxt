@@ -131,6 +131,6 @@ const route = useRoute()
     top: -75vw;
     left: -50vw;
     filter: blur(500px);
-    opacity: .1;
+    opacity: .2;
     @apply bg-sky-600
 }</style>
