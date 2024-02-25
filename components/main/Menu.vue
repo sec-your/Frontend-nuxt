@@ -54,7 +54,7 @@ const route = useRoute()
                     <span class="text-sm mt-0.5">ایجاد حساب</span>
                     <IconsArrowLeft class="h-2" />
                 </NuxtLink>
-                <NuxtLink v-if="userStore.isLoggedIn" to="/register"
+                <NuxtLink v-if="userStore.isLoggedIn" to="/panel"
                     class="sm:hidden btn-bg rounded-xl py-1.25 px-3 items-center flex gap-2">
                     <span class="text-sm mt-0.5">حساب کاربری</span>
                     <IconsArrowLeft class="h-2" />
