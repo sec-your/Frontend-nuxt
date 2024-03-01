@@ -69,6 +69,9 @@ const route = useRoute()
 .scan-scanid-page.good-shadow {
     box-shadow: inset 0 300px 200px -200px #FDC82350;
 }
+.scan-scanid-page.secure-shadow {
+    box-shadow: inset 0 300px 200px -200px #007E5050;
+}
 
 .lights,
 .lights>* {
