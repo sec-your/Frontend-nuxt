@@ -18,7 +18,8 @@ const freeScanAction = async () => {
     isFreeScanProcessing = true
     useCompactAlert('free-scan-request', 'درحال پردازش...', { icon: '...' })
     let error = ''
-    await useApiFetch().post(runtimeConfig.public.API_FREE_SCAN, { url: scanAddress.value })
+    const apiFetch = () => userStore.isLoggedIn? useUserApiFetch() : useApiFetch()
+    await apiFetch().post(runtimeConfig.public.API_FREE_SCAN, { url: scanAddress.value })
         .then(async ({ data }) => {
             useHideAlert('free-scan-request')
             return await navigateTo(`/scan/${data.id}`)
