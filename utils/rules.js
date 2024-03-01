@@ -11,6 +11,12 @@ export const email =  (a) => {
         message: `فرمت :attribute: صحیح نمی باشد.`
     }
 };
+export const url =  (a) => {
+    return {
+        status: a.match(/(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/),
+        message: `:attribute: وارد شده صحیح نمی باشد.`
+    }
+};
 export const phone =  (a) => {
     return {
         status: a.match(/^09\d{9}$/),

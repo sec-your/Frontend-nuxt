@@ -8,6 +8,11 @@ const userStore = useUserStore()
 const freeScanAction = async () => {
     if (isFreeScanProcessing.value) return false
     if (!isFreeScanOpen.value) return isFreeScanOpen.value = true
+    let validating = await validate('آدرس', scanAddress.value, 'required|url')
+    if (validating != null && validating.length > 0) {
+        useCompactAlertError('free-scan-request', validating)
+        return false
+    }
     isFreeScanProcessing = true
     useCompactAlert('free-scan-request', 'درحال پردازش...', { icon: '...' })
     let error = ''
@@ -101,6 +106,7 @@ useHead({
                                 اسکن رایگان</div>
                         </div>
                         <input type="url" dir="ltr"
+                        v-model="scanAddress"
                             :class="['float-right bg-white rounded-full pt-1 text-left px-3 w-60 sm:w-52 text-gray-600', isFreeScanOpen ? 'delay-300 mr-3 max-w-[240px]' : 'max-w-0 !p-0 duration-0']"
                             placeholder="https://example.com">
                     </div>

@@ -1,5 +1,6 @@
 export default defineEventHandler((event) => {
     return {
+        isFinished: true,
         status: 'critical', // critical , bad , low , good , secure
         progress: 63,
         type: 'pro', // pro , free, organization

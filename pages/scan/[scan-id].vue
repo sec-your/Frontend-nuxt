@@ -17,20 +17,36 @@ let selectedReport = ref(null)
 const scanDetails = ref({})
 
 const scanLoading = computed(()=> !(scanDetails.value?.status))
-
-const loadScanDetail = () => {
-  useApiFetch().get(`scan`, {
-    params: {
-        uuid: route.params.scanid
+const loadScanDetail = async () => {
+    if (scanDetails.value?.isFinished) return false
+    await useApiFetch().get(`scan`, {
+        params: {
+            uuid: route.params.scanid
+        }
+    })
+        .then(({ data }) => {
+            scanDetails.value = data
+            useEvent('change-body-class', `${data.status}-shadow`)
+            if (selectedReport.value == null && data?.reports.length) selectedReport.value = data.reports[0]
+        }).catch(error => {
+            scanDetails.value = {
+                ...scanDetails.value,
+                ...{
+                    isFinished: true
+                }
+            }
+            useAlertError('get-scan-details', 'خطایی در بارگذاری رخ داد', error.message)
+        })
+    if (scanDetails.value.isFinished) {
+        useCompactAlertSuccess('get-scan-details', 'اسکن با موفقیت به اتمام رسید', { time: 4 })
+    } else {
+        setTimeout(loadScanDetail, 10000)
     }
-  })
-      .then(({data}) => {
-        scanDetails.value = data
-        useEvent('change-body-class', `${data.status}-shadow`)
-        if (selectedReport.value == null && data?.reports.length) selectedReport.value = data.reports[0]
-      }).catch(error => useAlertError('scan-error', 'خطایی در بارگذاری رخ داد', error.message))
 }
-onMounted(()=>loadScanDetail())
+onMounted(()=>{
+    useCompactAlert('get-scan-details', 'درحال اسکن...', { icon: '...', time: 9999 })
+    loadScanDetail()
+})
 
 const ReportBGOpacity = (i = 0) => {
   return  (20 + ( (scanDetails.value.reports.length - i) / scanDetails.value.reports.length ) * 80) / 100
