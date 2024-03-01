@@ -1,11 +1,11 @@
 <script setup>
 const route = useRoute()
-
+const runtimeConfig = useRuntimeConfig()
 definePageMeta({
   validate: async (route) => /^\d+$/.test(route.params.scanid),
   middleware: [
     async function (to, from) {
-      const { data } = await useApiFetch().post('/scanCheck', {
+      const { data } = await useApiFetch().post(useRuntimeConfig().public.API_SCAN_CHECK, {
         'scanID': to.params.scanid
       })
       if (data.status !== 'ok') return navigateTo('/')
@@ -19,7 +19,7 @@ const scanDetails = ref({})
 const scanLoading = computed(()=> !(scanDetails.value?.status))
 const loadScanDetail = async () => {
     if (scanDetails.value?.isFinished) return false
-    await useApiFetch().get(`scan`, {
+    await useApiFetch().get(runtimeConfig.public.API_SCAN_DETAILS, {
         params: {
             uuid: route.params.scanid
         }

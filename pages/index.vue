@@ -5,6 +5,8 @@ const scanAddress = ref('')
 let isFreeScanProcessing = ref(false)
 const userStore = useUserStore()
 
+const runtimeConfig = useRuntimeConfig()
+
 const freeScanAction = async () => {
     if (isFreeScanProcessing.value) return false
     if (!isFreeScanOpen.value) return isFreeScanOpen.value = true
@@ -16,12 +18,12 @@ const freeScanAction = async () => {
     isFreeScanProcessing = true
     useCompactAlert('free-scan-request', 'درحال پردازش...', { icon: '...' })
     let error = ''
-    await useApiFetch().post('freeScan', { url: scanAddress.value })
+    await useApiFetch().post(runtimeConfig.public.API_FREE_SCAN, { url: scanAddress.value })
         .then(async ({ data }) => {
             useHideAlert('free-scan-request')
             return await navigateTo(`/scan/${data.id}`)
         })
-        .catch((e) => error = getErrorMessage(e))
+        .catch((e) => console.log(e))
     if (error.length) useCompactAlertError('free-scan-request', error)
     else useHideAlert('free-scan-request')
     isFreeScanProcessing = false

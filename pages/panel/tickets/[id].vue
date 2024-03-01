@@ -6,8 +6,10 @@ const userStore = useUserStore()
 
 const ticketDetails = ref({})
 
+const runtimeConfig = useRuntimeConfig()
+
 onMounted(async ()=> {
-    const { data } = await useApiFetch().post('/get-ticket', { id: route.params.id })
+    const { data } = await useApiFetch().post(runtimeConfig.public.API_GET_TICKET, { id: route.params.id })
     if (data.status != 'ok') return navigateTo('/panel/tickets')
     ticketDetails.value = data
     isLoading.value = false
@@ -49,7 +51,7 @@ const sendMessage = async () => {
         return false
     }
     isSendProcessing.value = true
-    await useUserApiFetch().post('/reply-ticket', {
+    await useUserApiFetch().post(runtimeConfig.public.API_REPLY_TICKET, {
         id: ticketDetails.value.id.substring(1),
         message: replayText.value,
         attachment: replyAttachment.value
@@ -73,7 +75,7 @@ const closeTicket = async () => {
     if (ticketDetails.value.statusCode == 0 || isSendProcessing.value || isCloseProcessing.value) return false
     if (process.client && !window.confirm('آیا مطمئن هستید که می خواهید تیکت را ببندید؟')) return false
     isCloseProcessing.value = true
-    await useUserApiFetch().patch('/close-ticket', {
+    await useUserApiFetch().patch(runtimeConfig.public.API_CLOSE_TICKET, {
         id: ticketDetails.value.id.substring(1)
     }).then(({ data }) => {
         ticketDetails.value.statusCode = 0

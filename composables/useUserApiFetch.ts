@@ -3,8 +3,9 @@ import { useUserStore } from '@/stores/user';
 
 export const useUserApiFetch = () => {
     const getUserStore = useUserStore()
+    const runtimeConfig = useRuntimeConfig()
     return axios.create({
-        baseURL: "/api/",
+        baseURL: runtimeConfig.public.API_BASE_URL,
         headers: {
             'Cache-Control': 'no-cache',
             'Content-Type' : 'application/json',

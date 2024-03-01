@@ -10,9 +10,11 @@ const tickets = ref([])
 
 let isLoading = ref(true)
 
+const runtimeConfig = useRuntimeConfig()
+
 const getTickets = async () => {
     isLoading.value = true
-    await useUserApiFetch().get('/tickets-list', {
+    await useUserApiFetch().get(runtimeConfig.public.API_TICKETS_LIST, {
         params: {
             page: page.value
         }

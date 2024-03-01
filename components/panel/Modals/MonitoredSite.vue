@@ -45,8 +45,10 @@ const scans = ref([])
 const isLoading = ref(true)
 const selected = ref(null)
 
+const runtimeConfig = useRuntimeConfig()
+
 const getScans = async () => {
-    await useUserApiFetch().get('/monitored-site', {
+    await useUserApiFetch().get(runtimeConfig.public.API_MONITORED_SITE, {
         params: {
             uuid: attrs.uuid
         }

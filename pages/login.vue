@@ -31,7 +31,7 @@ const login = async () => {
         let result = await userStore.login(email.value, password.value)
         if (result.status == 'ok') {
             useCompactAlertSuccess('login-request', 'شما با موفقیت وارد شدید.')
-            return await navigateTo(route.query?.redirect ? route.query.redirect : '/panel')
+            return await navigateTo(route.query?.redirect?.length ? route.query.redirect : '/panel')
         }
         useCompactAlertError('login-request', result.message)
     }

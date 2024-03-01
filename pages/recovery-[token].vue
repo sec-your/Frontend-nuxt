@@ -1,8 +1,9 @@
 <script setup>
+const runtimeConfig = useRuntimeConfig()
 definePageMeta({
     validate: async (to, from) => {
         const { token } = to.params
-        const { data } = await useApiFetch().post('/reset-password-check', { token })
+        const { data } = await useApiFetch().post(useRuntimeConfig().public.API_RESET_PASSWORD_TOKEN_CHECK, { token })
         if (data.status != 'ok') return navigateTo('/forget-password')
         return true
     },
@@ -35,7 +36,7 @@ const changePassword = async () => {
         useCompactAlertError('change-password-request', Object.values(inputsError.value).find(x => x?.length))
     }
     else {
-        await useApiFetch().post('reset-password', {
+        await useApiFetch().post(runtimeConfig.public.API_RESET_PASSWORD, {
             token: route.params.token,
             password: password.value
         }).then(async ({ data }) => {

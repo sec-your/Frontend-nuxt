@@ -9,10 +9,12 @@ const sort = ref('desc')
 
 const sites = ref([])
 
+const runtimeConfig = useRuntimeConfig()
+
 const getSites = async (resetPage = false) => {
     isLoading.value = true
     if (resetPage) page.value = 1
-    await useUserApiFetch().get('/monitored-sites', {
+    await useUserApiFetch().get(runtimeConfig.public.API_MONITORED_SITES, {
         params: {
             page: page.value,
             sort: sort.value
@@ -35,7 +37,7 @@ watch(page, async () => await getSites())
 
 const changeScanInterval = async (value, uuid) => {
     useCompactAlert(`change-interval-${uuid}`, 'درحال انجام...', { time: 99, icon: '...' })
-    await useUserApiFetch().post('/change-scan-interval', {
+    await useUserApiFetch().post(runtimeConfig.public.API_CHANGE_MONITORED_SITES_SCAN_INTERVAL, {
         interval: Number(value),
         id: uuid
     }).then(({ data }) => {

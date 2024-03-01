@@ -31,7 +31,7 @@ watch(password, () => {
 })
 watch(confirmPassword, checkConfirmPassword)
 
-
+const runtimeConfig = useRuntimeConfig()
 
 const register = async () => {
     isProcessing.value = true
@@ -39,7 +39,7 @@ const register = async () => {
         useCompactAlertError('register-request', Object.values(inputsError.value).find(x => x?.length))
     }
     else {
-        await useApiFetch().put('register', {
+        await useApiFetch().put(runtimeConfig.public.API_REGISTER, {
             email: email.value,
             displayName: name.value,
             phone: phone.value,

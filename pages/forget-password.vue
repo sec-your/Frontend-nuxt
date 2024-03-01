@@ -16,13 +16,14 @@ const disableStatus = computed(() => isProcessing.value || Object.values(inputsE
 
 watch(email, () => inputsError.value.email = validate('ایمیل', email.value, 'unload|email'))
 
+const runtimeConfig = useRuntimeConfig()
 
 const forget = async () => {
     isProcessing.value = true
     if (Object.values(inputsError.value).some(i => i !== null))
         useCompactAlertError('forget-request', Object.values(inputsError.value).find(i => i?.length))
     else {
-        await useApiFetch().post('forget-password', {
+        await useApiFetch().post(runtimeConfig.public.API_FORGET_PASSWORD, {
             email: email.value
         }).then(() => useCompactAlertSuccess('forget-request', 'لینک بازیابی رمز عبور برای شما ایمیل شد.'))
         .catch((error) => useCompactAlertError('forget-request', getErrorMessage(error)))
