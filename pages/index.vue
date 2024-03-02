@@ -24,7 +24,7 @@ const freeScanAction = async () => {
             useHideAlert('free-scan-request')
             return await navigateTo(`/scan/${data.id}`)
         })
-        .catch((e) => console.log(e))
+        .catch((e) => error = getErrorMessage(e))
     if (error.length) useCompactAlertError('free-scan-request', error)
     else useHideAlert('free-scan-request')
     isFreeScanProcessing = false

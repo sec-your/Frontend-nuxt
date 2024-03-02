@@ -25,3 +25,4 @@ logs
 !.env.example
 .editorconfig
 .gitignore
+.vscode/settings.json
