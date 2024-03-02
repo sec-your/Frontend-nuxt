@@ -5,7 +5,7 @@ const props = defineProps({
 })
 const isFocused = ref(false)
 const isActive = computed(() => !!props.modelValue.length || isFocused.value)
-const inputColors = computed(() => props.status && props.status.length? 'border-red-600/70' : isActive.value ? 'border-blue-500/70' : 'border-gray-200')
+const inputColors = computed(() => props.status && props.status.length? 'border-red-600/70 dark:border-red-500/70' : isActive.value ? 'border-blue-500/70 dark:border-blue-400/70' : 'border-gray-200 dark:border-gray-400')
 </script>
 
 <template>

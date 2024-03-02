@@ -12,6 +12,7 @@ export default defineEventHandler((event) => {
         },
         datetime: '26 شهریور 1402 - 12:30',
         elapsed: '3.12 ثانیه',
+        scanersType: 'پایه',
         domain: 'https://aliranjbar.ir/license',
         shareLink: 'https://secyour.com/scan/226870',
         technologies: [

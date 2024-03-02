@@ -8,5 +8,16 @@
     "explorer.fileNesting.enabled": false,
     "explorer.excludeGitIgnore": true,
     "explorer.expandSingleFolderWorkspaces": true,
-    "explorer.incrementalNaming": "smart"
+    "explorer.incrementalNaming": "smart",
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        ".idea": true,
+        ".nuxt": true,
+        "node_modules": true
+    }
 }
