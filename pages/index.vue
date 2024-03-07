@@ -190,7 +190,7 @@ useHead({
             <div class="plans grid grid-cols-3 items-center gap-9 xl:gap-3 lg:gap-2 ml:grid-cols-2 ml:gap-3 ml:items-start ml:grid-rows-2 sm:grid-cols-1 sm:grid-rows-1 sm:gap-5 sm:content-center">
                 <div
                     class="wow a-fadeIn ml:self-end sm:justify-self-center sm:py-7 overflow-hidden plan bg-gradient-to-tr from-white/5 to-white/20 max-w-[420px] rounded-2xl relative p-5 md:p-4 pt-7">
-                    <div class="light hidden-on-touch"></div>
+                    <div class="light"></div>
                     <h5 class="card text-center text-3xl font-bold">پایه</h5>
                     <span class="card text-center mt-2">اسکن سایت برای آسیب پذیری های عمومی</span>
                     <ul class="card my-7 bg-white/5 text-left p-4 space-y-3 rounded-xl plan-list">
@@ -247,7 +247,7 @@ useHead({
                 </div>
                 <div data-wow-delay=".6s"
                     class="wow a-fadeIn ml:row-span-2 ml:self-center sm:justify-self-center sm:pb-7 overflow-hidden plan bg-main-purple-900 shadow-purple-lg max-w-[420px] rounded-2xl relative p-5 md:p-4 pt-10 md:pt-0">
-                    <div class="light hidden-on-touch"></div>
+                    <div class="light"></div>
                     <span
                         class="ribbon absolute md:inline-block md:static md:float-left top-0 left-5 bg-main-purple-700 py-1 px-3 rounded-b-xl">محبوب
                         ترین</span>
@@ -320,7 +320,7 @@ useHead({
                 </div>
                 <div data-wow-delay=".3s"
                     class="wow a-fadeIn ml:self-start sm:justify-self-center sm:py-7 overflow-hidden plan shadow-xl bg-gradient-to-br from-white/20 to-white/5 max-w-[420px] rounded-2xl relative p-5 md:p-4 pt-7 text-center">
-                    <div class="light hidden-on-touch"></div>
+                    <div class="light"></div>
                     <h5 class="card text-3xl font-bold">سازمانی</h5>
                     <span class="card mt-2">نظارت و پشتیبانی ۲۴ ساعته</span>
                     <div class="card my-7 bg-white/5 p-4 rounded-xl leading-8">فرم رزرو جلسه را برای بررسی نیازمندی های
