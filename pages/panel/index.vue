@@ -3,157 +3,203 @@
 definePageMeta({
   layout: 'panel'
 })
+
+const runtimeConfig = useRuntimeConfig()
+
 let filter = ref('datetime')
-const latestScans = [
-  {
-    uuid: 2523871,
-    domain: 'https://certivid.com',
-    datetime: '26 شهریور 1402 - 10:23',
-    rate: 49
-  },
-  {
-    uuid: 1723871,
-    domain: 'https://rezagraphic.ir',
-    datetime: '23 شهریور 1402 - 05:23',
-    rate: 90
-  },
-  {
-    uuid: 6023871,
-    domain: 'https://secyour.ir',
-    datetime: '23 شهریور 1402 - 04:10',
-    rate: 58
-  },
-  {
-    uuid: 6323871,
-    domain: 'http://aaelectronic.ir',
-    datetime: '10 شهریور 1402 - 12:00',
-    rate: 10
-  },
-  {
-    uuid: 7523871,
-    domain: 'https://certivid.com',
-    datetime: '26 شهریور 1402 - 10:23',
-    rate: 46
-  },
-  {
-    uuid: 1723871,
-    domain: 'https://rezagraphic.ir',
-    datetime: '23 شهریور 1402 - 05:23',
-    rate: 92
-  },
-  {
-    uuid: 8023871,
-    domain: 'https://secyour.ir',
-    datetime: '23 شهریور 1402 - 04:10',
-    rate: 52
-  }
-]
-let isLoading = ref(false)
+const latestScans = ref([])
+let isLoading = ref(true)
+
+const getLastScans = async () => {
+    isLoading.value = true
+    await useUserApiFetch().get(runtimeConfig.public.API_LAST_SCANS, {
+        params: {
+            filter: filter.value
+        }
+    }).then(({ data }) => {
+        latestScans.value = data
+    }).catch((error) => {
+        useCompactAlertError('get-last-scans', getErrorMessage(error))
+    })
+    isLoading.value = false
+    return false
+}
+
+onMounted(()=> getLastScans())
+
+watch(filter, () => {
+    if (latestScans.value.length == 0) return false
+    getLastScans()
+})
+
+const userStore = useUserStore()
+
+const profileProcess = computed(()=> {
+    let process = 25
+    if (!userStore.info.avatar.endsWith('avatar.jpg')) process += 25
+    if (userStore.info.isPhoneVerified) process += 25
+    if (userStore.info.type !== 'free') process += 25
+    return process
+})
+
 </script>
 
 <template>
-  <div class="card">
-    <div class="card flex justify-between items-center xs:flex-col gap-5">
-      <h1 class="page-title">آخرین اسکن ها</h1>
-      <div class="flex items-center gap-3">
-        <span>بر اساس</span>
-        <div class="rounded-full overflow-hidden bg-white dark:bg-gray-700 shadow">
-          <button @click="filter = 'datetime'" :class="{'py-1.5 px-3 rounded-full': true, 'bg-blue-600 text-white' : filter !== 'rate'}">تاریخ</button>
-          <button @click="filter = 'rate'" :class="{'py-1.5 px-3 rounded-full': true, 'bg-blue-600 text-white' : filter === 'rate'}">امتیاز</button>
+    <div class="card">
+        <div class="card">
+            <h1 class="page-title">داشبورد</h1>
         </div>
-      </div>
+        <div class="card">
+            <div
+                class="card grid grid-cols-4 text-center 2xl:gap-3 xl:grid-cols-2 xs:grid-cols-1 gap-5 mt-7 text-gray-600 dark:text-gray-200">
+                <div
+                    class="p-4 bg-white dark:bg-gray-700 shadow-sm rounded-2xl flex flex-col gap-1 items-center border-b-2 border-blue-600">
+                    <div class="bg-blue-600/10 w-10 h-10 grid place-items-center rounded-full">
+                        <IconsSearchBug class="h-5 text-blue-600 dark:text-blue-400" />
+                    </div>
+                    <strong class="text-xl mt-2 text-gray-700 dark:text-gray-100">10 سایت</strong>
+                    <span>تحت نظارت</span>
+                </div>
+                <div
+                    class="p-4 bg-white dark:bg-gray-700 shadow-sm rounded-2xl flex flex-col gap-1 items-center border-b-2 border-green-600">
+                    <div class="bg-green-600/10 w-10 h-10 grid place-items-center rounded-full">
+                        <IconsWallet class="h-5 text-green-600 dark:text-green-400" />
+                    </div>
+                    <strong class="text-xl mt-2 text-gray-700 dark:text-gray-100">{{ useNumberFormat(userStore.info.money) }} <small
+                            class="opacity-70 mr-0.5">تومان</small></strong>
+                    <span>موجودی کیف پول</span>
+                </div>
+                <div
+                    class="p-4 bg-white dark:bg-gray-700 shadow-sm rounded-2xl flex flex-col gap-1 items-center border-b-2 border-orange-700">
+                    <div class="bg-orange-700/10 w-10 h-10 grid place-items-center rounded-full">
+                        <IconsTicket class="h-5 text-orange-700 dark:text-orange-400" />
+                    </div>
+                    <strong class="text-xl mt-2 text-gray-700 dark:text-gray-100">8 تیکت</strong>
+                    <span>ایجاد شده</span>
+                </div>
+                <div
+                    class="p-4 bg-white dark:bg-gray-700 shadow-sm rounded-2xl flex flex-col gap-1 items-center border-b-2 border-purple-600">
+                    <div class="bg-purple-600/10 w-10 h-10 grid place-items-center rounded-full">
+                        <IconsPremium class="h-5 text-purple-600 dark:text-purple-400" />
+                    </div>
+                    <strong class="text-xl mt-2 text-gray-700 dark:text-gray-100">حرفه ای</strong>
+                    <span>اشتراک حال حاضر</span>
+                </div>
+            </div>
+            <div class="card grid grid-cols-3 2xl:grid-cols-1 gap-7 mt-12 items-start">
+                <div class="col-span-2 2xl:col-span-1">
+                    <div class="card">
+                        <div class="card flex items-center justify-between mb-4">
+                            <h4 class="font-bold text-xl">آخرین اسکن ها</h4>
+                            <div class="flex items-center gap-3">
+                                <span>بر اساس</span>
+                                <div class="rounded-full overflow-hidden bg-white dark:bg-gray-700 shadow">
+                                    <button @click="filter = 'datetime'"
+                                        :class="{ 'py-1.5 px-3 rounded-full': true, 'bg-blue-600 text-white': filter !== 'rate' }">تاریخ</button>
+                                    <button @click="filter = 'rate'"
+                                        :class="{ 'py-1.5 px-3 rounded-full': true, 'bg-blue-600 text-white': filter === 'rate' }">امتیاز</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            :class="['card divide-y text-center divide-gray-200 dark:divide-gray-800', isLoading ? 'shadow-sm' : 'bg-white dark:bg-gray-700 shadow']">
+                            <div v-if="latestScans.length || isLoading"
+                                class="grid grid-table xs:text-center gap-3 bg-gray-50 dark:bg-gray-700 p-3">
+                                <div class="ml:hidden">شناسه</div>
+                                <div class="xs:col-span-full">دامنه</div>
+                                <div>تاریخ</div>
+                                <div>امتیاز</div>
+                                <div></div>
+                            </div>
+                            <div v-if="!isLoading" v-for="scan in latestScans"
+                                class="group relative items-center hover:z-[2] hover:shadow hover:shadow-blue-200/40 dark:hover:shadow-blue-300/40 hover:bg-blue-200/10 dark:hover:bg-blue-300/10 text-sm grid grid-table xs:text-center gap-3 bg-white dark:bg-gray-700 p-3">
+                                <div class="ml:hidden">{{ scan.uuid }}</div>
+                                <div class="xs:col-span-full xs:text-lg xs:font-bold">{{
+                                    scan.domain.replace(/^https?:\/\//,
+                                    '') }}
+                                </div>
+                                <div>{{ scan.datetime.split('-')[0] }}<span><small> -
+                                        </small></span>{{ scan.datetime.split('-')[1] }}</div>
+                                <div dir="ltr" class="flex items-center gap-3 justify-center">
+                                    <span
+                                        :class="['pt-1 px-2 tracking-wider rounded-full text-white', (70 <= scan.rate) ? 'bg-green-700' : ((50 <= scan.rate) ? 'bg-amber-700' : 'bg-red-700')]">{{
+                                        scan.rate }}/100</span>
+                                </div>
+                                <div class="text-left xs:text-center xs:col-span-full">
+                                    <NuxtLink :to="`/scan/${scan.uuid}`" target="_blank">
+                                        <IconsSearch
+                                            class="h-4 ml-3 xs:ml-0 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-100" />
+                                    </NuxtLink>
+                                </div>
+                            </div>
+                            <div v-if="isLoading" v-for="i of 3"
+                                class="items-center grid grid-table gap-3 2xl:gap-1 bg-white dark:bg-gray-700 p-3"
+                                :style="{ opacity: ((8 - i) / 7) * 100 + '%' }">
+                                <div class="ml:hidden"><span class="isLoading w-10 h-6 my-1 rounded-full"></span></div>
+                                <div class="xs:col-span-full"><span
+                                        class="isLoading w-full h-6 my-1 rounded-full"></span></div>
+                                <div><span class="isLoading w-full h-6 my-1 rounded-full"></span></div>
+                                <div><span class="isLoading w-full h-6 my-1 rounded-full"></span></div>
+                                <div class="xs:col-span-full"><span
+                                        class="isLoading w-full xs:w-8 h-6 xs:mx-auto my-1 rounded-full"></span></div>
+                            </div>
+                        </div>
+                        <div v-if="!isLoading && !latestScans.length"
+                            class="card text-center p-7 bg-gray-300/10 border border-gray-300">
+                            <IconsDetect class="h-24 text-gray-400" />
+                            <span class="block mt-7 text-lg">تا حالا اسکن نکرده اید!</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-gray-700 shadow flex flex-col 2xl:flex-row 2xl:items-center gap-x-5 sm:flex-col">
+                    <div class="p-5">
+                        <div class="mx-auto max-w-40 relative">
+                            <svg viewBox="0 0 160 160" style="transform: rotate(-90deg)">
+                                <circle r="70" cx="80" cy="80" fill="transparent" class="stroke-gray-400/20"
+                                    stroke-width="12px"></circle>
+                                <circle r="70" cx="80" cy="80" fill="transparent" class="stroke-green-500"
+                                    stroke-linecap="round" stroke-width="12px" :stroke-dasharray="2 * Math.PI * 70"
+                                    :stroke-dashoffset="2 * Math.PI * 70 * ((100 - profileProcess) / 100)"></circle>
+                            </svg>
+                            <span
+                                class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 font-bold text-4xl mt-2">{{ profileProcess }}%</span>
+                        </div>
+                        <strong class="card mt-3 text-center text-xl whitespace-nowrap">{{ profileProcess == 100 ? "پروفایل شما تکمیل است" : "ماموریت نا تمام دارید!" }}</strong>
+                    </div>
+                    <ul class="space-y-px">
+                        <li :class="['process', userStore.info.avatar.endsWith('avatar.jpg')? 'fail' : 'success']">عکس پروفایل را عوض کنید <button @click.prevent="navigateTo('/panel/profile')" class="opacity-90 hover:opacity-100 bg-blue-600 text-white mr-3 px-1.5 py-0.5 rounded text-xs">تغییر</button></li>
+                        <li :class="['process', userStore.info.isPhoneVerified? 'success' : 'fail']">شماره همراه خود را تایید کنید <button @click.prevent="navigateTo('/panel/profile')" class="opacity-90 hover:opacity-100 bg-blue-600 text-white mr-3 px-1.5 py-0.5 rounded text-xs">تایید</button></li>
+                        <li :class="['process', userStore.info.type == 'free'? 'fail' : 'success']">اشتراک بگیرید <button @click.prevent="navigateTo('/panel/subscription')" class="opacity-90 hover:opacity-100 bg-blue-600 text-white mr-3 px-1.5 py-0.5 rounded text-xs">تمدید</button></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="card mt-8">
-      <table class="card border-separate border-spacing-y-3 border-spacing-x-0 leading-relaxed text-center text-gray-600 space-y-6 text-sm" style="word-spacing:2px">
-        <thead class="bg-blue-50 dark:bg-gray-700 text-gray-700 dark:text-white">
-        <tr class="shadow shadow-blue-200 dark:shadow-gray-800">
-          <th class="p-3 sm:hidden">شماره</th>
-          <th class="p-3">دامنه</th>
-          <th class="p-3">تاریخ اسکن</th>
-          <th class="p-3">امتیاز اسکن</th>
-          <th></th>
-        </tr>
-        </thead>
-        <tbody>
-          <tr v-if="latestScans.length && !isLoading" v-for="(scan, index) in latestScans.sort((a,b)=> b[filter == 'datetime'? 'uuid' : 'rate'] - a[filter == 'datetime'? 'uuid' : 'rate'] )" :key="index" class="shadow odd:bg-white even:bg-gray-50 hover:bg-gray-100 dark:even:bg-gray-700 dark:odd:bg-gray-600 dark:text-gray-200">
-            <td class="p-2 sm:hidden" v-text="0 <= index && index <= 8? `0${index+1}` : index+1"></td>
-            <td class="p-2">
-              <a :href="scan.domain" target="_blank" class="!text-sky-600 hover:!text-sky-700 dark:!text-sky-200 dark:hover:!text-sky-300">{{ scan.domain.replace(/^https?:\/\//, '') }}</a>
-            </td>
-            <td class="p-2" v-text="scan.datetime"></td>
-            <td class="p-2 tracking-widest" dir="ltr">
-              <span :title="scan.rate >= 90? 'عالی' : (scan.rate >= 70? 'خوب' : (scan.rate >= 50? 'متوسط' : (scan.rate >= 30? 'بد' : 'خیلی بد')))" :class="['inline-block rounded-xl px-3.5 pt-1 xs:px-0 xs:!bg-transparent', (70 <= scan.rate) ? 'bg-green-200 text-green-700 dark:bg-green-600/70 dark:text-green-200' : ((50 <= scan.rate) ? 'bg-yellow-200 text-yellow-700 dark:bg-yellow-600/70 dark:text-yellow-200' : 'bg-red-200 text-red-700 dark:bg-red-700/70 dark:text-red-200')]">{{ scan.rate }}/100</span>
-            </td>
-            <td class="p-2">
-              <NuxtLink :to="`/scan/${scan.uuid}`" target="_blank" class="!text-sky-600 hover:!text-sky-700 dark:!text-sky-200 dark:hover:!text-sky-300 md:flex md:justify-center">
-                <span class="md:hidden">مشاهده نتیجه</span>
-                <IconsEye class="w-4 hidden md:block" />
-              </NuxtLink>
-            </td>
-          </tr>
-          <tr v-if="isLoading" class="opacity-80 shadow bg-white dark:bg-gray-700 dark:text-gray-200">
-            <td class="p-2 sm:hidden">
-              <span class="isLoading w-10 h-6 my-1 rounded-full"></span>
-            </td>
-            <td class="p-2">
-              <span class="isLoading w-36 h-6 my-1 rounded-full"></span>
-            </td>
-            <td class="p-2">
-              <span class="isLoading w-36 h-6 my-1 rounded-full"></span>
-            </td>
-            <td class="p-2">
-              <span class="isLoading w-16 h-6 my-1 rounded-full"></span>
-            </td>
-            <td class="p-2">
-              <span class="isLoading w-32 h-6 my-1 rounded-full"></span>
-            </td>
-          </tr>
-          <tr v-if="isLoading" class="opacity-60 shadow bg-white dark:bg-gray-700 dark:text-gray-200">
-            <td class="p-2 sm:hidden">
-              <span class="isLoading w-10 h-6 my-1 rounded-full"></span>
-            </td>
-            <td class="p-2">
-              <span class="isLoading w-36 h-6 my-1 rounded-full"></span>
-            </td>
-            <td class="p-2">
-              <span class="isLoading w-36 h-6 my-1 rounded-full"></span>
-            </td>
-            <td class="p-2">
-              <span class="isLoading w-16 h-6 my-1 rounded-full"></span>
-            </td>
-            <td class="p-2">
-              <span class="isLoading w-32 h-6 my-1 rounded-full"></span>
-            </td>
-          </tr>
-          <tr v-if="isLoading" class="opacity-30 shadow bg-white dark:bg-gray-700 dark:text-gray-200">
-            <td class="p-2 sm:hidden">
-              <span class="isLoading w-10 h-6 my-1 rounded-full"></span>
-            </td>
-            <td class="p-2">
-              <span class="isLoading w-36 h-6 my-1 rounded-full"></span>
-            </td>
-            <td class="p-2">
-              <span class="isLoading w-36 h-6 my-1 rounded-full"></span>
-            </td>
-            <td class="p-2">
-              <span class="isLoading w-16 h-6 my-1 rounded-full"></span>
-            </td>
-            <td class="p-2">
-              <span class="isLoading w-32 h-6 my-1 rounded-full"></span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div v-if="!isLoading && !latestScans.length" class="card text-center p-7 bg-gray-300/10 border border-gray-300 rounded-lg">
-        <IconsSecureClose class="h-24 text-gray-400" />
-        <span class="block mt-7 text-lg">هیچ سایتی تا حالا اسکن نشده است!</span>
-      </div>
-    </div>
-  </div>
 </template>
 
-<style scoped>
-.isLoading {
-  @apply lg:w-16 xs:w-10
+<style lang="postcss" scoped>
+.grid-table {
+    grid-template-columns: 4rem auto 10rem 6rem 5%;
 }
+@media screen and (max-width: 890px) {
+    .grid-table {
+        grid-template-columns: auto 10rem 6rem 5%;
+    }
+}
+@media screen and (max-width: 560px) {
+    .grid-table {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px
+    }
+}
+.process {
+    @apply border-r-2 bg-gradient-to-l p-2 float-right w-full text-sm
+}
+.process.success {
+    @apply border-green-700 from-green-700/10 to-green-700/0
+}
+.process.fail {
+    @apply border-red-700 from-red-700/10 to-red-700/0
+}
+.process.success button {display: none;}
 </style>

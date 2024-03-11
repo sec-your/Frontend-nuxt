@@ -83,7 +83,7 @@ useHead({
                     دریافت کنید.</span>
                 <div
                     :class="['mt-10 flex md:justify-center xs:flex-col xs:items-center xs:gap-8', isFreeScanOpen ? 'gap-0' : 'gap-7 sm:gap-3']">
-                    <div @click="proScanAction()"
+                    <div @click="navigateTo({ path: '/scan' })"
                         :class="[isFreeScanOpen ? 'max-w-0 xs:max-w-40' : 'max-w-40', 'cursor-pointer overflow-hidden whitespace-nowrap flex items-center w-36 gap-3 py-1.5 justify-center rounded-full bg-main-purple-700 hover:bg-main-purple-900 scan-btn']">
                         <svg class="inline h-5" viewBox="0 0 37 46" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
