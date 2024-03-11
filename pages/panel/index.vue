@@ -6,31 +6,26 @@ definePageMeta({
 
 const runtimeConfig = useRuntimeConfig()
 
-let filter = ref('datetime')
-const latestScans = ref([])
+const filter = ref('datetime')
+const lastScans = ref([])
+const ticketsCount = ref(null)
+const sitesCount = ref(null)
 let isLoading = ref(true)
 
-const getLastScans = async () => {
+const getDetails = async () => {
     isLoading.value = true
-    await useUserApiFetch().get(runtimeConfig.public.API_LAST_SCANS, {
-        params: {
-            filter: filter.value
-        }
-    }).then(({ data }) => {
-        latestScans.value = data
+    await useUserApiFetch().get(runtimeConfig.public.API_DASHBOARD_DETAILS).then(({ data }) => {
+        lastScans.value = data.lastScans
+        ticketsCount.value = data.ticketsCount
+        sitesCount.value = data.sitesCount
     }).catch((error) => {
-        useCompactAlertError('get-last-scans', getErrorMessage(error))
+        useCompactAlertError('get-dashboard-details', getErrorMessage(error))
     })
     isLoading.value = false
     return false
 }
 
-onMounted(()=> getLastScans())
-
-watch(filter, () => {
-    if (latestScans.value.length == 0) return false
-    getLastScans()
-})
+onMounted(()=> getDetails())
 
 const userStore = useUserStore()
 
@@ -57,7 +52,7 @@ const profileProcess = computed(()=> {
                     <div class="bg-blue-600/10 w-10 h-10 grid place-items-center rounded-full">
                         <IconsSearchBug class="h-5 text-blue-600 dark:text-blue-400" />
                     </div>
-                    <strong class="text-xl mt-2 text-gray-700 dark:text-gray-100">10 سایت</strong>
+                    <strong class="text-xl mt-2 text-gray-700 dark:text-gray-100">{{ isLoading? '-' : `${sitesCount} سایت` }}</strong>
                     <span>تحت نظارت</span>
                 </div>
                 <div
@@ -74,7 +69,7 @@ const profileProcess = computed(()=> {
                     <div class="bg-orange-700/10 w-10 h-10 grid place-items-center rounded-full">
                         <IconsTicket class="h-5 text-orange-700 dark:text-orange-400" />
                     </div>
-                    <strong class="text-xl mt-2 text-gray-700 dark:text-gray-100">8 تیکت</strong>
+                    <strong class="text-xl mt-2 text-gray-700 dark:text-gray-100">{{ isLoading? '-' : `${ticketsCount} تیکت` }}</strong>
                     <span>ایجاد شده</span>
                 </div>
                 <div
@@ -94,16 +89,16 @@ const profileProcess = computed(()=> {
                             <div class="flex items-center gap-3">
                                 <span>بر اساس</span>
                                 <div class="rounded-full overflow-hidden bg-white dark:bg-gray-700 shadow">
-                                    <button @click="filter = 'datetime'"
+                                    <button @click.prevent="filter = 'datetime'"
                                         :class="{ 'py-1.5 px-3 rounded-full': true, 'bg-blue-600 text-white': filter !== 'rate' }">تاریخ</button>
-                                    <button @click="filter = 'rate'"
+                                    <button @click.prevent="filter = 'rate'"
                                         :class="{ 'py-1.5 px-3 rounded-full': true, 'bg-blue-600 text-white': filter === 'rate' }">امتیاز</button>
                                 </div>
                             </div>
                         </div>
                         <div
                             :class="['card divide-y text-center divide-gray-200 dark:divide-gray-800', isLoading ? 'shadow-sm' : 'bg-white dark:bg-gray-700 shadow']">
-                            <div v-if="latestScans.length || isLoading"
+                            <div v-if="lastScans.length || isLoading"
                                 class="grid grid-table xs:text-center gap-3 bg-gray-50 dark:bg-gray-700 p-3">
                                 <div class="ml:hidden">شناسه</div>
                                 <div class="xs:col-span-full">دامنه</div>
@@ -111,7 +106,7 @@ const profileProcess = computed(()=> {
                                 <div>امتیاز</div>
                                 <div></div>
                             </div>
-                            <div v-if="!isLoading" v-for="scan in latestScans"
+                            <div v-if="!isLoading" v-for="scan in (filter == 'datetime'? lastScans : lastScans.sort((a,b)=>b.rate-a.rate))"
                                 class="group relative items-center hover:z-[2] hover:shadow hover:shadow-blue-200/40 dark:hover:shadow-blue-300/40 hover:bg-blue-200/10 dark:hover:bg-blue-300/10 text-sm grid grid-table xs:text-center gap-3 bg-white dark:bg-gray-700 p-3">
                                 <div class="ml:hidden">{{ scan.uuid }}</div>
                                 <div class="xs:col-span-full xs:text-lg xs:font-bold">{{
@@ -144,7 +139,7 @@ const profileProcess = computed(()=> {
                                         class="isLoading w-full xs:w-8 h-6 xs:mx-auto my-1 rounded-full"></span></div>
                             </div>
                         </div>
-                        <div v-if="!isLoading && !latestScans.length"
+                        <div v-if="!isLoading && !lastScans.length"
                             class="card text-center p-7 bg-gray-300/10 border border-gray-300">
                             <IconsDetect class="h-24 text-gray-400" />
                             <span class="block mt-7 text-lg">تا حالا اسکن نکرده اید!</span>
@@ -168,8 +163,8 @@ const profileProcess = computed(()=> {
                     </div>
                     <ul class="space-y-px">
                         <li :class="['process', userStore.info.avatar.endsWith('avatar.jpg')? 'fail' : 'success']">عکس پروفایل را عوض کنید <button @click.prevent="navigateTo('/panel/profile')" class="opacity-90 hover:opacity-100 bg-blue-600 text-white mr-3 px-1.5 py-0.5 rounded text-xs">تغییر</button></li>
-                        <li :class="['process', userStore.info.isPhoneVerified? 'success' : 'fail']">شماره همراه خود را تایید کنید <button @click.prevent="navigateTo('/panel/profile')" class="opacity-90 hover:opacity-100 bg-blue-600 text-white mr-3 px-1.5 py-0.5 rounded text-xs">تایید</button></li>
-                        <li :class="['process', userStore.info.type == 'free'? 'fail' : 'success']">اشتراک بگیرید <button @click.prevent="navigateTo('/panel/subscription')" class="opacity-90 hover:opacity-100 bg-blue-600 text-white mr-3 px-1.5 py-0.5 rounded text-xs">تمدید</button></li>
+                        <li :class="['process', userStore.info.isPhoneVerified? 'success' : 'fail']">شماره همراه را تایید کنید <button @click.prevent="navigateTo('/panel/profile')" class="opacity-90 hover:opacity-100 bg-blue-600 text-white mr-3 px-1.5 py-0.5 rounded text-xs">تایید</button></li>
+                        <li :class="['process', userStore.info.type == 'free'? 'fail' : 'success']">اشتراک بگیرید یا تمدید کنید <button @click.prevent="navigateTo('/panel/subscription')" class="opacity-90 hover:opacity-100 bg-blue-600 text-white mr-3 px-1.5 py-0.5 rounded text-xs">تمدید</button></li>
                     </ul>
                 </div>
             </div>
