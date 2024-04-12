@@ -36,6 +36,12 @@ export const max =  (a, max) => {
         message: `:attribute: باید حداکثر ${max} کاراکتر باشد.`
     }
 };
+export const length =  (a, len) => {
+    return {
+        status: a.length == Number(len),
+        message: `:attribute: باید ${max} کاراکتر باشد.`
+    }
+};
 
 export const regex =  (a, regex) => {
     return {

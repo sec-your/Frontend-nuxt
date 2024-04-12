@@ -106,7 +106,7 @@ const profileProcess = computed(()=> {
                                 <div>امتیاز</div>
                                 <div></div>
                             </div>
-                            <div v-if="!isLoading" v-for="scan in (filter == 'datetime'? lastScans : lastScans.sort((a,b)=>b.rate-a.rate))"
+                            <div v-if="!isLoading" v-for="scan in (filter == 'datetime'? lastScans : lastScans.toSorted((a,b)=>b.rate-a.rate))"
                                 class="group relative items-center hover:z-[2] hover:shadow hover:shadow-blue-200/40 dark:hover:shadow-blue-300/40 hover:bg-blue-200/10 dark:hover:bg-blue-300/10 text-sm grid grid-table xs:text-center gap-3 bg-white dark:bg-gray-700 p-3">
                                 <div class="ml:hidden">{{ scan.uuid }}</div>
                                 <div class="xs:col-span-full xs:text-lg xs:font-bold">{{

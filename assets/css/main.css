@@ -166,8 +166,10 @@
 
     .x-flip {
         transform: rotateX(180deg);
+        transform-origin: center;
     }
     .y-flip {
         transform: rotateY(180deg);
+        transform-origin: center;
     }
 }

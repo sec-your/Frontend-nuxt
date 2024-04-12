@@ -44,18 +44,11 @@ const closeSidebar = (event) => {
               <span class="mt-1">تیکت جدید</span>
             </NuxtLink>
           </div>
-          <div class="w-full flex flex-col">
-            <span class="group-title">پروفایل</span>
-            <NuxtLink to="/panel/profile" @click="isOpen = false" class="link">
-              <IconsUserOutline class="w-4" />
-              <span class="mt-1">پروفایل من</span>
-            </NuxtLink>
-          </div>
         </nav>
         <div class="w-full mt-auto">
-          <NuxtLink to="/panel/setting" @click="isOpen = false" class="link">
+          <NuxtLink to="/panel/account" @click="isOpen = false" class="link">
             <IconsCog class="w-4" />
-            <span class="mt-1">تنظیمات</span>
+            <span class="mt-1">حساب کاربری</span>
           </NuxtLink>
           <div class="link py-0 mt-2">
             <IconsMoon class="w-4" />

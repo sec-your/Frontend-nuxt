@@ -7,14 +7,16 @@ const defaultUserObject = {
     phone: '',
     displayName: '',
     isPhoneVerified: false,
+    isEmailVerified: false,
     type: 'free',
     avatar: '',
     money: 0
 }
 
-export const useUserStore = defineStore('user', ()=>{
+export const useUserStore = defineStore('user', () => {
 
     const runtimeConfig = useRuntimeConfig()
+    const userSetting = useSettingStore()
 
     // Base Information
     const info = ref({...defaultUserObject})
@@ -24,6 +26,7 @@ export const useUserStore = defineStore('user', ()=>{
         if (!info.value?.token) return false
         await useUserApiFetch().post(runtimeConfig.public.API_LOGOUT)
         info.value = {...defaultUserObject}
+        userSetting.set(userSetting.defaultSettings)
         useLocalStorage.removeItem('user-token')
     }
     
@@ -31,7 +34,8 @@ export const useUserStore = defineStore('user', ()=>{
     const login = async (email, password) => {
         let result = null
         await useApiFetch().post(runtimeConfig.public.API_LOGIN, {email, password}).then(({ data }) => {
-            info.value = {...data}
+            info.value = {...data.user}
+            userSetting.set(data.settings)
             useLocalStorage.setItem('user-token', data.token)
             result = { status: 'ok' }
         }).catch((error) => {
@@ -49,7 +53,8 @@ export const useUserStore = defineStore('user', ()=>{
                 'Authorization' : 'Bearer ' + token
             }
         }).then(({ data }) => {
-            info.value = {token, ...data}
+            info.value = {token, ...data.user}
+            userSetting.set(data.settings)
             useLocalStorage.setItem('user-token', token)
         }).catch((error) => {
             useLocalStorage.removeItem('user-token')
@@ -57,20 +62,34 @@ export const useUserStore = defineStore('user', ()=>{
         })
     }
 
-    const updateMoney = async (token) => {
-        await useApiFetch().post(runtimeConfig.public.API_UPDATE_MONEY, {}, {
-            headers: {
-                'Authorization' : 'Bearer ' + token
-            }
-        }).then(({ data }) => {
-            info.value.money = data.money
+    const changePassword = async (currentPassword, newPassword) => {
+        let result = null
+        await useUserApiFetch().post(runtimeConfig.public.API_CHANGE_PASSWORD, {
+            current: currentPassword,
+            new: newPassword
+        }).then(() => {
+            result = { status: 'ok' }
         }).catch((error) => {
-            useAlertError('upate-user-money', getErrorMessage(error), { time: 4 })
+            result = { status: 'error', message: getErrorMessage(error) }
+        })
+        return result
+    }
+
+    const set = (props = {}) => {
+        info.value = {...info.value, ...props}
+    }
+
+    const refreshProperty = async (props) => {
+        await useUserApiFetch().post(runtimeConfig.public.API_USER).then(({ data }) => {
+            props = Array.isArray(props)? props : [props]
+            props.forEach(prop => info.value[prop] = data.user[prop] );
+        }).catch((error) => {
+            useAlertError(`refresh-property-user`, getErrorMessage(error), { time: 4 })
         })
     }
 
 
-    const isLoggedIn = computed(() => info.value?.id && info.value?.email && info.value?.token)
+    const isLoggedIn = computed(() => !!info.value?.id && !!info.value?.email && !!info.value?.token)
 
-    return { info, isLoggedIn, getUser, login, logout, updateMoney }
+    return { info, isLoggedIn, set, getUser, login, logout, changePassword, refreshProperty }
 });
