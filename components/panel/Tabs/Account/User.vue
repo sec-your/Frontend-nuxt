@@ -179,7 +179,7 @@ const sendEmailVerifaction = async () => {
                 <div class="card grid grid-cols-2 sm:grid-cols-1 gap-5">
 
                     <div v-if="!userStore.info.isPhoneVerified"
-                        class="col-span-full flex gap-3 items-center mb-5 2xl:justify-stretch flex-wrap rounded-xl p-4 bg-white xs:p-0 xs:bg-transparent xs:dark:bg-transparent xs:shadow-none dark:bg-gray-700/50 shadow">
+                        class="col-span-full flex gap-3 items-center mb-5 2xl:justify-stretch flex-wrap rounded-2xl p-4 bg-white xs:p-0 xs:bg-transparent xs:dark:bg-transparent xs:shadow-none dark:bg-gray-700/50 shadow">
                         <div class="text-lg 2xl:w-full font-bold ml-auto">تایید شماره همراه</div>
 
                         <input placeholder="کد ارسال شده" :disabled="phoneCountdown <= 0" v-model="code" type="tel"
@@ -204,12 +204,12 @@ const sendEmailVerifaction = async () => {
                                 <span v-if="emailCountdown <= 0" class="text-red-600 dark:text-red-500 ml-3">ایمیل تان
                                     را هنوز تایید نکرده
                                     اید!</span>
-                                <span class="ml-2 text-blue-500 cursor-pointer whitespace-nowrap">
+                                <span class="ml-2 text-blue-500 hover:text-blue-600 cursor-pointer whitespace-nowrap">
                                     <span v-if="emailCountdown > 0">( {{ emailCountdown }} ثانیه تا ارسال مجدد )</span>
                                     <span v-else @click="sendEmailVerifaction()">( ارسال لینک تایید )</span>
                                 </span>
                             </span>
-                            <span class="text-blue-500 cursor-pointer whitespace-nowrap" @click="refreshEmailStatus()">
+                            <span class="text-blue-500 hover:text-blue-600 cursor-pointer whitespace-nowrap" @click="refreshEmailStatus()">
                                 <span v-if="emailProcessing">( درحال بررسی... )</span>
                                 <span v-else>(بررسی)</span>
                             </span>
@@ -241,7 +241,7 @@ const sendEmailVerifaction = async () => {
                     <img :src="avatarPreview.url" alt="" class="card rounded-md mb-3" />
                     <div class="card flex items-center justify-between">
                         <button type="button" :disabled="isProcessing"
-                            class="bg-blue-600 disabled:opacity-70 text-white hover:bg-blue-700 py-1.5 px-3 rounded-md"
+                            class="bg-blue-600 disabled:opacity-70 text-white hover:bg-blue-700 py-1.5 px-3 rounded-xl"
                             onclick="document.getElementById('profile-avatar').click()">
                             <IconsSpin v-if="isProcessing" class="h-3" />
                             <IconsUpload v-if="!isProcessing" class="h-3 ml-2" />

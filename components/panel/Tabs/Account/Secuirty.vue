@@ -38,7 +38,7 @@ const changePassword = async () => {
 </script>
 
 <template>
-    <div class="card grid grid-cols-2 gap-14 sm:grid-cols-1 xl:gap-8 lg:gap-4 ml:grid-cols-1 ml:gap-16">
+    <div class="grid grid-cols-2 gap-14 sm:grid-cols-1 xl:gap-8 lg:gap-4 ml:grid-cols-1 ml:gap-16">
         <div class="flex flex-col items-end gap-5">
             <PanelFormControl v-model="password" dir="ltr" type="password" label="رمز عبور فعلی" icon="IconsLock"
                 :status="inputsError.password" />

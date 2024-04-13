@@ -29,11 +29,11 @@
         </div>
         <div class="col-span-full flex items-center justify-between mt-10">
             <button @click.prevent="reset()"
-                class="mb-1 bg-white dark:bg-gray-700 opacity-80 hover:opacity-100 hover:shadow-md rounded-lg shadow text-sm py-2 px-4 flex items-center gap-2">
+                class="mb-1 bg-white dark:bg-gray-700 opacity-80 hover:opacity-100 hover:shadow-md rounded-lg shadow text-md py-2 px-4 flex items-center gap-2">
                 حالت پیش فرض
             </button>
             <button type="button" @click.prevent="saveChanges()"
-                class="mr-auto mb-1 bg-blue-500 hover:bg-blue-600 text-white rounded-lg py-2 shadow-lg shadow-blue-500/40 hover:shadow-blue-600/40 px-4 text-base flex items-center gap-2">
+                class="mr-auto mb-1  rounded-xl bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-600/30 py-2 px-4 text-md flex items-center gap-2">
                 <IconsSpin v-if="isProcessing" class="h-5 mb-1" />
                 <IconsSave v-if="!isProcessing" class="h-3.5 mb-1" /> <span v-if="!isProcessing" >ذخیره</span>
             </button>
