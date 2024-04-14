@@ -166,7 +166,7 @@ const sendEmailVerifaction = async () => {
     await useUserApiFetch().post(runtimeConfig.public.API_SEND_EMAIL_VERIFACTION)
         .then(() => emailCountdown.value = 60)
         .catch((error) => useAlertError('send-email-verifaction', getErrorMessage(error), { time: 4 }))
-        isProcessing.value = false
+    isProcessing.value = false
 }
 </script>
 

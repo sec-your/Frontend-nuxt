@@ -29,10 +29,11 @@
 const runtimeConfig = useRuntimeConfig()
 const email = ref('')
 const organizationsEmail = ref([])
-const isLoading = ref(true)
+const isLoading = ref(false)
 const emailError = ref('')
-
+const isProcessing = ref(false)
 const loadEmails = async () => {
+    if (isProcessing.value || isLoading.value) return false
     isLoading.value = true
     await useUserApiFetch().get(runtimeConfig.public.API_GET_ORGANIZATIONS_EMAIL)
     .then(({ data }) => {
@@ -46,7 +47,6 @@ const loadEmails = async () => {
 onMounted(() => {
     loadEmails()
 })
-const isProcessing = ref(false)
 const disableStatus = computed(() => isProcessing.value || emailError.value != null)
 watch(email, () => emailError.value = validate('ایمیل', email.value, 'unload|required|email'))
 

@@ -27,7 +27,7 @@ const tabCompunent = computed(() => tabResolves.value[tab.value])
             <div @click="tab = 'organization-emails'" :class="{'tab xl:col-span-3' : true, 'active' : tab == 'organization-emails'}">ایمیل های سازمانی</div>
             <div @click="tab = 'notifications'" :class="{'tab xl:col-span-2' : true, 'active' : tab == 'notifications'}">اعلان ها</div>
             <div @click="tab = 'security'" :class="{'tab xl:col-span-4' : true, 'active' : tab == 'security'}">رمز عبور و امنیت</div>
-            <div @click="tab = 'subscription-wallet'" :class="{'tab xl:col-span-4' : true, 'active' : tab == 'subscription-wallet'}">اشتراک / کیف پول</div>
+            <div @click="tab = 'subscription-wallet'" :class="{'tab xl:col-span-4' : true, 'active' : tab == 'subscription-wallet'}">کیف پول / اشتراک</div>
         </div>
 
         <component class="card" :is="tabCompunent" />
