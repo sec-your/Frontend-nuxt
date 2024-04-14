@@ -38,7 +38,7 @@ const changePassword = async () => {
 </script>
 
 <template>
-    <div class="grid grid-cols-2 gap-14 sm:grid-cols-1 xl:gap-8 lg:gap-4 ml:grid-cols-1 ml:gap-16">
+    <div class="grid grid-cols-2 gap-14 xl:gap-8 lg:gap-4 ml:grid-cols-1 ml:gap-16">
         <div class="flex flex-col items-end gap-5">
             <PanelFormControl v-model="password" dir="ltr" type="password" label="رمز عبور فعلی" icon="IconsLock"
                 :status="inputsError.password" />
@@ -49,7 +49,7 @@ const changePassword = async () => {
             <PanelFormControl v-model="confirmNewPassword" dir="ltr" type="password" label="تکرار رمز عبور جدید"
                 icon="IconsLock" :status="inputsError.confirmNewPassword" />
             <button :disabled="disableStatus" @click.prevent="changePassword()"
-                class="w-36 disabled:opacity-60 text-white rounded-full bg-blue-500 disabled:bg-blue-500 hover:bg-blue-600 shadow-lg shadow-blue-600/30 py-2.5 px-4">
+                class="w-36 xs:w-full disabled:opacity-60 text-white rounded-full bg-blue-500 disabled:bg-blue-500 hover:bg-blue-600 shadow-lg shadow-blue-600/30 py-2.5 px-4">
                 <IconsSpin v-if="isProcessing" class="h-5" />
                 <span v-else>تغییر رمز</span>
             </button>

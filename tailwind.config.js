@@ -65,6 +65,7 @@ export default {
         '400-auto': 'min(400px, 50%) auto',
       },
       height: {
+        '4.5': '1.128rem',
         '18': '4.5rem'
       },
       width: {

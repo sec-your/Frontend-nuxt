@@ -2,14 +2,15 @@
 definePageMeta({
   layout: 'panel'
 })
-
-const tab = ref('user')
+const route = useRoute()
+const router = useRouter()
+const tab = computed(() => ['#emails', '#notifications', '#security', '#subscription'].includes(route.hash)? route.hash.substring(1) : 'user')
 
 const tabResolves = shallowRef({
-        'organization-emails' : resolveComponent('PanelTabsAccountOrganizationEmails'),
+        'emails' : resolveComponent('PanelTabsAccountEmails'),
         'notifications' : resolveComponent('PanelTabsAccountNotifications'),
         'security' : resolveComponent('PanelTabsAccountSecuirty'),
-        'subscription-wallet' : resolveComponent('PanelTabsAccountSubscriptionWallet'),
+        'subscription' : resolveComponent('PanelTabsAccountSubscription'),
         'user': resolveComponent('PanelTabsAccountUser')
     })
 
@@ -22,12 +23,12 @@ const tabCompunent = computed(() => tabResolves.value[tab.value])
             <h1 class="page-title">حساب کاربری</h1>
         </div>
 
-        <div class="card flex items-end xl:grid xl:grid-cols-8 xs:grid-cols-1 xl:text-center border-b-2 xl:border-b-0 border-gray-300 dark:border-gray-500 my-10">
-            <div @click="tab = 'user'" :class="{'tab xl:col-span-3' : true, 'active' : tab == 'user'}">مشخصات کاربری</div>
-            <div @click="tab = 'organization-emails'" :class="{'tab xl:col-span-3' : true, 'active' : tab == 'organization-emails'}">ایمیل های سازمانی</div>
-            <div @click="tab = 'notifications'" :class="{'tab xl:col-span-2' : true, 'active' : tab == 'notifications'}">اعلان ها</div>
-            <div @click="tab = 'security'" :class="{'tab xl:col-span-4' : true, 'active' : tab == 'security'}">رمز عبور و امنیت</div>
-            <div @click="tab = 'subscription-wallet'" :class="{'tab xl:col-span-4' : true, 'active' : tab == 'subscription-wallet'}">کیف پول / اشتراک</div>
+        <div class="card flex items-end text-center border-b-2 xs:flex-col sm:gap-1 sm:items-stretch border-gray-200 ml:flex-wrap ml:border-0 dark:border-gray-500 mt-8 mb-10">
+            <div @click="router.replace({hash: '#user'})" :class="{'tab' : true, 'active' : tab == 'user'}">مشخصات کاربری</div>
+            <div @click="router.replace({hash: '#emails'})" :class="{'tab' : true, 'active' : tab == 'emails'}">ایمیل های سازمانی</div>
+            <div @click="router.replace({hash: '#notifications'})" :class="{'tab' : true, 'active' : tab == 'notifications'}">اعلان ها</div>
+            <div @click="router.replace({hash: '#security'})" :class="{'tab' : true, 'active' : tab == 'security'}">رمز عبور و امنیت</div>
+            <div @click="router.replace({hash: '#subscription'})" :class="{'tab' : true, 'active' : tab == 'subscription'}">کیف پول / اشتراک</div>
         </div>
 
         <component class="card" :is="tabCompunent" />
@@ -37,12 +38,12 @@ const tabCompunent = computed(() => tabResolves.value[tab.value])
 
 <style lang="postcss" scoped>
 .tab {
-    @apply py-2 px-4 bg-gray-50 dark:bg-gray-800 -mb-0.5 xl:mb-0 border border-gray-100 dark:border-gray-700 border-b-2 border-b-gray-300 dark:border-b-gray-600 cursor-pointer
+    @apply py-2 px-4 bg-gray-50 dark:bg-gray-800 sm:rounded-lg sm:border -mb-0.5 ml:mb-0 ml:px-4 xl:flex-grow xl:px-2 border border-gray-100 dark:border-gray-700 sm:border-gray-200 dark:sm:border-gray-700 border-b-2 border-b-gray-200 dark:border-b-gray-600 cursor-pointer
 }
 .tab:hover {
     @apply bg-white dark:bg-gray-700
 }
 .tab.active {
-    @apply border-b-blue-600 bg-white dark:bg-gray-700
+    @apply border-b-blue-600 bg-white dark:bg-gray-700 sm:border-blue-600 sm:text-blue-600 dark:sm:border-blue-300 dark:sm:text-blue-300
 }
 </style>

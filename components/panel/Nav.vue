@@ -38,9 +38,9 @@ let isProfileDropDownOpen = ref(false)
 
 const userStore = useUserStore()
 
-const changeNavigate = async (to) => {
+const changeNavigate = async (to, ...arg) => {
     isProfileDropDownOpen.value = false
-    return await navigateTo(to)
+    return await navigateTo(to, ...arg)
 }
 
 const logout = async () => {
@@ -101,21 +101,21 @@ const toggleSideBar = () => useEvent( 'toggle-panel-sidebar')
         </div>
         <div class="card p-2 text-center border-y border-gray-100 dark:border-gray-600">موجودی: <strong class="mr-1">{{ useNumberFormat(userStore.info.money) }}</strong> تومان</div>
         <div class="card p-2 grid grid-cols-2 gap-2">
-            <button class="flex flex-col gap-1 text-xs py-1.5 px-1.5 rounded border border-blue-400 dark:border-blue-300 hover:bg-blue-600 text-blue-600 dark:text-blue-200 hover:text-white hover:!border-blue-600" @click="changeNavigate('/panel/wallet')">
+            <button class="flex flex-col gap-1 text-xs py-1.5 px-1.5 rounded border border-blue-400 dark:border-blue-300 hover:bg-blue-600 text-blue-600 dark:text-blue-200 hover:text-white hover:!border-blue-600" @click="changeNavigate('/panel/account#subscription')">
                 <IconsWallet class="h-4" />
                 <span>افزایش موجودی</span>
             </button>
-            <button class="flex flex-col gap-1 text-xs py-1.5 px-1.5 rounded border border-purple-400 dark:border-purple-300 hover:bg-purple-600 text-purple-600 dark:text-purple-200 hover:text-white hover:!border-purple-600" @click="changeNavigate('/panel/profile')">
+            <button class="flex flex-col gap-1 text-xs py-1.5 px-1.5 rounded border border-purple-400 dark:border-purple-300 hover:bg-purple-600 text-purple-600 dark:text-purple-200 hover:text-white hover:!border-purple-600" @click="changeNavigate('/panel/account#subscription')">
                 <IconsPremium class="h-4" />
                 <span>{{ userStore.info.type == 'free'? 'خرید اشتراک' : 'تمدید اشتراک' }}</span>
             </button>
         </div>
         <div class="card grid grid-cols-[auto_1fr_1fr] border-t border-gray-100 dark:border-gray-600">
-          <div @click="changeNavigate('/panel/password')" class="cursor-pointer p-2 pl-5 flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-white/5">
+          <div @click="changeNavigate('/panel/account#security')" class="cursor-pointer p-2 pl-5 flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-white/5">
             <IconsKey class="h-3.5 text-[#3390ec]" />
             <span>تغییر رمز عبور</span>
           </div>
-          <div @click="changeNavigate('/panel/profile')" class="cursor-pointer border-r border-gray-100 dark:border-gray-600 grid place-items-center hover:bg-gray-100 dark:hover:bg-white/5">
+          <div @click="changeNavigate('/panel/account')" class="cursor-pointer border-r border-gray-100 dark:border-gray-600 grid place-items-center hover:bg-gray-100 dark:hover:bg-white/5">
             <IconsUserOutline class="h-3.5 text-[#3390ec]" />
           </div>
           <div @click="logout()" class="cursor-pointer border-r border-gray-100 dark:border-gray-600 grid place-items-center hover:bg-gray-100 text-red-600 dark:text-red-400 dark:hover:bg-white/5">

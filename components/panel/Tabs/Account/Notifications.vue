@@ -34,8 +34,8 @@
             </button>
             <button type="button" @click.prevent="saveChanges()"
                 class="mr-auto mb-1  rounded-xl bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-600/30 py-2 px-4 text-md flex items-center gap-2">
-                <IconsSpin v-if="isProcessing" class="h-5 mb-1" />
-                <IconsSave v-if="!isProcessing" class="h-3.5 mb-1" /> <span v-if="!isProcessing" >ذخیره</span>
+                <IconsSpin v-if="isProcessing" class="h-5" />
+                <IconsSave v-else class="h-3.5 mb-1" /> <span v-if="!isProcessing" >ذخیره</span>
             </button>
         </div>
     </div>
