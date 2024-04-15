@@ -19,9 +19,7 @@ const tabCompunent = computed(() => tabResolves.value[tab.value])
 
 <template>
     <div class="card">
-        <div class="card flex items-center justify-between">
-            <h1 class="page-title">حساب کاربری</h1>
-        </div>
+        <h1 class="card page-title">حساب کاربری</h1>
 
         <div class="card flex items-end text-center border-b-2 xs:flex-col sm:gap-1 sm:items-stretch border-gray-200 ml:flex-wrap ml:border-0 dark:border-gray-500 mt-8 mb-10">
             <div @click="router.replace({hash: '#user'})" :class="{'tab' : true, 'active' : tab == 'user'}">مشخصات کاربری</div>

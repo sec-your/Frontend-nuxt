@@ -59,6 +59,7 @@ export default defineNuxtConfig({
       API_INCREASE_MONEY: process.env.API_POST_INCREASE_MONEY,
       API_SUBSCRIBE_PLAN: process.env.API_POST_SUBSCRIBE_PLAN,
       API_GET_SUBSCRIPTION_DAYS_LEFT: process.env.API_GET_SUBSCRIPTION_DAYS_LEFT,
+      API_SCAN_SITE: process.env.API_POST_SCAN_SITE,
     }
   },
 

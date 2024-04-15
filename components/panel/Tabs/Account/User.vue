@@ -152,7 +152,7 @@ const codeAction = async () => {
     } else {
         await useUserApiFetch().post(runtimeConfig.public.API_SEND_PHONE_VERIFACTION)
             .then(() => phoneCountdown.value = 120)
-            .catch((error) => useAlertError('send-phone-verifaction', getErrorMessage(error), { time: 4 }))
+            .catch((error) => useCompactAlertError('send-phone-verifaction', getErrorMessage(error), { time: 4 }))
     }
     phoneProcessing.value = false
 }
@@ -168,7 +168,7 @@ const sendEmailVerifaction = async () => {
     emailProcessing.value = true
     await useUserApiFetch().post(runtimeConfig.public.API_SEND_EMAIL_VERIFACTION)
         .then(() => emailCountdown.value = 60)
-        .catch((error) => useAlertError('send-email-verifaction', getErrorMessage(error), { time: 4 }))
+        .catch((error) => useCompactAlertError('send-email-verifaction', getErrorMessage(error), { time: 4 }))
     emailProcessing.value = false
 }
 </script>

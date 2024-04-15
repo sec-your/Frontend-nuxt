@@ -162,9 +162,9 @@ const profileProcess = computed(()=> {
                         <strong class="card mt-3 text-center text-xl whitespace-nowrap">{{ profileProcess == 100 ? "پروفایل شما تکمیل است" : "ماموریت نا تمام دارید!" }}</strong>
                     </div>
                     <ul class="space-y-px">
-                        <li :class="['process', userStore.info.avatar.endsWith('avatar.jpg')? 'fail' : 'success']">عکس پروفایل را عوض کنید <button @click.prevent="navigateTo('/panel/profile')" class="opacity-90 hover:opacity-100 bg-blue-600 text-white mr-3 px-1.5 py-0.5 rounded text-xs">تغییر</button></li>
-                        <li :class="['process', userStore.info.isPhoneVerified? 'success' : 'fail']">شماره همراه را تایید کنید <button @click.prevent="navigateTo('/panel/profile')" class="opacity-90 hover:opacity-100 bg-blue-600 text-white mr-3 px-1.5 py-0.5 rounded text-xs">تایید</button></li>
-                        <li :class="['process', userStore.info.type == 'free'? 'fail' : 'success']">اشتراک بگیرید یا تمدید کنید <button @click.prevent="navigateTo('/panel/subscription')" class="opacity-90 hover:opacity-100 bg-blue-600 text-white mr-3 px-1.5 py-0.5 rounded text-xs">تمدید</button></li>
+                        <li :class="['process', userStore.info.avatar.endsWith('avatar.jpg')? 'fail' : 'success']">عکس پروفایل را عوض کنید <button @click.prevent="navigateTo('/panel/account')" class="opacity-90 hover:opacity-100 bg-blue-600 text-white mr-3 px-1.5 py-0.5 rounded text-xs">تغییر</button></li>
+                        <li :class="['process', userStore.info.isPhoneVerified? 'success' : 'fail']">شماره همراه را تایید کنید <button @click.prevent="navigateTo('/panel/account')" class="opacity-90 hover:opacity-100 bg-blue-600 text-white mr-3 px-1.5 py-0.5 rounded text-xs">تایید</button></li>
+                        <li :class="['process', userStore.info.type == 'free'? 'fail' : 'success']">اشتراک بگیرید یا تمدید کنید <button @click.prevent="navigateTo('/panel/account#subscription')" class="opacity-90 hover:opacity-100 bg-blue-600 text-white mr-3 px-1.5 py-0.5 rounded text-xs">تمدید</button></li>
                     </ul>
                 </div>
             </div>

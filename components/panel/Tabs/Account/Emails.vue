@@ -39,7 +39,7 @@ const loadEmails = async () => {
     .then(({ data }) => {
         organizationsEmail.value = data
     }).catch((error) => {
-        useCompactAlertError(`get-organizations-email`, getErrorMessage(error))
+        useCompactAlertError(`get-organizations-email`, getErrorMessage(error), { time: 5 })
     })
     isLoading.value = false
 }
@@ -63,7 +63,7 @@ const addEmail = async () => {
             useCompactAlertSuccess(`add-organizations-email-${email.value}`, `به ${email.value} لینک تایید ایمیل شد.`)
             email.value = ''
         }).catch((error) => {
-            useCompactAlertError(`add-organizations-email-${email.value}`, getErrorMessage(error))
+            useCompactAlertError(`add-organizations-email-${email.value}`, getErrorMessage(error), { time: 5 })
         })
     }
     isProcessing.value = false
