@@ -44,32 +44,32 @@
                     <span v-if="userStore.info.type != 'free'" class="mr-2 text-xs">({{ subscriptionDaysLeft }} روز مانده)</span>
                 </div>
             </div>
-            <div class="card mt-5 rounded-full bg-white shadow-md grid grid-cols-4 xs:grid-cols-2 xs:gap-1 xs:rounded-xl p-1">
+            <div class="card mt-5 rounded-full bg-white dark:bg-gray-700 shadow-md grid grid-cols-4 xs:grid-cols-2 xs:gap-1 xs:rounded-xl p-1">
                 <span v-for="period in Object.keys(periods)" :class="{'period-tab': true, 'active': subscriptionPeriod == period}" @click="subscriptionPeriod = period">{{ periods[period] }}</span>
             </div>
             <div class="card mt-5 mb-8">
-                <div class="card rounded-lg bg-white shadow-md flex items-center py-3 px-4 cursor-pointer gap-3">
-                    <div class="rounded-full w-4 h-4 bg-main-purple-700/50 border-4 border-main-purple-900/30"></div>
+                <div class="card rounded-lg bg-white dark:bg-gray-700 shadow-md flex items-center py-3 px-4 cursor-pointer gap-3">
+                    <div class="rounded-full w-4 h-4 bg-main-purple-700/50 dark:bg-purple-500 border-4 border-main-purple-900/30"></div>
                     <div>
-                        <strong class="text-main-purple-700 text-lg xs:text-base">اشتراک حرفه ای</strong>
+                        <strong class="text-main-purple-700 dark:text-purple-300 text-lg xs:text-base">اشتراک حرفه ای</strong>
                         <p class="text-sm xs:text-xs">اسکن عمیق و کامل</p>
                     </div>
                     <div class="mr-auto text-left">
-                        <strong class="text-blue-600 xs:text-base">
+                        <strong class="text-blue-600 dark:text-blue-300 xs:text-base">
                             {{ String((proPrices[subscriptionPeriod])/1e6).replace('.', '/') }} میلیون
                         </strong>
-                        <div class="text-xs xs:text-xs mt-0.5 text-gray-500">تومان / {{ periods[subscriptionPeriod] }}</div>
+                        <div class="text-xs xs:text-xs mt-0.5 text-gray-500 dark:text-gray-300">تومان / {{ periods[subscriptionPeriod] }}</div>
                     </div>
                 </div>
-                <div class="card rounded-lg bg-white shadow-md flex items-center py-3 px-4 xs:p-3 mt-3 gap-3 opacity-60">
-                    <div class="rounded-full w-4 h-4 bg-gray-200 border-4 border-gray-300"></div>
+                <div class="card rounded-lg bg-white dark:bg-gray-700 shadow-md flex items-center py-3 px-4 xs:p-3 mt-3 gap-3 opacity-60">
+                    <div class="rounded-full w-4 h-4 bg-gray-200 dark:bg-gray-300 border-4 border-gray-300 dark:border-gray-400"></div>
                     <div>
-                        <strong class="text-gray-700 text-lg xs:text-base">اشتراک سازمانی</strong>
+                        <strong class="text-gray-700 dark:text-gray-200 text-lg xs:text-base">اشتراک سازمانی</strong>
                         <p class="text-sm xs:text-xs">تنظیم توسط کارشناسان</p>
                     </div>
                     <div class="mr-auto text-left">
-                        <strong class="text-gray-700 xs:text-sm">تماس بگیرید</strong>
-                        <div class="text-xs mt-0.5 text-gray-500">{{ periods[subscriptionPeriod] }}</div>
+                        <strong class="text-gray-700 dark:text-gray-300 xs:text-sm">تماس بگیرید</strong>
+                        <div class="text-xs mt-0.5 text-gray-500 dark:text-gray-300">{{ periods[subscriptionPeriod] }}</div>
                     </div>
                 </div>
             </div>
@@ -77,7 +77,7 @@
                 <div>
                     <div>
                         <span class="block text-xs mb-1.5">مبلغ کل پرداختی:</span>
-                        <strong class="text-lg text-gray-700" style="word-spacing:3px">{{ useNumberFormat(proPrices[subscriptionPeriod]) }} تومان</strong>
+                        <strong class="text-lg text-gray-700 dark:text-white" style="word-spacing:3px">{{ useNumberFormat(proPrices[subscriptionPeriod]) }} تومان</strong>
                     </div>
                 </div>
                 <button :disabled="disableStatus" @click.prevent="subscribe()"
@@ -150,7 +150,7 @@ onMounted(async () => {
 
 <style lang="postcss" scoped>
 .period-tab {
-    @apply rounded-full text-center py-1.5 px-2 select-none cursor-pointer text-sm duration-100 xs:rounded-xl xs:bg-gray-50
+    @apply rounded-full text-center py-1.5 px-2 select-none cursor-pointer text-sm duration-100 xs:rounded-xl xs:bg-gray-50 dark:xs:bg-gray-600
 }
 .period-tab.active {
     @apply bg-blue-600 text-white
