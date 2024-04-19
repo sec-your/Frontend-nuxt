@@ -16,7 +16,7 @@ useListen('close-panel-modal', () => isModalOpen.value = false)
     <PanelSideMenu :class="{ 'blur-[10px]': isModalOpen }" />
     <div :class="['min-h-screen bg-[#f0f5fb] dark:bg-[#19222c] rounded-3xl overflow-hidden text-gray-700 dark:text-gray-200', isModalOpen? 'blur-[10px]' : 'blur-none']">
       <PanelNav />
-      <div class="card p-16 pt-7 xl:p-10 md:px-5 md:py-10">
+      <div class="card p-14 !pt-7 2xl:p-10 xl:px-5">
         <PanelAlerts />
         <NuxtPage />
       </div>

@@ -57,6 +57,7 @@ onMounted(()=> getTicketSubjects())
 const ticketTitle = ref('')
 const ticketMessage = ref('')
 const ticketAttachment = ref(null)
+const attachInput = ref(null)
 
 const attachmentChange = ({ target }) => {
   let url = target.value;
@@ -129,19 +130,19 @@ const sendMessage = async () => {
                 <div v-else v-for="subject in ticketSubjects" @click="selectedSubject = subject.value"
                     class="subject overflow-hidden relative bg-white dark:bg-gray-700 group cursor-pointer shadow-md border-gray-200 dark:border-gray-600 rounded-lg p-4">
                     <IconsMessagePlus
-                        class="h-10 text-main-purple-700 absolute -left-2 top-1/2 -translate-y-1/2 opacity-20 dark:opacity-70 dark:contrast-75 group-hover:left-3 group-hover:opacity-10 dark:group-hover:opacity-80" />
+                        class="h-10 text-main-purple-700 dark:text-purple-400/40 absolute -left-2 top-1/2 -translate-y-1/2 opacity-20 dark:opacity-70 dark:contrast-75 group-hover:left-3 group-hover:opacity-10 dark:group-hover:opacity-80" />
                     <div class="flex flex-col gap-1">
                         <strong class="text-base group-hover:text-gray-800 dark:group-hover:text-white">{{ subject.title }}</strong>
                         <span class="text-gray-500 dark:text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300">{{ subject.description }}</span>
                     </div>
                 </div>
             </div>
-            <div v-else class="card grid grid-cols-[auto_20rem] gap-7 items-start">
+            <div v-else class="card grid grid-cols-[auto_20rem] 2xl:grid-cols-1 gap-7 items-start">
                 <div class="bg-white dark:bg-gray-700 shadow p-5 flex flex-col gap-5 rounded-lg">
                     <PanelFormControl2 label="عنوان تیکت" icon="IconsEditPen" v-model="ticketTitle" />
                     <PanelFormControlTextarea2 placeholder="توضیحات شما..." v-model="ticketMessage" />
-                    <div class="flex justify-between items-end">
-                        <div class="flex items-center gap-2.5 ml-auto md:card md:justify-center">
+                    <div class="flex justify-between items-end xs:flex-col gap-5">
+                        <div class="flex items-center gap-2.5 xs:w-full">
                             <div :class="['relative sm:w-full flex items-center gap-2.5 border hover:border-blue-500 dark:hover:border-blue-400 px-3 py-1.5 rounded-lg', ticketAttachment ? 'border-blue-300' : 'border-gray-200 dark:border-gray-500']">
                                 <IconsUpload class="h-5 text-blue-500 dark:text-blue-400" />
                                 <div class="flex flex-col gap-px">
@@ -149,10 +150,11 @@ const sendMessage = async () => {
                                     <span class="text-xs max-w-32 ml:max-w-24 sm:max-w-full truncate text-gray-500 dark:text-gray-300">{{ ticketAttachment ? ticketAttachment.name : 'برای انتخاب کلیک کنید' }}</span>
                                 </div>
                                 <input type="file" @change="attachmentChange"
+                                    ref="attachInput"
                                     accept="application/pdf, image/*, .rarو .zip"
                                     class="p-0 m-0 cursor-pointer absolute inset-0 opacity-0 w-full h-full" />
                             </div>
-                            <IconsTrash v-if="ticketAttachment" @click="ticketAttachment = null"
+                            <IconsTrash v-if="ticketAttachment" @click="ticketAttachment = null; attachInput.value = null"
                                 class="h-4 text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-500" />
                         </div>
                         <button @click="sendMessage()" :disabled="isProcessing"
@@ -162,7 +164,7 @@ const sendMessage = async () => {
                         </button>
                     </div>
                 </div>
-                <div class="text-sm bg-white dark:bg-gray-700 shadow rounded-lg overflow-hidden">
+                <div class="text-sm bg-white dark:bg-gray-700 shadow pb-3 rounded-lg overflow-hidden">
                     <h4 class="font-bold text-xl text-gray-700 dark:text-white m-5 mb-3">سوالات پر تکرار ...</h4>
                     <ul v-if="issuesList.length" class="flex flex-col">
                         <li v-for="issue in issuesList" @click="navigateTo(`/faqs#${issue.id}`)" class="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100 cursor-pointer w-full py-1.5 px-3 hover:bg-gray-50 dark:hover:bg-gray-600 flex items-center gap-1.5 border-t border-gray-50 dark:border-gray-600"><IconsQuestion class="h-3.5 text-blue-500 dark:text-blue-300 opacity-80" /> <span class="mt-0.5">{{ issue.title }}</span></li>

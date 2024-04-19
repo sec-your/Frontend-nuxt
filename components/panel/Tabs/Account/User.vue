@@ -4,6 +4,7 @@ const runtimeConfig = useRuntimeConfig()
 
 // INPUTS
 const avatar = ref(null)
+const avatarInput = ref(null)
 const name = ref(userStore.info.displayName)
 const email = userStore.info.email
 const phone = ref(userStore.info.phone)
@@ -110,6 +111,7 @@ const removeAvatar = async () => {
             url: '/images/demo/avatar.jpg'
         }
         userStore.refreshProperty('avatar')
+        avatarInput.value = null
     }).catch((error) => {
         useAlertError('remove-change', 'خطا در حذف آواتار', getErrorMessage(error), { time: 6 })
     })
@@ -240,7 +242,7 @@ const sendEmailVerifaction = async () => {
             <div class="lg:-order-1">
                 <div
                     class="card lg:max-w-52 lg:mx-auto lg:float-none lg:p-0 lg:bg-transparent bg-white dark:bg-gray-700/50 shadow p-4 rounded-xl">
-                    <input @change="changeAvatar" id="profile-avatar" type="file"
+                    <input @change="changeAvatar" id="profile-avatar" type="file" ref="avatarInput"
                         accept="image/png,image/jpeg,image/jpg" class="hidden">
                     <img :src="avatarPreview.url" alt="" class="card rounded-md mb-3" />
                     <div class="card flex items-center justify-between">

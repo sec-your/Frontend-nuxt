@@ -84,7 +84,7 @@ const openScanModal = (event, uuid, domain) => {
         <div class="card flex items-center xs:flex-col gap-5">
             <h1 class="page-title">سایت های تحت نظارت</h1>
             <button @click="navigateTo('/panel/scan')"
-                class="mr-auto mb-1 bg-blue-500 hover:bg-blue-600 text-white rounded-lg pt-1.5 shadow-lg shadow-blue-500/40 hover:shadow-blue-600/40 pb-1 px-3 text-base flex items-center gap-2">
+                class="mr-auto xs:mr-0 mb-1 bg-blue-500 hover:bg-blue-600 text-white rounded-lg pt-1.5 shadow-lg shadow-blue-500/40 hover:shadow-blue-600/40 pb-1 px-3 text-base flex items-center gap-2">
                 <IconsSearchBug class="h-3.5 mb-1" />اسکن جدید
             </button>
         </div>

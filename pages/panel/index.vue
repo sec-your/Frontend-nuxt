@@ -41,7 +41,7 @@ const profileProcess = computed(()=> {
 
 <template>
     <div class="card">
-        <div class="card">
+        <div class="card xs:flex xs:justify-center">
             <h1 class="page-title">داشبورد</h1>
         </div>
         <div class="card">
@@ -146,7 +146,7 @@ const profileProcess = computed(()=> {
                         </div>
                     </div>
                 </div>
-                <div class="bg-white dark:bg-gray-700 shadow flex flex-col 2xl:flex-row 2xl:items-center gap-x-5 sm:flex-col">
+                <div class="bg-white dark:bg-gray-700 shadow flex flex-col 2xl:flex-row 2xl:items-center gap-x-5 sm:flex-col 2xl:-order-1">
                     <div class="p-5">
                         <div class="mx-auto max-w-40 relative">
                             <svg viewBox="0 0 160 160" style="transform: rotate(-90deg)">

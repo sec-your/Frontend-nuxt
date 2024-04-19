@@ -104,7 +104,7 @@ const submitScan = async () => {
 
 <style lang="postcss" scoped>
 .tab {
-    @apply rounded-full text-center py-1.5 px-4 select-none cursor-pointer duration-100 xs:rounded-xl xs:bg-gray-50 dark:xs:bg-gray-600
+    @apply rounded-full text-center py-1.5 px-4 xs:py-2.5 select-none cursor-pointer duration-100 xs:rounded-xl xs:bg-gray-50 dark:xs:bg-gray-600
 }
 .tab.active {
     @apply bg-blue-600 text-white

@@ -17,7 +17,7 @@ onMounted(async ()=> {
 
 definePageMeta({
   layout: 'panel',
-  validate: async (to, from) => {
+  validate: async (to) => {
     return /\d{5,10}/.test(to.params.id)
   }
 })
@@ -28,6 +28,7 @@ const allAttachments = computed(() => 'responses' in ticketDetails.value ? ticke
 
 const replayText = ref('')
 const replyAttachment = ref(null)
+const attachInput = ref(null)
 
 let isLoading = ref(true)
 let isSendProcessing = ref(false)
@@ -150,9 +151,9 @@ const getMimeType = (fileName) => fileName.split('.')[fileName.split('.').length
                                 <span class="text-sm">فایل ضمیمه</span>
                                 <span class="text-xs max-w-32 ml:max-w-24 sm:max-w-full truncate text-gray-500 dark:text-gray-300">{{ replyAttachment? replyAttachment.name : 'برای انتخاب کلیک کنید' }}</span>
                             </div>
-                            <input type="file" @change="attachmentChange" accept="application/pdf, image/*, .rarو .zip" class="p-0 m-0 cursor-pointer absolute inset-0 opacity-0 w-full h-full" />
+                            <input type="file" ref="attachInput" @change="attachmentChange" accept="application/pdf, image/*, .rarو .zip" class="p-0 m-0 cursor-pointer absolute inset-0 opacity-0 w-full h-full" />
                         </div>
-                        <IconsTrash v-if="replyAttachment" @click="replyAttachment = null" class="h-4 text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-500" />
+                        <IconsTrash v-if="replyAttachment" @click="replyAttachment = null; attachInput.value = null" class="h-4 text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-500" />
                     </div>
                     <button @click="closeTicket()" :disabled="isSendProcessing || isCloseProcessing" class="xs:card xs:order-1 pt-2 pb-2.5 px-3.5 bg-gray-500/10 dark:bg-gray-300/10 hover:bg-gray-500/20 dark:hover:bg-gray-200/20 disabled:hover:bg-gray-500/10 dark:disabled:hover:bg-gray-200/20 text-gray-600 dark:text-gray-300 rounded-lg"><IconsSpin v-if="isCloseProcessing" class="h-4" /> {{ isCloseProcessing? '' : 'بستن تیکت'}}</button>
                     <button @click="sendMessage()" :disabled="isSendProcessing || isCloseProcessing" class="xs:justify-center xs:card pt-2 pb-2.5 px-3.5 flex gap-2.5 items-center bg-blue-500 dark:bg-blue-600 hover:bg-blue-600 dark:hover:bg-blue-700 disabled:hover:bg-blue-500 dark:disabled:hover:bg-blue-600 text-white rounded-lg"><component :is="isSendProcessing? 'IconsSpin' : 'IconsMessagePlus'" :class="{'h-4': true, 'mt-1': isSendProcessing}" /> {{ isSendProcessing? '' : 'ارسال پاسخ'}}</button>
