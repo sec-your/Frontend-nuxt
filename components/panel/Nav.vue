@@ -8,26 +8,54 @@ let isSearchOpen = ref(false)
 const searchUpdate = () => {
   if (isSearching.value) return false
   isSearching.value = true
-  setTimeout(() => {
-    searchResults.value = [
-      {
-        type: 'scan',
-        title: 'سایت certivid.com',
-        link: '/panel/site/50'
-      },
-      {
-        type: 'scan',
-        title: 'سایت google.com',
-        link: '/panel/site/23'
-      },
-      {
-        type: 'ticket',
-        title: 'تیکت `مشکل در ثبت سایت`',
-        link: '/panel/ticket/50'
+  searchResults.value = [
+    {
+        icon: 'IconsListSquare',
+        title: 'داشبورد',
+        link: '/panel/'
+      },{
+        icon: 'IconsEqualizer',
+        title: 'سایت های تحت نظارت',
+        link: '/panel/monitored'
+      },{
+        icon: 'IconsSearchBug',
+        title: 'اسکن جدید',
+        link: '/panel/scan'
+      },{
+        icon: 'IconsTicket',
+        title: 'تیکت ها',
+        link: '/panel/tickets'
+      },{
+        icon: 'IconsMessagePlus',
+        title: 'تیکت جدید',
+        link: '/panel/tickets/new'
+      },{
+        icon: 'IconsCog',
+        title: 'حساب کاربری',
+        link: '/panel/account'
+      },{
+        icon: 'IconsCog',
+        title: 'حساب کاربری / مشخصات کاربری',
+        link: '/panel/account#user'
+      },{
+        icon: 'IconsCog',
+        title: 'حساب کاربری / ایمیل های سازمانی',
+        link: '/panel/account#emails'
+      },{
+        icon: 'IconsCog',
+        title: 'حساب کاربری / اعلان ها',
+        link: '/panel/account#notifications'
+      },{
+        icon: 'IconsCog',
+        title: 'حساب کاربری / رمزعبور و امنیت',
+        link: '/panel/account#security'
+      },{
+        icon: 'IconsCog',
+        title: 'حساب کاربری / کیف پول / اشتراک',
+        link: '/panel/account#subscription'
       }
     ].filter(i => i.title.includes(search.value))
     isSearching.value = false
-  }, 2000)
 }
 watch(search, searchUpdate)
 const closeSearch = () => isSearchOpen.value = false
@@ -54,7 +82,7 @@ const toggleSideBar = () => useEvent( 'toggle-panel-sidebar')
   <div class="card dark:text-gray-200 flex xs:flex-wrap xs:justify-center gap-2 py-3 px-5 items-center justify-end head bg-white shadow-lg shadow-gray-200/40 dark:bg-[#19222c] dark:shadow-gray-900/30">
     <IconsList @click="toggleSideBar" class="h-7 ml-2 hidden md:block xs:ml-auto" />
     <div class="ml-auto relative xs:w-full xs:ml-0 xs:order-3" v-click-outside="closeSearch">
-      <input v-model.trim="search" @focus="isSearchOpen = true" autocomplete="off" type="search" class="py-2 pl-3 pr-12 rounded-xl bg-gray-100 dark:bg-gray-700 w-72 xs:w-full" placeholder="جستجوی سایت یا تیکت ...">
+      <input v-model.trim="search" @focus="isSearchOpen = true" autocomplete="off" type="text" class="py-2 pl-3 pr-12 rounded-xl bg-gray-100 dark:bg-gray-700 w-72 xs:w-full" placeholder="جستجو در پنل ...">
       <IconsSearch class="h-5 pointer-events-none absolute top-1/2 -translate-y-1/2 right-3" />
       <div v-if="isSearchOpen && search.length" class="w-full grid grid-cols-1 divide-y divide-gray-200 dark:divide-gray-600 bg-gray-100 dark:bg-gray-700 overflow-hidden absolute top-full mt-1 rounded shadow-lg z-20">
         <div v-if="isSearching" class="p-5 flex justify-center">
@@ -63,9 +91,10 @@ const toggleSideBar = () => useEvent( 'toggle-panel-sidebar')
         <NuxtLink v-else-if="searchResults.length" v-for="(item, index) in searchResults"
                   :to="item.link"
                   :key="index"
+                  @click="search = ''; isSearchOpen = false"
                   class="flex gap-3 p-1.5 items-center hover:bg-gray-200 dark:hover:bg-gray-600 group">
           <div class="w-7 h-7 bg-gray-200 group-hover:bg-gray-300 dark:group-hover:bg-gray-700 dark:bg-gray-800 rounded-full grid place-content-center">
-            <component :is="item.type === 'scan'? scanIcon : item.type === 'ticket'? ticketIcon : null" class="h-3.5" />
+            <component :is="item.icon" class="h-3.5" />
           </div>
           <span class="truncate text-sm">{{ item.title }}</span>
         </NuxtLink>
