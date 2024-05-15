@@ -11,7 +11,7 @@ const closeSidebar = (event) => {
 </script>
 
 <template>
-  <div v-click-outside="closeSidebar" :class="['sidebar relative z-[999] bg-[#232E3C] md:fixed md:top-0 md:w-64 md:max-w-full xs:w-full md:overflow-auto', isOpen? 'md:right-0 open' : 'md:-right-10 md:translate-x-full']">
+  <div v-click-outside="closeSidebar" :class="['sidebar relative z-999 bg-[#232E3C] md:fixed md:top-0 md:w-64 md:max-w-full xs:w-full md:overflow-auto', isOpen? 'md:right-0 open' : 'md:-right-10 md:translate-x-full']">
     <div class="card relative min-h-screen h-full">
       <div class="card min-h-screen wrap sticky top-0 py-4 flex flex-col gap-5">
         <NuxtLink to="/" @click="isOpen = false" class="block mr-4">

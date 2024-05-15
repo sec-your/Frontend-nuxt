@@ -74,7 +74,12 @@
         width: min(1140px, 100%);
         @apply px-5 mx-auto
     }
-
+    .highlight-html {
+        word-spacing: 1px;
+    }
+    .highlight-html a:link {
+        @apply text-blue-500 dark:text-blue-400 underline underline-offset-8 hover:text-blue-700 dark:hover:text-blue-200
+    }
     .animation-spin {
         animation: animation-spin 3.5s linear infinite;
     }

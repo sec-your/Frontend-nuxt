@@ -25,7 +25,7 @@ function closeSidebar(event) {
                     </NuxtLink>
                 </li>
                 <li>
-                    <NuxtLink :to="userStore.isLoggedIn ? '/panel' : '/login'">
+                    <NuxtLink :to="userStore.isLoggedIn ? '/panel' : '/login'" @click="isOpen = false">
                         <IconsUser class="w-5 ml-3" /> {{ userStore.isLoggedIn ? 'حساب کاربری' : 'ورود / ثبت نام' }}
                     </NuxtLink>
                 </li>

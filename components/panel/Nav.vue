@@ -1,14 +1,6 @@
 <script setup>
-const ticketIcon = resolveComponent('IconsTicket')
-const scanIcon = resolveComponent('IconsSecure')
-const searchResults = ref([])
 const search = ref('')
-let isSearching = ref(false)
-let isSearchOpen = ref(false)
-const searchUpdate = () => {
-  if (isSearching.value) return false
-  isSearching.value = true
-  searchResults.value = [
+const searchResults = computed(() => [
     {
         icon: 'IconsListSquare',
         title: 'داشبورد',
@@ -54,13 +46,20 @@ const searchUpdate = () => {
         title: 'حساب کاربری / کیف پول / اشتراک',
         link: '/panel/account#subscription'
       }
-    ].filter(i => i.title.includes(search.value))
-    isSearching.value = false
-}
-watch(search, searchUpdate)
+    ].filter(i => i.title.includes(search.value)))
+let isSearchOpen = ref(false)
 const closeSearch = () => isSearchOpen.value = false
 
-const notificationCount = ref(5)
+const notificationCount = ref(0)
+
+const runtimeConfig = useRuntimeConfig()
+onMounted(() => {
+    useUserApiFetch().get(runtimeConfig.public.API_PANEL_NAV_DETAILS).then(({ data }) => {
+        notificationCount.value = data.notifications
+    }).catch((error) => {
+        useCompactAlertError('get-nav-details', getErrorMessage(error))
+    })
+})
 
 let isProfileDropDownOpen = ref(false)
 
@@ -79,16 +78,13 @@ const toggleSideBar = () => useEvent( 'toggle-panel-sidebar')
 </script>
 
 <template>
-  <div class="card dark:text-gray-200 flex xs:flex-wrap xs:justify-center gap-2 py-3 px-5 items-center justify-end head bg-white shadow-lg shadow-gray-200/40 dark:bg-[#19222c] dark:shadow-gray-900/30">
+  <div class="card md:sticky top-0 z-998 dark:text-gray-200 flex xs:flex-wrap xs:justify-center gap-2 py-3 px-5 items-center justify-end head bg-white shadow-lg shadow-gray-200/40 md:shadow-gray-300/40 dark:bg-[#19222c] dark:shadow-gray-900/30 dark:md:shadow-gray-600/30">
     <IconsList @click="toggleSideBar" class="h-7 ml-2 hidden md:block xs:ml-auto" />
-    <div class="ml-auto relative xs:w-full xs:ml-0 xs:order-3" v-click-outside="closeSearch">
+    <div class="ml-auto relative xs:hidden" v-click-outside="closeSearch">
       <input v-model.trim="search" @focus="isSearchOpen = true" autocomplete="off" type="text" class="py-2 pl-3 pr-12 rounded-xl bg-gray-100 dark:bg-gray-700 w-72 xs:w-full" placeholder="جستجو در پنل ...">
       <IconsSearch class="h-5 pointer-events-none absolute top-1/2 -translate-y-1/2 right-3" />
       <div v-if="isSearchOpen && search.length" class="w-full grid grid-cols-1 divide-y divide-gray-200 dark:divide-gray-600 bg-gray-100 dark:bg-gray-700 overflow-hidden absolute top-full mt-1 rounded shadow-lg z-20">
-        <div v-if="isSearching" class="p-5 flex justify-center">
-          <IconsSpin class="h-8" />
-        </div>
-        <NuxtLink v-else-if="searchResults.length" v-for="(item, index) in searchResults"
+        <NuxtLink v-if="searchResults.length" v-for="(item, index) in searchResults"
                   :to="item.link"
                   :key="index"
                   @click="search = ''; isSearchOpen = false"
@@ -101,7 +97,7 @@ const toggleSideBar = () => useEvent( 'toggle-panel-sidebar')
         <div v-else class="p-7 text-center text-sm">هیچ نتیجه ای پیدا نشد!</div>
       </div>
     </div>
-    <NuxtLink to="/panel/notifications" class="icon-link">
+    <NuxtLink to="/panel/notifications" @click="notificationCount = 0" class="icon-link">
       <div class="relative">
         <IconsBell class="h-5" />
         <span v-if="notificationCount" class="bg-red-600 pt-1 px-1 rounded-full text-white absolute -top-1.5 -right-2 block leading-3 text-sm">{{ notificationCount }}</span>

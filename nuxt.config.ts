@@ -23,6 +23,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       SITE_URL: process.env.SITE_URL,
+      RECAPTCHA_KEY: process.env.RECAPTCHA_KEY,
       API_BASE_URL: process.env.API_BASE_URL,
       API_REGISTER: process.env.API_PUT_REGISTER,
       API_LOGIN: process.env.API_POST_LOGIN,
@@ -60,6 +61,8 @@ export default defineNuxtConfig({
       API_SUBSCRIBE_PLAN: process.env.API_POST_SUBSCRIBE_PLAN,
       API_GET_SUBSCRIPTION_DAYS_LEFT: process.env.API_GET_SUBSCRIPTION_DAYS_LEFT,
       API_SCAN_SITE: process.env.API_POST_SCAN_SITE,
+      API_NOTIFICATIONS: process.env.API_GET_NOTIFICATIONS,
+      API_PANEL_NAV_DETAILS: process.env.API_GET_PANEL_NAV_DETAILS,
     }
   },
 

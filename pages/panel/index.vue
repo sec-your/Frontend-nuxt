@@ -81,10 +81,10 @@ const profileProcess = computed(()=> {
                     <span>اشتراک حال حاضر</span>
                 </div>
             </div>
-            <div class="card grid grid-cols-3 2xl:grid-cols-1 gap-7 mt-12 items-start">
+            <div class="card grid grid-cols-3 2xl:grid-cols-1 2xl:gap-16 gap-7 mt-12 items-start">
                 <div class="col-span-2 2xl:col-span-1">
                     <div class="card">
-                        <div class="card flex items-center justify-between mb-4">
+                        <div class="card flex items-center justify-between mb-4 sm:flex-col gap-5">
                             <h4 class="font-bold text-xl">آخرین اسکن ها</h4>
                             <div class="flex items-center gap-3">
                                 <span>بر اساس</span>

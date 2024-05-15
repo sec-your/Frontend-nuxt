@@ -14,7 +14,7 @@ useListen('close-panel-modal', () => isModalOpen.value = false)
 <template>
   <div :class="['layout min-h-screen relative grid']">
     <PanelSideMenu :class="{ 'blur-[10px]': isModalOpen }" />
-    <div :class="['min-h-screen bg-[#f0f5fb] dark:bg-[#19222c] rounded-3xl overflow-hidden text-gray-700 dark:text-gray-200', isModalOpen? 'blur-[10px]' : 'blur-none']">
+    <div :class="['min-h-screen overflow-hidden md:overflow-visible bg-[#f0f5fb] dark:bg-[#19222c] rounded-3xl text-gray-700 dark:text-gray-200', isModalOpen? 'blur-[10px]' : 'blur-none']">
       <PanelNav />
       <div class="card p-14 !pt-7 2xl:p-10 xl:px-5">
         <PanelAlerts />

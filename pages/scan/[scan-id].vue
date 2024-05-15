@@ -166,27 +166,27 @@ const itemCountWith = computed(() => {
                     </div>
                 </div>
                 <div
-                    class="col-span-full mt-14 text-center sm:mt-14 flex xs:grid xs:grid-cols-2 xs:gap-x-2 xs:gap-y-20">
+                    class="col-span-full mt-14 text-center sm:mt-14 flex xs:grid xs:grid-cols-2 xs:gap-x-2 xs:gap-y-20" style="text-shadow:0 0 5px #000000">
                     <div class="i-good relative sm:flex sm:items-center sm:flex-col pt-2 pb-1.5 min-w-[110px] xs:!w-full"
-                        :style="{ 'background' : `${colors.good}` }">
+                        :style="{ 'background' : `${colors.good}B9` }">
                         <div>نیمه امن</div>
                         <div class="tooltip"><strong class="ml-1.5 text-base sm:!text-white" style="color:#FFCF25">{{
                                 scanDetails.itemCounts.good }}</strong> مورد</div>
                     </div>
                     <div class="i-low relative sm:flex sm:items-center sm:flex-col pt-2 pb-1.5 min-w-[110px] xs:!w-full"
-                        :style="{ 'background' : `${colors.low} ` }">
+                        :style="{ 'background' : `${colors.low}B9` }">
                         <div>آسیب پذیر</div>
                         <div class="tooltip"><strong class="ml-1.5 text-base sm:!text-white" style="color:#E57F17">{{
                                 scanDetails.itemCounts.low }}</strong> مورد</div>
                     </div>
                     <div class="i-bad relative sm:flex sm:items-center sm:flex-col pt-2 pb-1.5 min-w-[110px] xs:!w-full"
-                        :style="{ 'background' : `${colors.bad}` }">
+                        :style="{ 'background' : `${colors.bad}B9` }">
                         <div>هشدار</div>
                         <div class="tooltip"><strong class="ml-1.5 text-base sm:!text-white" style="color:#f03c0c">{{
                                 scanDetails.itemCounts.bad }}</strong> مورد</div>
                     </div>
                     <div class="i-critical relative sm:flex sm:items-center sm:flex-col pt-2 pb-1.5 min-w-[110px] xs:!w-full"
-                        :style="{ 'background': `${colors.critical}` }">
+                        :style="{ 'background': `${colors.critical}B9` }">
                         <div>مرگ</div>
                         <div class="tooltip"><strong class="ml-1.5 text-base sm:!text-white" style="color:#fa0000">{{
                 scanDetails.itemCounts.critical }}</strong> مورد</div>
@@ -199,7 +199,7 @@ const itemCountWith = computed(() => {
                     <ul class="w-full md:grid md:grid-cols-2 sm:grid-cols-1 sm:gap-0 md:gap-1">
                         <li v-for="(report, index) in scanDetails.reports" @click="selectedReport = report"
                             :key="report.uuid"
-                            class="card truncate cursor-pointer pt-2.5 pb-2 px-3 bg-light-primary border-r md:border-r-2 hover:border-r-4"
+                            :class="['card truncate cursor-pointer pt-2.5 pb-2 px-3 bg-light-primary border-r md:border-r-2', selectedReport.uuid === report.uuid? 'border-r-4' : 'hover:border-r-4']"
                             :style="{ 'border-right-color': colors[report.status], '--tw-bg-opacity': selectedReport.uuid === report.uuid ? 0 : ReportBGOpacity(index) }">
                             {{ report.name }}</li>
                     </ul>
