@@ -18,6 +18,9 @@ function gregorian_to_jalali() {
   return jy;
 }
 let getCurrentDate = gregorian_to_jalali()
+
+const config = useRuntimeConfig()
+
 </script>
 
 <template>
@@ -48,7 +51,7 @@ let getCurrentDate = gregorian_to_jalali()
         </div>
         <div class="flex flex-col gap-2">
           <h5 class="head-col">ارتباط با ما</h5>
-          <a class="link tracking-wider" href="mailto:support@secyour.ir" dir="ltr">support@secyour.ir</a>
+          <a class="link tracking-wider" :href="`support@${config.public.SITE_URL}`" dir="ltr">{{ `support@${config.public.SITE_URL}` }}</a>
           <a class="link tracking-wider" href="tel:0912654" dir="ltr">0901 234 5678</a>
           <a class="link tracking-wider" href="https://t.me/secyour" target="_blank" dir="ltr">t.me/secyour</a>
         </div>
