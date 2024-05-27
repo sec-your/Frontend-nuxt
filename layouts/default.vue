@@ -101,6 +101,15 @@ const route = useRoute()
     transform-origin: left center;
     animation: bg-blur 30s infinite linear, change-opacity 30s infinite linear;
 }
+.contact-page .first-light::before {
+    width: 100px;
+    height: 100px;
+    background-color: #ffffffbb;
+    top: 25%;
+    left: 40%;
+    z-index: -1;
+    filter: blur(200px);
+}
 
 .index-page .first-light::after {
     width: 200px;

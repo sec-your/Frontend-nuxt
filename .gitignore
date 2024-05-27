@@ -26,3 +26,4 @@ logs
 .editorconfig
 .gitignore
 .vscode/settings.json
+package-lock.json

@@ -69,7 +69,8 @@ export default {
         '18': '4.5rem'
       },
       width: {
-        '38': '9.5rem'
+        '38': '9.5rem',
+        '4.5': '1.125rem'
     },
       zIndex: {
         '998': '998',

@@ -63,6 +63,7 @@ export default defineNuxtConfig({
       API_SCAN_SITE: process.env.API_POST_SCAN_SITE,
       API_NOTIFICATIONS: process.env.API_GET_NOTIFICATIONS,
       API_PANEL_NAV_DETAILS: process.env.API_GET_PANEL_NAV_DETAILS,
+      API_CONTACT: process.env.API_PUT_CONTACT,
     }
   },
 
