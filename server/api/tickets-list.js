@@ -1,6 +1,6 @@
 export default defineEventHandler(async (event) => {
   return {
-    pageCount: 3,
+    pagesCount: 3,
     tickets: [
         {
             id: '#1956312',

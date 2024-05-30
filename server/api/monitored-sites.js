@@ -1,6 +1,6 @@
 export default defineEventHandler(async (event) => {
   return {
-    pageCount: 12,
+    pagesCount: 12,
     sites: [
         {
             uuid: 63206984,

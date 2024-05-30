@@ -19,7 +19,7 @@ const getTickets = async () => {
             page: page.value
         }
     }).then(({ data }) => {
-        count.value = data.pageCount
+        count.value = data.pagesCount
         tickets.value = data.tickets
     }).catch((error) => {
         count.value = 0

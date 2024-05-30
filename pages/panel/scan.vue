@@ -91,7 +91,6 @@ const submitScan = async () => {
             useCompactAlertSuccess(`submit-scan`, 'سایت شما با موفقیت در صف اسکن قرار گرفت.', { time: 4 })
             return await navigateTo('/panel')
         }).catch((error) => {
-            console.log(error)
             useCompactAlertError(`submit-scan`, getErrorMessage(error), { time: 5 })
         })
     } else {

@@ -4,7 +4,7 @@ const runtimeConfig = useRuntimeConfig()
 definePageMeta({
   validate: async (route) => /^\d+$/.test(route.params.scanid),
   middleware: [
-    async function (to, from) {
+    async function (to) {
       const { data } = await useApiFetch().post(useRuntimeConfig().public.API_SCAN_CHECK, {
         'scanID': to.params.scanid
       })

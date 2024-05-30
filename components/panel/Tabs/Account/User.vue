@@ -70,23 +70,17 @@ const changeAvatar = ({ target }) => {
                         url: e.target.result
                     }
                     avatar.value = target.files[0]
-                    await useUserApiFetch().post(runtimeConfig.public.API_CHANGE_AVATAR, {
-                        avatar: target.files[0]
-                    }, {
-                        headers: {
-                            'Content-Type': 'multipart/form-data'
-                        }
-                    }).then(() => {
-                        useCompactAlertSuccess('avatar-change', 'آواتار با موفقیت تغییر یافت.', { time: 4 })
-                        userStore.refreshProperty('avatar')
-                    }).catch((error) => {
+                    let result = await userStore.update({ avatar: target.files[0] }, { 'Content-Type': 'multipart/form-data' })
+                    if (result.status == 'ok') useCompactAlertSuccess('avatar-change', 'آواتار با موفقیت تغییر یافت.', { time: 4 })
+                    else {
                         avatar.value = null
                         avatarPreview.value = {
                             isChanged: !!userStore.info.avatar,
                             url: userStore.info.avatar ?? '/images/demo/avatar.jpg'
                         }
                         useAlertError('avatar-change', 'خطا در تغییر آواتار', getErrorMessage(error), { time: 6 })
-                    })
+                    }
+
                 } else {
                     useAlertError('avatar-change', 'خطا در تغییر آواتار', 'آواتار باید 150 در 150 باشد.')
                 }
@@ -123,16 +117,17 @@ const editProfile = async () => {
     if (Object.values(inputsError.value).some(i => i != null)) {
         useCompactAlertError('edit-profile-request', Object.values(inputsError.value).find(i => i?.length))
     } else {
-        await useUserApiFetch().post(runtimeConfig.public.API_EDIT_PROFILE, {
+
+        let result = await userStore.update({
             displayName: name.value,
             ...(userStore.info.isPhoneVerified ? {} : { phone: phone.value })
-        }).then(() => {
-            userStore.refreshProperty(['displayName', ...(userStore.info.isPhoneVerified ? [] : ['phone'])])
+        })
+
+        if (result.status == 'ok') {
             useCompactAlertSuccess('edit-profile-request', 'اطلاعات شما با موفقیت تغییر یافت.')
             phoneCountdown.value = 0
-        }).catch((error) => {
-            useCompactAlertError('edit-profile-request', getErrorMessage(error))
-        })
+        }
+        else useCompactAlertError('edit-profile-request', getErrorMessage(error))
     }
     editProcessing.value = false
 }

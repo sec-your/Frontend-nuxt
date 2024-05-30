@@ -47,7 +47,7 @@ export const useUserStore = defineStore('user', () => {
     const login = async (email, password) => {
         let result = null
         await useApiFetch().post(runtimeConfig.public.API_LOGIN, {email, password}).then(({ data }) => {
-            info.value = {...data.user}
+            info.value = {...data}
             useLocalStorage.setItem('user-token', data.token)
             result = { status: 'ok' }
         }).catch((error) => {
@@ -60,7 +60,7 @@ export const useUserStore = defineStore('user', () => {
 
     // Get user from token
     const getUser = async (token, toast = true) => {
-        await useApiFetch().get(runtimeConfig.public.API_USER, {}, {
+        await useApiFetch().get(runtimeConfig.public.API_USER, {
             headers: {
                 'Authorization' : 'Bearer ' + token
             }
@@ -73,9 +73,9 @@ export const useUserStore = defineStore('user', () => {
         })
     }
 
-    const update = async (props) => {
+    const update = async (props, headers = {}) => {
         let result = null
-        await useUserApiFetch().patch(runtimeConfig.public.API_UPDATE_USER, props).then(() => {
+        await useUserApiFetch().patch(runtimeConfig.public.API_UPDATE_USER, props, headers).then(() => {
             set(props)
             result = { status: 'ok' }
         }).catch((error) => {
@@ -102,9 +102,9 @@ export const useUserStore = defineStore('user', () => {
     }
 
     const refreshProperty = async (props) => {
-        await useUserApiFetch().post(runtimeConfig.public.API_USER).then(({ data }) => {
-            props = Array.isArray(props)? props : [props]
-            props.forEach(prop => info.value[prop] = data.user[prop] );
+        props = Array.isArray(props)? props : [props]
+        await useUserApiFetch().get(runtimeConfig.public.API_USER + '/?only=' + encodeURIComponent(props)).then(({ data }) => {
+            props.forEach(prop => info.value[prop] = data[prop] );
         }).catch((error) => {
             useAlertError(`refresh-property-user`, getErrorMessage(error), { time: 4 })
         })

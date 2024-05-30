@@ -20,7 +20,7 @@ const getSites = async (resetPage = false) => {
             sort: sort.value
         }
     }).then(({ data }) => {
-        count.value = data.pageCount
+        count.value = data.pagesCount
         sites.value = data.sites
     }).catch((error) => {
         count.value = 0
