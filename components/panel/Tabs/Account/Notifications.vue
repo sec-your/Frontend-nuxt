@@ -42,14 +42,14 @@
 </template>
 
 <script setup>
-const settingStore = useSettingStore()
-const form = ref({ ...settingStore.settings.notifications })
-const reset = () => form.value = { ...settingStore.defaultSettings().notifications }
+const userStore = useUserStore()
+const form = ref({ ...userStore.info.notifications })
+const reset = () => form.value = { ...userStore.defaultUserObject().notifications }
 const isProcessing = ref(false)
 const saveChanges = async () => {
     if (isProcessing.value) return false
     isProcessing.value = true
-    let result = await settingStore.update({ notifications: form})
+    let result = await userStore.update({ notifications: form })
     if (result.status == 'ok') useCompactAlertSuccess('account-notifications-update', 'اعلانات با موفقیت بروزرسانی شد.', { time: 5 })
     else useCompactAlertError('account-notifications-update', result.message, { time: 7 })
     isProcessing.value = false

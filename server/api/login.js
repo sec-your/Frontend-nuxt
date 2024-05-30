@@ -14,8 +14,6 @@ export default defineEventHandler(async (event) => {
                 isEmailVerified: false,
                 money: 52_500_000,
                 type: "pro",
-            },
-            settings: {
                 notifications: {
                     email: {
                         loginReport: true,
