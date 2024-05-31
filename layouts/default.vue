@@ -4,6 +4,9 @@ if (process.client) {
 }
 useHead({
     script: [{ src: '/js/wow.min.js' }],
+    meta: [
+        { property: 'og:title', content: 'یک تست است' }
+    ]
 });
 
 const bodyClass = ref('')

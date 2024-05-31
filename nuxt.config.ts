@@ -17,7 +17,8 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
-    '/panel/*' : { ssr: false }
+    '/panel/**' : { ssr: false },
+    
   },
 
   runtimeConfig: {

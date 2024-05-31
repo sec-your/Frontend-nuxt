@@ -1,4 +1,7 @@
 <script setup>
+useHead({
+    title: 'گزارش اسکن'
+})
 const route = useRoute()
 const runtimeConfig = useRuntimeConfig()
 definePageMeta({

@@ -1,5 +1,6 @@
 <template>
   <div :class="['card']">
+    <NuxtLoadingIndicator height="2" />
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
@@ -23,7 +24,17 @@
 
 <script setup>
   useHead({
-    titleTemplate: (title) => title? `سکیور - ${title}` : 'سکیور'
+    titleTemplate: (title) => title? `سکیور - ${title}` : 'سکیور',
+    link: [
+      { rel: 'icon', type: 'image/ico', href: '/32x32-favicon.ico', sizes: '32x32' },
+      { rel: 'apple-touch-icon', type: 'image/ico', href: '/180x180-favicon.ico', sizes: '180x180' },
+      { rel: 'icon', type: 'image/ico', href: '/192x192-favicon.ico', sizes: '192x192' },
+      { rel: 'icon', type: 'image/ico', href: '/360x360-favicon.ico', sizes: '360x360' },
+    ]
+  })
+  const nuxtApp = useNuxtApp()
+  nuxtApp.hook("page:finish", () => {
+     window.scrollTo(0, 0)
   })
   if ( typeof window != 'undefined' ){
     window.addEventListener('offline', ()=> useCompactAlert('internet-status','اینترنت شما قطع شد', { time : 3, icon: 'IconsGlobe' }));

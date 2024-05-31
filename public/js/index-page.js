@@ -11,7 +11,7 @@ if (process.client) {
                 mouseX >= (planX - 300) &&
                 mouseX <= (planX + planWidth + 300)
              ) {
-                const light = plan.querySelector('.light')
+                const light = plan.querySelector('.light > .hole')
                 light.style.top = (mouseY - planY) + 'px'
                 light.style.left = (mouseX - planX) + 'px'
              }
