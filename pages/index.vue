@@ -30,61 +30,27 @@ const freeScanAction = async () => {
     isFreeScanProcessing = false
 }
 
-const headSecurityTexts = [
-    "بلکه مزیت نیست، یک اولویت است",
-    "مهم ترین قضیه در طراحی سایت است",
-]
-const headSecurityText = ref("")
-const typeTextIndex = ref(0)
-const typeIndex = ref(0)
-const typeDelay = ref(0)
-const typeAnimation = () => {
-    let selectedText = headSecurityTexts[typeTextIndex.value]
-    if (typeIndex.value < selectedText.length) {
-        headSecurityText.value += selectedText.charAt(typeIndex.value);
-        typeIndex.value++;
-    } else if (typeIndex.value == selectedText.length) {
-        if (typeDelay.value == 100) {
-            typeIndex.value = 0
-            typeDelay.value = 0
-            headSecurityText.value = ""
-            if (headSecurityTexts.length == (typeTextIndex.value + 1)) typeTextIndex.value = 0
-            else typeTextIndex.value++
-        } else {
-            typeDelay.value += 1
-        }
-    }
-
-    setTimeout(typeAnimation, 80);
-}
-typeAnimation()
-
-
-useHead({
-    script: [{ src: '/js/index-page.js' }],
-})
-
 </script>
 
 <template>
-    <main class="container grid grid-cols-1 pt-10">
-        <section
-            class="grid grid-cols-2 gap-5 md:flex md:flex-col md:items-center md:gap-12 relative min-h-full md:min-h-0">
+    <main class="container grid grid-cols-1 pt-14">
+        <section class="grid grid-cols-2 gap-5 md:flex md:flex-col md:items-center md:gap-12 relative min-h-full md:min-h-0">
             <div class="flex flex-col justify-center md:text-center wow a-fadeInUp">
+
                 <div class="drop-shadow-md">
                     <strong class="block text-3xl ml:text-2xl xs:text-xl mb-5">پیشرو در حوزه</strong>
-                    <h2 class="block text-4xl font-extrabold ml:text-3xl mr-5 md:mr-0 xs:text-2xl">امنیت شبکه در سطح <span
-                            class="iran">ایران</span>!</h2>
+                    <h2 class="block text-4xl font-extrabold ml:text-3xl mr-5 md:mr-0 xs:text-2xl">امنیت شبکه در سطح <span class="iran">ایران</span>!</h2>
                 </div>
-                <h3 class="text-xl lg:text-lg xs:text-base font-bold text-main-gray-50 mt-8">امنیت سایت، {{ headSecurityText }}</h3>
-                <span class="text-main-gray-50 max-w-[450px] leading-relaxed mt-2">سکیور می تواند روند تست امنیت سایت و سرور
-                    شما را بسیار ساده کند و به راحتی ارزیابی امنیتی و اسکن آسیب پذیری را انجام دهید. این سرویس به شما کمک می
-                    کند تا مراحل جمع آوری اطلاعات ، اسکن وب سایت ، اسکن سرور را به صورت آنلاین انجام داده و گزارش آن را
-                    دریافت کنید.</span>
-                <div
-                    :class="['mt-10 flex md:justify-center xs:flex-col xs:items-center xs:gap-8', isFreeScanOpen ? 'gap-0' : 'gap-7 sm:gap-3']">
+
+                <div class="max-w-[450px] text-main-gray-50 shadow leading-relaxed mt-8 bg-white/5 rounded-xl rounded-tr-none p-3 text-base">
+                    <strong class="text-main-gray-50">امنیت سایت، بلکه مزیت نیست، یک اولویت است ...</strong>
+                    <p>سکیور می تواند روند تست امنیت سایت و سرور شما را بسیار ساده کند و به راحتی ارزیابی امنیتی و اسکن آسیب پذیری را انجام دهید. این سرویس به شما کمک می کند تا مراحل جمع آوری اطلاعات ، اسکن وب سایت ، اسکن سرور را به صورت آنلاین انجام داده و گزارش آن را دریافت کنید. </p>
+                </div>
+
+                <div :class="['mt-10 flex md:justify-center xs:flex-col xs:items-center xs:gap-8', isFreeScanOpen ? 'gap-0' : 'gap-7 sm:gap-3']">
+
                     <div @click="navigateTo({ path: '/scan' })"
-                        :class="[isFreeScanOpen ? 'max-w-0 xs:max-w-40' : 'max-w-40', 'cursor-pointer overflow-hidden whitespace-nowrap flex items-center w-36 gap-3 py-1.5 justify-center rounded-full bg-main-purple-700 hover:bg-main-purple-900 scan-btn']">
+                        :class="[isFreeScanOpen ? 'max-w-0 xs:max-w-40' : 'max-w-40', 'cursor-pointer overflow-hidden whitespace-nowrap flex items-center w-36 gap-3 py-2 justify-center rounded-full bg-main-purple-700 hover:bg-main-purple-900 scan-btn']">
                         <svg class="inline h-5" viewBox="0 0 37 46" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M18.1797 44.2076C18.2997 44.2723 18.4068 44.3291 18.5 44.3779C18.5932 44.3291 18.7003 44.2723 18.8203 44.2076C19.3116 43.9427 20.0177 43.5461 20.8668 43.0239C22.5673 41.9784 24.8307 40.4363 27.0895 38.4492C31.6391 34.4468 36 28.7924 36 21.875V4.32855L18.5 1.01774L1 4.32855V21.875C1 28.7924 5.36091 34.4468 9.91051 38.4492C12.1693 40.4363 14.4327 41.9784 16.1332 43.0239C16.9823 43.5461 17.6884 43.9427 18.1797 44.2076Z"
@@ -94,9 +60,10 @@ useHead({
                         </svg>
                         <div class="mt-0.5">اسکن عمیق</div>
                     </div>
+
                     <div class="flex duration-300" v-click-outside="() => { if (isFreeScanOpen) isFreeScanOpen = false; }">
                         <div @click="freeScanAction()"
-                            class="cursor-pointer flex items-center px-4 py-1.5 rounded-full bg-main-orange-700 hover:bg-main-orange-900 scan-btn">
+                            class="cursor-pointer flex items-center px-4 py-2 rounded-full bg-main-orange-700 hover:bg-main-orange-900 scan-btn">
                             <IconsSearchBug v-show="isFreeScanOpen" class="h-5 y-flip" />
                             <svg v-show="!isFreeScanOpen" class="inline h-5" viewBox="0 0 37 46" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -104,9 +71,7 @@ useHead({
                                     d="M18.1797 44.2076C18.2997 44.2723 18.4068 44.3291 18.5 44.3779C18.5932 44.3291 18.7003 44.2723 18.8203 44.2076C19.3116 43.9427 20.0177 43.5461 20.8668 43.0239C22.5673 41.9784 24.8307 40.4363 27.0895 38.4492C31.6391 34.4468 36 28.7924 36 21.875V4.32855L18.5 1.01774L1 4.32855V21.875C1 28.7924 5.36091 34.4468 9.91051 38.4492C12.1693 40.4363 14.4327 41.9784 16.1332 43.0239C16.9823 43.5461 17.6884 43.9427 18.1797 44.2076Z"
                                     stroke="currentColor" stroke-width="3" />
                             </svg>
-                            <div
-                                :class="['mt-0.5 whitespace-nowrap overflow-hidden duration-200', isFreeScanOpen ? 'max-w-0' : 'max-w-40 mr-3']">
-                                اسکن رایگان</div>
+                            <div :class="['mt-0.5 whitespace-nowrap overflow-hidden duration-200', isFreeScanOpen ? 'max-w-0' : 'max-w-40 mr-3']">اسکن رایگان</div>
                         </div>
                         <input type="url" dir="ltr"
                         v-model="scanAddress"
@@ -153,8 +118,8 @@ useHead({
 
         <section class="relative support-section grid">
             <div
-                class="card flex gap-20 pl-16 lg:pl-0 lg:gap-14 ml:flex-wrap xs:flex-col xs:gap-10 ml:justify-center items-center">
-                <div class="wow a-fadeInUp flex gap-6 items-center ml-auto ml:w-full ml:justify-center">
+                class="card flex gap-20 lg:pl-0 lg:gap-14 ml:flex-wrap xs:flex-col xs:gap-10 ml:justify-center items-center">
+                <div class="wow a-fadeInUp flex gap-6 items-center ml-auto ml:w-full ml:justify-center xs:flex-col xs:text-center">
                     <div class="relative support-icon">
                         <IconsHeadphone class="h-18" />
                     </div>
@@ -189,10 +154,7 @@ useHead({
             </div>
             <div class="plans grid grid-cols-3 items-center gap-9 xl:gap-3 lg:gap-2 ml:grid-cols-2 ml:gap-3 ml:items-start ml:grid-rows-2 sm:grid-cols-1 sm:grid-rows-1 sm:gap-5 sm:content-center">
                 <div
-                    class="wow a-fadeIn ml:self-end sm:justify-self-center sm:py-7 overflow-hidden plan bg-gradient-to-tr from-white/5 to-white/20 max-w-[420px] rounded-2xl relative p-5 md:p-4 pt-7">
-                    <div class="light">
-                        <div class="hole"></div>
-                    </div>
+                    class="wow a-fadeIn ml:self-end sm:justify-self-center sm:py-7 plan bg-gradient-to-tr from-white/5 to-white/20 max-w-[420px] rounded-2xl relative p-5 md:p-4 pt-7">
                     <h5 class="card text-center text-3xl font-bold">پایه</h5>
                     <span class="card text-center mt-2">اسکن سایت برای آسیب پذیری های عمومی</span>
                     <ul class="card my-7 bg-white/5 text-left p-4 space-y-3 rounded-xl plan-list">
@@ -249,9 +211,6 @@ useHead({
                 </div>
                 <div data-wow-delay=".6s"
                     class="wow a-fadeIn ml:row-span-2 ml:self-center sm:justify-self-center sm:pb-7 plan bg-main-purple-900 shadow-purple-lg max-w-[420px] rounded-2xl relative p-5 md:p-4 pt-10 md:pt-0">
-                    <div class="light">
-                        <div class="hole"></div>
-                    </div>
                     <span
                         class="ribbon absolute md:inline-block md:static md:float-left top-0 left-5 bg-main-purple-700 py-1 px-3 rounded-b-xl">محبوب
                         ترین</span>
@@ -323,10 +282,7 @@ useHead({
                     </div>
                 </div>
                 <div data-wow-delay=".3s"
-                    class="wow a-fadeIn ml:self-start sm:justify-self-center sm:py-7 overflow-hidden plan shadow-xl bg-gradient-to-br from-white/20 to-white/5 max-w-[420px] rounded-2xl relative p-5 md:p-4 pt-7 text-center">
-                    <div class="light">
-                        <div class="hole"></div>
-                    </div>
+                    class="wow a-fadeIn ml:self-start sm:justify-self-center sm:py-7 plan shadow-xl bg-gradient-to-br from-white/20 to-white/5 max-w-[420px] rounded-2xl relative p-5 md:p-4 pt-7 text-center">
                     <h5 class="card text-3xl font-bold">سازمانی</h5>
                     <span class="card mt-2">نظارت و پشتیبانی ۲۴ ساعته</span>
                     <div class="card my-7 bg-white/5 p-4 rounded-xl leading-8">فرم رزرو جلسه را برای بررسی نیازمندی های
@@ -494,18 +450,15 @@ useHead({
     right: 0;
     width: 100%;
     height: 100%;
-    animation: blurred-bg-support 1s infinite;
+    filter: blur(40px);
 }
 
-@keyframes blurred-bg-support {
-
-    0%,
-    100% {
-        filter: blur(40px);
+@media screen and (min-width: 780px) {
+    .support-icon::before {
+        animation: blurred-bg-support 1s infinite;
     }
-
-    50% {
-        filter: blur(50px);
+    @keyframes blurred-bg-support {
+        50% { filter: blur(50px); }
     }
 }
 

@@ -1,22 +1,12 @@
 <script setup>
-import InlineLogo from "~/components/InlineLogo.vue";
 
 const userStore = useUserStore()
-
-let isScrolled = ref(process.client && window.innerWidth <= 680 && window.scrollY > 5)
-if (process.client) {
-    const scrolState = () => {
-        isScrolled.value = window.innerWidth <= 680 && window.scrollY > 5
-    }
-    window.addEventListener('resize', scrolState)
-    window.addEventListener('scroll', scrolState)
-}
 
 const route = useRoute()
 </script>
 
 <template>
-    <nav :class="['card relative z-998', isScrolled ? 'py-3 bg-main-gray-900 mb-[32px] sm:sticky top-0 right-0' : 'py-7']">
+    <nav class="card relative z-998 sm:py-3 sm:bg-main-gray-900 sm:mb-[32px] sm:sticky sm:top-0 sm:right-0 py-7">
         <div class="container grid items-center gap-1 grid-cols-1-auto-1 lg:grid-cols-auto-auto lg:gap-y-5 sm:grid-cols-1-auto-1">
             <ul class="flex gap-8 drop-shadow-sm xl:gap-6">
                 <li @click="useEvent('sidebar-menu')" id="toggle-sidebar" class="hidden sm:block">

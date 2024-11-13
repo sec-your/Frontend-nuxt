@@ -3,11 +3,9 @@ if (process.client) {
     document.body.style.background = '#0b0d12'
 }
 useHead({
-    script: [{ src: '/js/wow.min.js' }],
-    meta: [
-        { property: 'og:title', content: 'یک تست است' }
-    ]
+    script: [{ src: '/js/wow.min.js' }]
 });
+
 
 const bodyClass = ref('')
 useListen('change-body-class', function (className) {
@@ -102,7 +100,11 @@ const route = useRoute()
     background: #55fee350;
     filter: blur(450px);
     transform-origin: left center;
-    animation: bg-blur 30s infinite linear, change-opacity 30s infinite linear;
+}
+@media screen and (min-width: 780px) {
+    .index-page .first-light::before {
+        animation: bg-blur 30s infinite linear, change-opacity 30s infinite linear;
+    }
 }
 .contact-page .first-light::before {
     width: 100px;

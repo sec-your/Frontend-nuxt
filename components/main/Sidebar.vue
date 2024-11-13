@@ -15,7 +15,7 @@ function closeSidebar(event) {
 
 <template>
     <aside v-click-outside="closeSidebar"
-        :class="['fixed w-full h-screen top-0 bg-main-gray-900 right-0 z-999 overflow-hidden', isOpen ? 'hidden sm:block min-h-20 max-h-screen' : 'max-h-0 pointer-events-none']">
+        :class="['fixed w-full !transition-none h-screen top-0 bg-main-gray-900 right-0 z-999 overflow-hidden', isOpen ? 'hidden sm:block min-h-20 max-h-screen' : 'max-h-0 pointer-events-none']">
         <div class="relative card h-screen flex flex-col p-5">
             <IconsClose @click="closeSidebar" class="w-4 mb-auto mr-auto" />
             <ul class="card flex flex-col gap-5 mb-auto">

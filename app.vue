@@ -30,6 +30,13 @@
       { rel: 'apple-touch-icon', type: 'image/ico', href: '/180x180-favicon.ico', sizes: '180x180' },
       { rel: 'icon', type: 'image/ico', href: '/192x192-favicon.ico', sizes: '192x192' },
       { rel: 'icon', type: 'image/ico', href: '/360x360-favicon.ico', sizes: '360x360' },
+    ],
+    meta: [
+    { name:"apple-mobile-web-app-capable", content:"yes" },
+    { name:"apple-mobile-web-app-title", content:"سکیور" },
+    { property: 'og:title', content: 'سکیور' },
+    { name:"apple-mobile-web-app-orientations", content:"portrait-any" },
+    { name:"apple-mobile-web-app-capable", content:"yes" },
     ]
   })
   const nuxtApp = useNuxtApp()

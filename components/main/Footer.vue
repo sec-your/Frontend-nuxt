@@ -25,8 +25,8 @@ const config = useRuntimeConfig()
 
 <template>
   <footer class="card">
-    <div class="container grid grid-cols-1 xs:justify-items-center">
-      <div class="card flex justify-between gap-10 pb-10 text-gray-200 lg:flex-wrap sm:grid sm:grid-cols-2 sm:gap-14 xs:grid-cols-1 xs:max-w-[300px]">
+    <div class="container grid grid-cols-1 sm:justify-items-center">
+      <div class="card flex justify-between gap-10 pb-10 text-gray-200 lg:grid lg:grid-cols-2 lg:gap-14 sm:grid-cols-1 sm:max-w-[300px]">
         <div class="flex flex-col gap-2">
           <h5 class="head-col">دسترسی سریع</h5>
           <NuxtLink class="link" to="/">صفحه اصلی</NuxtLink>
@@ -51,9 +51,28 @@ const config = useRuntimeConfig()
         </div>
         <div class="flex flex-col gap-2">
           <h5 class="head-col">ارتباط با ما</h5>
-          <a class="link tracking-wider" :href="`support@${config.public.SITE_URL}`" dir="ltr">{{ `support@${config.public.SITE_URL}` }}</a>
-          <a class="link tracking-wider" href="tel:0912654" dir="ltr">0901 234 5678</a>
-          <a class="link tracking-wider" href="https://t.me/secyour" target="_blank" dir="ltr">t.me/secyour</a>
+          <div class="flex justify-between mb-1">
+            <a href="https://instagram.com/SecYour_com" rel="noopener" target="_blank" class="w-10 h-10 grid place-items-center rounded-full bg-white/10 hover:bg-white/90 hover:text-[#c32a43]">
+              <IconsInstagramSolid class="w-5" />
+            </a>
+            <a href="https://t.me/SecYour_com" rel="noopener" target="_blank" class="w-10 h-10 grid place-items-center rounded-full bg-white/10 hover:bg-white/90 hover:text-[#0088cc]">
+              <IconsTelegram class="w-5" />
+            </a>
+            <a href="https://youtube.com/Secyour_com" rel="noopener" target="_blank" class="w-10 h-10 grid place-items-center rounded-full bg-white/10 hover:bg-white/90 hover:text-[#ff0000]">
+              <IconsYoutube class="w-5" />
+            </a>
+            <a href="https://www.linkedin.com/Secyour_com" rel="noopener" target="_blank" class="w-10 h-10 grid place-items-center rounded-full bg-white/10 hover:bg-white/90 hover:text-[#0a66c2]">
+              <IconsLinkedin class="w-5" />
+            </a>
+          </div>
+          <a href="tel:+989123456789" dir="ltr" rel="noopener" class="flex items-center gap-2 h-9 px-4 rounded-full bg-white/10 hover:bg-white/20">
+              <IconsTelephone class="w-3" />
+              <span class="leading-3 mt-1.5">0912 345 6789</span>
+          </a>
+          <a :href="`mailto:support@${config.public.SITE_URL}`" dir="ltr" rel="noopener" class="flex items-center gap-2 h-9 px-4 rounded-full bg-white/10 hover:bg-white/20">
+              <IconsMail class="w-3" />
+              <span class="leading-3 mt-1">{{ `support@${config.public.SITE_URL}` }}</span>
+          </a>
         </div>
       </div>
       <div class="sm:w-full p-5 text-center border-t border-t-white/10 text-gray-100">

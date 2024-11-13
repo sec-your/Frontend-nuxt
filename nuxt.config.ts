@@ -1,12 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-
   devtools: { 
     enabled: true,
     timeline: {
         enabled: false,
       }
     },
+
   components: {
     global: true,
     dirs: ['~/components','~/components/icons']
@@ -97,5 +97,7 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+
   ssr: process.env.NODE_ENV !== "development",
+  compatibilityDate: '2024-11-13',
 })
