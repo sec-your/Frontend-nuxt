@@ -1,0 +1,15 @@
+services:
+  secyour-frontend:
+    image: reg.arsalanse.ir/secyour/frontend:${TAG:-latest}
+    container_name: secyour-frontend
+    restart: on-failure
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.secyour-frontend.rule=Host(`secyour.com`)"
+      - "traefik.http.services.secyour-frontend.loadbalancer.server.port=3000"
+
+networks:
+  web:
+    external: true
