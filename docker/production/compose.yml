@@ -9,7 +9,7 @@ services:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
       - "traefik.http.routers.secyour-frontend.entrypoints=http"
-      - "traefik.http.routers.secyour-frontend.rule=Host(`secyour.com`)"
+      - "traefik.http.routers.secyour-frontend.rule=Host(`secyour.ir`)"
       - "traefik.http.services.secyour-frontend.loadbalancer.server.port=3000"
 
 networks:
