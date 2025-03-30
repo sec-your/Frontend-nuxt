@@ -2,7 +2,7 @@ services:
   secyour-frontend:
     image: reg.arsalanse.ir/secyour/frontend:${TAG:-latest}
     container_name: secyour-frontend
-    restart: on-failure
+    restart: unless-stopped
     networks:
       - web
     labels:
